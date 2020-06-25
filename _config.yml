@@ -1,0 +1,21 @@
+title: cyberphor
+tagline: 'Papa/Dad. Soldier. Blue Team benchwarmer.'
+description: 'Papa/Dad. Soldier. Blue Team benchwarmer.'
+author:
+  name: Victor Fernandez III
+header_pages:
+ - posts.md
+ - notes.md
+ - about.md
+theme: minima
+minima:
+  date_format: "%Y-%m-%d"
+  skin: solarized
+  social_links:
+    twitter: cyberphor
+    github:  cyberphor
+    linkedin: vicfernandeziii
+
+plugins:
+ - jekyll-feed
+ - jekyll-seo-tag
