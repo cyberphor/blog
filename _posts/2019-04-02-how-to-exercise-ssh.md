@@ -37,34 +37,34 @@ Asymmetric encryption uses two keys: one is called a Private key while the other
 4. Login to the remote node
 5. Disable password-based authentication
 
-###Hands-on Exercise
-**Scenario**
+### Hands-on Exercise
+**Scenario**  
 `thanos` wants a more secure method of accessing a remote server called `earth616` from his computer called `titan`.
 
-**Step 1: Generate a key pair on the remote node**
+**Step 1: Generate a key pair on the remote node**  
 Generate a SSH key pair on `earth616`.
 ```bash
 ssh-keygen
 ```
-**Step 2: Generate a key pair on the local node**
+**Step 2: Generate a key pair on the local node**  
 Generate a SSH key pair on titan.
 ```bash
 ssh-keygen
 ```
 
-**Step 3: Copy your Public Key onto the remote node**
+**Step 3: Copy your Public Key onto the remote node**  
 From `titan`, `thanos` needs to copy his SSH Public key onto `earth616`.
 ```bash
 ssh-copy-id thanos@earth616
 ```
 
-**Step 4: Login to the remote node**
+**Step 4: Login to the remote node**  
 Login to `earth616`.
 ```bash
 ssh thanos@earth616
 ```
 
-**Step 5: Disable password-based authentication**
+**Step 5: Disable password-based authentication**  
 Open the SSH server configuration file on `earth616`.
 ```bash
 sudo vim /etc/ssh/sshd_config
