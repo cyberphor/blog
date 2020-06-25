@@ -9,7 +9,7 @@ Secure Shell (SSH) is a remote access utility used for managing other nodes on a
 
 ## Table of Contents
 * [Understanding Different SSH Files](#understanding-different-ssh-files)
-* [How to Configure Public Key Authentication](#how-to-configre-public-key-authentication)
+* [How to Configure Public Key Authentication](#how-to-configure-public-key-authentication)
 * [How to Copy Files Securely](#how-to-copy-files-securely)
 * [How to Encrypt a File Using SSH Key Pairs](#how-to-encrypt-a-file-using-ssh-key-pairs)
 * [How to Create an Encrypted Tunnel](#how-to-create-an-encrypted-tunnel)
