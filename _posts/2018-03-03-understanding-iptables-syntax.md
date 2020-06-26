@@ -29,7 +29,7 @@ The word “chain” can be confusing to some folks. The most simplest way to un
 
 There is also a `FORWARD` chain which is used to determine whether or not PDU get routed elsewhere.
 
-### Procotol section
+### Protocol section
 `iptables` can filter multiple procotols such as IP, ICMP, UDP, and TCP. It can also be configured to filter “all” as well as those identified in `/etc/protocols`.
 
 ### Rule section
