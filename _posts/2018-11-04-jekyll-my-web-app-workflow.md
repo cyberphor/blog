@@ -64,7 +64,7 @@ fi
 chmod +x /scripts/upload.sh
 /scripts/upload.sh # execute as desired
 ```
-# Keeping Jekyll alive
+### Keeping Jekyll alive
 ```bash
 vim /scripts/hyde.sh
 ```
