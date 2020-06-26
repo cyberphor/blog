@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 'Basic CRUD Operations Using MySQL'
-permalink: 'basic-crud-operations-using-mysql'
+title: 'MySQL: Basic CRUD operations'
+permalink: 'mysql-basic-crud-operations'
 category: notes
 ---
 
