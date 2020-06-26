@@ -91,7 +91,7 @@ http://192.168.56.5
 ```
 
 If all went well, you should be presented with a installer menu like below.<br>
-![1_installerMenuStart.png](/_assets/TikiScreenshots/1_installerMenuStart.png)
+![1_installerMenuStart.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/1_installerMenuStart.png)
 
 If not, and you see the default Apache `index.html` web-page, you may need to move that file elsewhere or delete it. 
 ```bash
@@ -100,37 +100,37 @@ mv /var/www/html/index.html /root/
 ```
 
 The next menu is for addressing any failed Tiki Wiki requirement checks. Make sure to resolve any major errors before proceeding. 
-![2_sysRequirements.png](/_assets/TikiScreenshots/2_sysRequirements.png)
+![2_sysRequirements.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/2_sysRequirements.png)
 
 Under the *Database Connection* menu, delcare the database and user account created earlier (`dbTikiWiki` and `tikiuser`). 
-![3_dbConfig.png](/_assets/TikiScreenshots/3_dbConfig.png)
+![3_dbConfig.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/3_dbConfig.png)
 
 Next, select the default database engine and click-on **Install**. This step will take a few minutes depending on the hardware you're using. 
-![4_dbEngine.png](/_assets/TikiScreenshots/4_dbEngine.png)
+![4_dbEngine.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/4_dbEngine.png)
 
 Once the database installation is complete, click-on **Continue**. 
-![5_reviewInstallation.png](/_assets/TikiScreenshots/5_reviewInstallation.png)
+![5_reviewInstallation.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/5_reviewInstallation.png)
 
 On the *Configure General Settings* menu, specify your portal name, required login options, and *Logging and Reporting* preferences. I recommend selecting *Report all PHP errors* and checking *Visible to Admin Only*.
-![6_configureGeneralSettings.png](/_assets/TikiScreenshots/6_configureGeneralSettings.png)
+![6_configureGeneralSettings.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/6_configureGeneralSettings.png)
 
 I will cover how to setup and enforce HTTPS in an updated post later. 
-![6b_configureGeneralSettings.png](/_assets/TikiScreenshots/6b_configureGeneralSettings.png)
+![6b_configureGeneralSettings.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/6b_configureGeneralSettings.png)
 
 On the *Last Notes* menu, pay special attention to the text about where Tiki Wiki saves files (we'll use *File Galleries* to consolidate and share SOC-related items). 
-![7_lastNotes.png](/_assets/TikiScreenshots/7b_lastNotes.png)
+![7_lastNotes.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/7b_lastNotes.png)
 
 Finally, click-on **Enter Tiki and Lock Installer (Recommended)** to complete the installation. 
-![8_enterYourTiki.png](/_assets/TikiScreenshots/8_enterYourTiki.png)
+![8_enterYourTiki.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/8_enterYourTiki.png)
 
 Prior to landing on the *Home Page*, you will be prompted to change the default password from `admin` to something else (there's a link below if you get locked-out by the way).
-![9_changePassword.png](/_assets/TikiScreenshots/9_changePassword.png)
+![9_changePassword.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/9_changePassword.png)
 
 Congratulations! Your portal should now be ready to be secured, populated, and used for SOC-related activities. Click-on the **Close** button to proceed to the *Home Page*. 
-![10_tikiSetup.png](/_assets/TikiScreenshots/10_tikiSetup.png)
+![10_tikiSetup.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/10_tikiSetup.png)
 
-Check-out the [next blog post](http://www.yourserver.tech) of this series to learn about SOC functional areas and how to use Role-based Access Control (RBAC) to design a web portal.
-![11_homePage.png](/_assets/TikiScreenshots/11_homePage.png)
+Check-out the [next blog post](https://cyberphor.github.io/blog) of this series to learn about SOC functional areas and how to use Role-based Access Control (RBAC) to design a web portal.
+![11_homePage.png]({{ site.url }}{{ site.baseurl }}/assets/TikiScreenshots/11_homePage.png)
 
 References
 * [LinuxConfig.org: How To Upgrade Ubuntu To 18.10 Cosmic Cuttlefish](https://linuxconfig.org/how-to-upgrade-ubuntu-to-18-10-cosmic-cuttlefish)
