@@ -10,12 +10,10 @@ Victor Fernandez III serves as a Chief Warrant Officer 2 in the United States Ar
 
 He graduated as Summa Cum Laude from American Military University in 2018, earning a Bachelors of Science in Information Systems Security with a concentration in Digital Forensics. He holds multiple technical certifications from ISC(2), GIAC, CompTIA, EC-Council, Cisco, Microsoft, LPI, and the ETA. Victor is also a member of Infragard, “a non-profit organization serving as a public-private partnership between U.S. businesses and the Federal Bureau of Investigation (FBI).”
 
-## The blog
+### The Blog
 Victor started this blog because, despite having terrible handwriting, he wanted to share his notes from various IT and cybersecurity training events he has attended. He subscribes to the idea of being a “force multiplier,” or directly improving the skills of those around him in order to have a lasting impact on his community. His long term goals for the blog are to get it published as a book and accepted into the Library of Congress.
 
-Click [here](https://github.com/fongandrew/hydeout/archive/master.zip) to download *Hydeout* (a blog design theme built on top of Poole, which provides a fully furnished Jekyll setup).
-
-## The name
+### The Name
 [cyber-](https://www.etymonline.com/word/cyber-) (word-forming element)
 > * the "theory, practice, or condition of control by machines"
 > * ultimately from cybernetics
