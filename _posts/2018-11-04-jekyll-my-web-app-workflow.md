@@ -1,0 +1,156 @@
+---
+layout: post
+title: 'Jekyll: My web app workflow'
+permalink: 'jekyll'
+category: notes
+---
+
+## Table of Content
+* [Starting my lab](#starting-my-lab)
+* [Uploading drafts](#uploading-drafts)
+* [Keeping Jekyll alive](#keeping-jekyll-alive)
+* [Publishing blog posts](#publishing-blog-posts)
+* [Using cron to automate](#using-cron-to-automate)
+
+I am serving my blog (this post) via the Jekyll Web App.
+
+This past weekend I wrote three scripts: (#1) uploads local drafts to my remote web server, (#2) starts Jekyll if it is not already running and (#3) moves my drafts into the correct directory for publishing. I got two of the scripts to run by specifying one in my crontab with the other daisy-chained to it.
+
+### Starting my lab
+```bash
+vim /scripts/startLab.sh
+```
+```bash
+#!/bin/sh
+
+echo "[*] $(date +%H:%M:%S): Starting your draft machine."
+screen -d -m vboxheadless -startvm DraftingMachine
+
+until ping -c1 DraftingMachine > /dev/null
+do 
+	echo "[-] $(date +%H:%M:%S): Standby..."
+done
+
+echo "[+] $(date +%H:%M:%S): Your draft machine is ready."
+ssh victor@DraftingMachine
+```
+```bash
+chmod +x /scripts/startLab.sh
+```
+### Uploading drafts
+```bash
+vim /scripts/upload.sh
+```
+```bash
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+blog='victor@WebServer:/home/victor/inbox/'
+drafts=$(find /home/victor/jekyll/blog/_posts/*.md -mmin 1)
+
+if [ -z "$drafts" ]
+then 
+	logger "[x] Nothing new to upload."
+else 
+	for file in $drafts
+	do
+		post=$(basename $file)
+		logger "[+] Uploading $post"
+		scp /home/victor/jekyll/blog/_posts/$post $blog
+	done
+fi
+```
+```bash
+chmod +x /scripts/upload.sh
+/scripts/upload.sh # execute as desired
+```
+# Keeping Jekyll alive
+```bash
+vim /scripts/hyde.sh
+```
+```bash
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+if ! pgrep -x "jekyll" > /dev/null
+then
+	logger "[x] Jekyll is not running, starting it!"
+	screen -d -m jekyll serve --watch -s /home/victor/jekyll/blog/
+else
+	logger "[+] Jekyll is running!"
+	/scripts/publish.sh	# daisy-chains the script below
+fi
+```
+```bash
+chmod +x /scripts/hyde.sh
+```
+### Publishing blog posts
+
+It took a while, but below is the script called upon if Jekyll is already running. The aim here is to move any Markdown files found in my `inbox` directory to the `_posts` directory. Obviously, this is a really specific use-case for such a small script, but hopefully it will inspire you to do something similar.
+
+I’m not sure if I’ll keep this nuiance, but as in other posts, here’s the meat & potatoes you probably want.
+```bash
+vim /scripts/publish.sh
+```
+```bash
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+if [ -e /home/victor/inbox/ ]
+then
+	for draft in /home/victor/inbox/*.md
+	do
+		post=$(basename $draft)
+		if ! cmp -s $post /home/victor/jekyll/blog/_posts/$post
+		then
+			logger "[+] Publishing: $post"
+			mv $draft /home/victor/jekyll/blog/_posts/
+		else 
+			logger "[-] Same edit: $post has already been published."
+			rm $draft
+		fi
+	done
+else
+	logger "[+] Nothing to publish: inbox is empty."
+fi
+```
+```bash
+chmod +x /scripts/publish.sh
+```
+### Using cron to automate
+As mentioned, your working environment may be different, but below is a copy of my crontab.
+```bash
+crontab -e
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+* * * * * /scripts/hyde.sh
+```
+
+Lastly, review/follow your Syslog file as necessary (for evidence your scripts are working).
+```bash
+tail -f /var/log/messages
+```
+If you run into any issues getting your crontab to work, there are a few things to check:
+1. The `crond` daemon is running.
+2. Your syntax.
+3. Whether or not you left a new-line at the end of your crontab (sometimes required).
