@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 'Advanced PowerShell'
-permalink: 'advanced-powershell'
+title: 'PowerShell: Part 2'
+permalink: 'powershell-part-2'
 category: notes
 ---
 
@@ -16,6 +16,7 @@ category: notes
 * [Modules](#modules)
 * [PowerShell Remoting](#powershell-remoting)
 * [Run a script on multiple machines](#run-a-script-on-multiple-machines)
+* [Exporting, Importing, and Converting Object Data](#exporting-importing-and-converting-object-data)
 
 ## Script Compatibility
 ```powershell
@@ -149,4 +150,28 @@ $TargetsArray = @{"Server1","Server2","Server3"} # list of hostnames
 
 # then, use open a PSSession on 1000+ hosts to run your script
 $Output = Invoke-Command -Computer $TargetsArray -FilePath .\script.ps1
+```
+
+## Exporting, Importing, and Converting Object Data
+```powershell
+enter-pssession -computername $env:computername
+get-help share
+get-smbshare | select-object -property Name,Path
+get-smbshare | export-csv -path C:\SANS\shares.csv
+get-content -path C:\SANS\shares.csv
+exit
+
+import-csv -path C:\SANS\shares.csv
+$array = import-csv -path C:\SANS\shares.csv
+$array
+$array |
+ConvertTo-JSON |
+Out-File -filepath shares.json
+
+$array |
+converto-html -property Name,Path |
+Out-File -Filepath .\shares.html
+Invoke-Command -computername $env:COMPUTERNAME -scriptblock {
+    get-smbshare
+    } | export-clixml -path shares.xml
 ```
