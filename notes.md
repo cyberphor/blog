@@ -5,7 +5,8 @@ permalink: 'notes'
 ---
 
 <ul class="notes-list">
-  {% for post in site.posts %}
+  {% assign sorted_posts = site.posts | sort: 'title' %}
+  {% for post in sorted_posts %}
     {% if post.category == 'notes' %}
       <li>
         <a href="{{ post.url | relative_url }}">
