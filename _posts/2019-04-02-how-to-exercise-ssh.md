@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 'How to Exercise SSH'
-permalink: 'how-to-exercise-ssh'
+title: 'SSH: Secure Shell'
+permalink: 'ssh'
 category: notes
 ---
 
@@ -13,7 +13,7 @@ Secure Shell (SSH) is a remote access utility used for managing other nodes on a
 * [How to Copy Files Securely](#how-to-copy-files-securely)
 * [How to Encrypt a File Using SSH Key Pairs](#how-to-encrypt-a-file-using-ssh-key-pairs)
 * [How to Create an Encrypted Tunnel](#how-to-create-an-encrypted-tunnel)
-* [How to Setup Single Sign-On Access](#how-to-setup-single-signon-access)
+* [How to Setup Single Sign-On Access](#how-to-setup-single-sign-on-access)
 * [How to Display Login Banners](#how-to-display-login-banners)
 
 ## Understanding Different SSH Files
@@ -80,6 +80,24 @@ sudo systemctl reload sshd
 ```
 
 ## How to Copy Files Securely
+### Description
+Data transferred over the network as plain-text, or via un-encrypted transmissions, can be read by anyone. The utility Secure Copy (`scp`) uses SSH to transmit data as cipher-text, or encrypted transmissions, increasing the confidentiality of your file transfer.
+
+### Hands-on Exercise
+**Scenario**  
+`ironMan` wants to archive some of the files on his computer (`theCave`) using a remote server called `theAvengersTower`.
+
+**Step 1: Ensure the destination is accessible**  
+At the `theAvengersTower`, create a directory with restricted permissions.
+```bash
+mkdir -m 700 ~/backups/
+```
+
+**Step 2: Copy the files securely**  
+From `theCave`, copy the files to `theAvengersTower` using `scp`.
+```bash
+scp -r ~/20190402/ ironMan@theAvengersTower:~/backups
+```
 
 ## How to Encrypt a File Using SSH Key Pairs
 
