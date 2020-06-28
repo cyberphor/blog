@@ -1,10 +1,10 @@
 ---
-layout: null
+layout: default
 title: 'Notes'
 permalink: 'notes'
 ---
 
-<h3><img src="{{ site.baseurl }}/assets/pt.png"> Vulnerability Management</h3>
+<h3><img src="{{ site.baseurl }}/assets/notes.png"> Vulnerability Management</h3>
 <ul class="notes-list">
   {% assign sorted_posts = site.posts | sort: 'title' %}
   {% for post in sorted_posts %}
