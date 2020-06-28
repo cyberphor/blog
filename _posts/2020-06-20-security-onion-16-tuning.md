@@ -152,6 +152,46 @@ sudo salt '*' test.ping
 ```
 
 ## Update NIDS (Snort/Zeek) rules
+1. Verify your engine and ruleset
+2. Download the latest rules
+3. Upload the latest rules to `/var/www/`
+4. Modify `/etc/nsm/pulledpork.conf`
+5. Perform a manual rule update
+```bash
+# step 1
+sudo grep 'ENGINE' /etc/nsm/securityonion.conf
+sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
+sudo snort -V
+sudo suricata -V
+```
+```bash
+# step 2
+## https://securityonion.readthedocs.io/en/latest/rules.html
+
+# Emerging Threats Open ruleset: emerging.rules.tar.gz
+## https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
+
+# Snort Community ruleset: community-rules.tar.gz
+## https://www.snort.org/downloads/community/community-rules.tar.gz
+```
+```bash
+# step 3
+sudo mkdir /var/www/rules/
+sudo cp open.rules.tar community-rules.tar.gz /var/www/rules/
+```
+```bash
+# step 4
+sudo vim /etc/nsm/pulledpork/pulledpork.conf
+```
+```bash
+# rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
+rule_url=https://localhost/rules/|emerging.rules.tar.gz|open
+rule_url=https://localhost/rules/|rcommunity-rules.tar.gz|open
+```
+```bash
+# step 5
+sudo rule-update
+```
 
 ## Disable a NIDS (Snort) rule
 
