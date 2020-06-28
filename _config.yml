@@ -4,7 +4,6 @@ description: 'Papa/Dad. Soldier. Blue Team benchwarmer.'
 author:
   name: Victor Fernandez III
 header_pages:
- - posts.md
  - notes.md
  - about.md
 theme: minima
