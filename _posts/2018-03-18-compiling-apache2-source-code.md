@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Compiling Apache2 Source Code'
-permalink: 'compiling-apache2-source-code.md'
+permalink: 'compiling-apache2-source-code'
 category: posts
 subcategory: 'vulnerability-management'
 ---
