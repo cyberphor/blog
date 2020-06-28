@@ -8,7 +8,7 @@ category: notes
 ## Table of Contents
 * [Overview](#overview)
   * [Security Onion Requirements](#security-onion-requirements)
-  * [Distributed Deployment](#distributed-deployment)
+  * [Steps for deploying a distributed grid of intrusion sensors](#steps-for-deploying-a-distributed-grid-of-intrusion-sensors)
 * [Installing Security Onion](#installing-security-onion)
 * [Configuring a Master Node](#configuring-a-master-node)
   * [Configuring SSH accounts for Heavy Nodes](#configuring-ssh-accounts-for-heavy-nodes)
@@ -22,53 +22,48 @@ category: notes
   * [Enabling WEF via Group Policy](#enabling-wef-via-group-policy)
   * [Deploying Sysmon via Group Policy](#deploying-sysmon-via-group-policy)
   * [Deploying Winlogbeat via Group Policy](#deploying-winlogbeat-via-group-policy)
+* [Configuring Syslog Forwarding](#configuring-syslog-forwarding)
+* [Download links](#download-links)
 
-# Overview
-## Security Onion Requirements
-* CPU: 2 sockets with 2 processors each
-* Memory: 8 GBs of RAM
-* Disk space: 500 GBs (Solid State Drive is preferred)
-* Network Interface Cards (NIC): 2 (one for remote management, one to sniff locally)
+## Overview
+### Security Onion Requirements
+* CPU: 4 cores 
+* Memory: 8 GBs
+* Disk space: 500 GBs (a Solid State Drive is preferred)
+* Network Interface Cards: 2 (one for remote management, one to sniff locally)
 * Routing between the “Master” and “Heavy Nodes”
-* Firewall ports on the “Master” 
-    * 22 = SSH: for each “Sensor” to advertise their Elasticsearch database
-    * 443 = Kibana web app: used to view data visualizations
-    * 4505 = Salt: for publishing orchestration commands from the “Master”
-    * 4506 = Salt: for ingesting orchestration command results from each “Node”
-    * 7734 = Squil web app: used to view Snort/Suricata alerts
-    * 7736 = Squil database: for ingesting Snort/Suricata alerts from each “Node”
-* Firewall ports on “Heavy Nodes”
-    * 22 = SSH: for the “Master” to access their Elasticsearch database
-    * 514 = Syslog: for ingesting Syslog events (ex: from routers, web servers, etc.)
-    * 4505 = Salt: for publishing orchestration commands from the “Master”
-    * 5044 = Winlogbeat: for ingesting Microsoft Windows events
+* Firewall ports: when the "Master" is the destination
+    * SSH (TCP port 22): nodes share their Elasticsearch databases here
+    * Kibana (TCP port 443): analysts view all logs here
+    * Salt dispatch (TCP port 4505): the "Master" publishes orchestration commands from here
+    * Salt reporting (TCP port 4506): nodes send orchestration results here
+    * Squil front-end (TCP port 7734): analysts manage Snort/Suricata alerts here
+    * Squil back-end (TCP port 7736): nodes send Snort/Suricata alerts here
+* Firewall ports: when your "Heavy Nodes" are the destination
+    * SSH (TCP port 22): node Elasticsearch databases are accessed here
+    * Syslog (TCP 514): Syslog events (ex: from routers, web servers, etc.) are sent here
+    * Winlogbeat (TCP port 5044): Microsoft Windows events are sent here
 
-## Distributed Deployment
+### Steps for deploying a distributed grid of intrusion sensors
 1. Coordinate & confirm routing, firewall, DNS, and browser support
 2. Deploy "Analyst Workstations" 
 3. Establish network-based monitoring
     * Deploy a “Master”
-        * Create SSH accounts for each “Heavy Node”
+        * Create SSH accounts for each of your “Heavy Nodes”
         * Enable remote access to Analyst applications
-        * Create additional Analyst accounts as desired
-    * Deploy “Heavy Nodes”
+        * Create additional Analyst accounts 
+    * Deploy your “Heavy Nodes”
         * Allow Microsoft Windows events to be ingested
-        * Allow Syslog events to be ingested (as desired)
+        * Allow Syslog events to be ingested 
 4. Establish host-based monitoring
-    * Enable “Microsoft Windows Event Forwarding (WEF)”
-        * Tells a Windows machine to deliver its logs to an Event Collector
-    * Enable “Microsoft Windows Remote Management (WinRM)”
-        * Delivers Microsoft Windows events 
-    * Deploy “Event Collectors”
-        * Collects Microsoft Windows events
-    * Deploy “Sysmon from Microsoft Windows SysInternals”
-        * Generates logs based on host activity
-    * Deploy “Winlogbeat by Elastic”
-        * Feeds Microsoft Windows events to “Heavy Nodes”
-    * Enable "Syslog Forwarding"
-        * Feeds events from Linux/Unix-based machines to “Heavy Nodes”
+    * Enable “Microsoft Windows Remote Management (WinRM)” 
+    * Enable “Microsoft Windows Event Forwarding (WEF)” 
+    * Deploy “Event Collectors” 
+    * Deploy “Sysmon" from Microsoft Windows SysInternals
+    * Deploy “Winlogbeat" by Elastic
+    * Enable "Syslog Forwarding" 
 
-# Installing Security Onion
+## Installing Security Onion
 1. Load and boot from a bootable “Security Onion” DVD or .iso file
 2. Select “English” and click-on “Continue”
 3. DO NOT select “Download updates while installing” or “Install this third-party software”
@@ -92,7 +87,7 @@ category: notes
 9. Create a backup or snapshot of the OS if possible
     *  ex: `FreshOSInstall_20200205`
 
-# Configuring a Master Node
+## Configuring a Master Node
 1. Install the “Security Onion” OS (see above)
 2. Login
 3. Click-on the “Setup” icon
@@ -129,7 +124,7 @@ category: notes
     * Click-on “Yes, proceed with the changes!”
     * Click-on “OK” for the remaining pop-ups
 
-## Configuring SSH accounts for Heavy Nodes
+### Configuring SSH accounts for Heavy Nodes
 1. Login to the "Master"
 2. Open a terminal (Click-on "Applications > System Tools > Xfce Terminal")
 3. Create a user account
@@ -146,7 +141,7 @@ sudo usermod -aG sudo <unit-role_id>
 # ex: sudo usermod -aG sudo foxhound-sensor1
 ```
 
-## Enabling remote access to analyst applications
+### Enabling remote access to analyst applications
 1. Login to the "Master"
 2. Open a terminal (Click-on "Applications > System Tools > Xfce Terminal")
 3. Add a rule to allow the analyst's workstation through the "Master's" firewall
@@ -158,7 +153,7 @@ sudo so-allow
 # press 'Enter' when prompted
 ```
 
-## Creating analyst accounts 
+### Creating analyst accounts 
 1. Login to the "Master"
 2. Open a terminal (Click-on "Applications > System Tools > Xfce Terminal")
 3. Create an analyst account within the "Master's" database
@@ -170,7 +165,7 @@ sudo so-user-add
 # press 'Enter' when prompted to create the analyst account
 ```
 
-# Configuring a Heavy Node
+## Configuring a Heavy Node
 1. Install the “SecurityOnion” OS (see above)
 2. Login
 3. Click-on the “Setup” icon
@@ -208,7 +203,7 @@ sudo so-user-add
         * Type the password of the SSH account associated with this sensor
     * Click-on “OK” for the remaining pop-ups
 
-## Ingesting Microsoft Windows events
+### Ingesting Microsoft Windows events
 **Option 1 (do it remotely from the “Master”)**
 1. Login to the "Master"
 2. Open a terminal (Click-on "Applications > System Tools > Xfce Terminal")
@@ -231,7 +226,7 @@ sudo so-allow
 # press 'Enter' when prompted
 ```
 
-## Ingesting Syslog events
+### Ingesting Syslog events
 **Option 1 (do it remotely from the “Master”)**
 1. Login to the "Master"
 2. Open a terminal (Click-on "Applications > System Tools > Xfce Terminal")
@@ -254,8 +249,8 @@ sudo so-allow
 # press 'Enter' when prompted
 ```
 
-# Configuring WEF
-## Enabling WinRM via Group Policy
+## Configuring WEF
+### Enabling WinRM via Group Policy
 1. Create a GPO so the WinRM service listens for HTTP requests on all available NICs
     * Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Remote Management (WinRM) > WinRM Service
         * Right-click on “Allow remote server management through WinRM” and select “Edit”
@@ -289,7 +284,7 @@ sudo so-allow
 4. Link the same GPO to the domain
 
 
-## Enabling WEF via Group Policy
+### Enabling WEF via Group Policy
 1. Download “Sysmon” (see "Download Links")
 2. Download a “Sysmon” install script (see “Download Links”)
 3. Download a “Sysmon” configuration file (see "Download Links")
@@ -316,7 +311,7 @@ sudo so-allow
 8. Link the “Deploy-Sysmon” GPO to the domain
 9. Reboot target machines
 
-## Deploying Sysmon via Group Policy
+### Deploying Sysmon via Group Policy
 1. Create a GPO to enable “WinRM” and link it to the domain (see above)
 2. Create a “Enable-WEF” GPO so clients send events to designated “Event Collectors”
     * Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
@@ -353,10 +348,28 @@ sudo so-allow
     * Highlight “Authenticated Users” and click-on “Remove”
 10. Link the “Deploy-EventCollectors” GPO to the domain
 
-## Deploying Winlogbeat via Group Policy
+### Deploying Winlogbeat via Group Policy
 1. Download Winlogbeat (see "Download Links") 
 2. Modify YAML file
 3. Install Winlogbeat using PowerShell
     * NOTE: only install Winlogbeat on the “Event Collector” 
 4. Configure the “Winlogbeat” service to auto-start
 5. Manually start the “Winlogbeat” service if it’s not started already
+
+## Configuring Syslog Forwarding
+```bash
+sudo vim /etc/rsyslog.d/security.conf
+```
+```bash
+*.* @10.10.10.10
+```
+```bash
+service rsyslog restart
+```
+
+### Download links
+* [SecurityOnion 14.04.5](https://github.com/Security-Onion-Solutions/security-onion/releases/download/v14.04.5.12_20180416/securityonion-14.04.5.12.iso)
+* [Sysmon](https://download.sysinternals.com/files/Sysmon.zip)
+* [Sysmon Configuration File](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)
+* [Sysmon Installation Script](https://github.com/cyberphor/scallion)
+* [Winlogbeat 6.2.4](https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-6.2.4-windows-x86_64.zip)
