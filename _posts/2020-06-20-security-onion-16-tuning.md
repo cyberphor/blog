@@ -12,7 +12,7 @@ category: notes
   * [OSSEC](#ossec)
 * [Syntax for querying the Elasticsearch database](#syntax-for-querying-the-elasticsearch-database)
 * [Change the name of a sensor (a.k.a Salt Minion ID)](#change-the-name-of-a-sensor-aka-salt-minion-id)
-* [Update NIDS (Snort/Zeek) rules](#update-nids-snortzeek)
+* [Update NIDS (Snort/Zeek) rules](#update-nids-snortzeek-rules)
 * [Disable a NIDS (Snort) rule](#disable-a-nids-snort-rule)
 * [Clearing alerts](#clearing-alerts)
 * [Creating a custom Kibana dashboard](#creating-a-custom-kibana-dashboard)
@@ -159,6 +159,7 @@ sudo salt '*' test.ping
 5. Perform a manual rule update
 ```bash
 # step 1
+# https://groups.google.com/forum/m/#!topic/security-onion/SyJSSYtZws0
 sudo grep 'ENGINE' /etc/nsm/securityonion.conf
 sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
 sudo snort -V
