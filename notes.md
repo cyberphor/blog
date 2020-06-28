@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 'Notes & Cheatsheets'
+title: 'Notes'
 permalink: 'notes'
 ---
 
