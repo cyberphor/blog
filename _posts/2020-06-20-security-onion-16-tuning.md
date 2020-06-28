@@ -74,7 +74,7 @@ sudo so-rule-update
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
-```xml
+```html
 <!-- Added by Victor on 25 JUN 2020 -->
 <rule id="100777" level="0">
   <if_sid>5706, 5710, 5712</if_sid> <!-- Signature IDs for SSH login failures -->
