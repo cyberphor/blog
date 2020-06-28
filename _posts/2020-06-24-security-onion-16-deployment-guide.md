@@ -361,7 +361,7 @@ sudo so-allow
 sudo vim /etc/rsyslog.d/security.conf
 ```
 ```bash
-*.* @10.10.10.10
+*.* @10.10.10.10:514
 ```
 ```bash
 service rsyslog restart
