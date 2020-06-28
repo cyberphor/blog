@@ -17,7 +17,7 @@ Welcome back for part two of my three-post series called, *A Wiki for Your SOCs*
 ## SOC Functional Areas
 According to MITRE's [Ten Strategies of a World-Class Cybersecurity Operations Center](https://www.mitre.org/publications/all/ten-strategies-of-a-world-class-cybersecurity-operations-center?fbclid=IwAR1bOR4g6wbYxna52C5pfb9PbWGFfbUyNkkr0wnTtUtvlfb0X0-ygNee0YU), a SOC can be represented by three functional areas: Analysis & Response, Vulnerability Management, and Systems Lifecycle. 
 
-![socFunctions]({{ site.url }}{{ site.baseurl }}/assets/socFunctions.jpeg)
+![socFunctions]({{ site.url }}{{ site.baseurl }}/assets/socFunctions.jpg)
 
 Each division serves to protect an organization's assets through unique, but complimentary roles. For example, an Analysis & Response Division would provide triage services, digital forensics & incident response, malware analysis, and threat intelligence. A Vulnerability Management Division would perform scans, self-assessments, and proactively hunt for threats to the enterprise. Finally, a Systems Lifecycle Division would carry out the tedious, but necessary systems, network, and sensor maintenance. They would also help engineer tools and processes for the other functional areas.  
 
