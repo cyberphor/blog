@@ -6,16 +6,22 @@ category: posts
 subcategory: 'network-security-monitoring'
 ---
 
+## Table of Contents
+* [SOC Functional Areas](#soc-functional-areas)
+* [What is Role-Based Access Control?](#what-is-role-based-access-control)
+* [Using RBAC to Design a SOC Web Portal](#using-rbac-to-design-a-soc-web-portal)
+* [References](#references)
+
 Welcome back for part two of my three-post series called, *A Wiki for Your SOCs*. Expanding upon the previous blog post, I will now outline SOC functional areas, explain Role-Based Access Control (RBAC), and show how it can be used to organize a web portal. As before, my intent is to ultimately demonstrate how SOC personnel can use free & open-source software to track issues, share documents, and advertise information.
 
-# SOC Functional Areas
+## SOC Functional Areas
 According to MITRE's [Ten Strategies of a World-Class Cybersecurity Operations Center](https://www.mitre.org/publications/all/ten-strategies-of-a-world-class-cybersecurity-operations-center?fbclid=IwAR1bOR4g6wbYxna52C5pfb9PbWGFfbUyNkkr0wnTtUtvlfb0X0-ygNee0YU), a SOC can be represented by three functional areas: Analysis & Response, Vulnerability Management, and Systems Lifecycle. 
 
-[![socFunctions]({{ site.url }}{{ site.baseurl }}/assets/socFunctions.jpeg)](https://www.mitre.org/sites/default/files/publications/pr-13-1028-mitre-10-strategies-cyber-ops-center.pdf)
+![socFunctions]({{ site.url }}{{ site.baseurl }}/assets/socFunctions.jpeg)
 
 Each division serves to protect an organization's assets through unique, but complimentary roles. For example, an Analysis & Response Division would provide triage services, digital forensics & incident response, malware analysis, and threat intelligence. A Vulnerability Management Division would perform scans, self-assessments, and proactively hunt for threats to the enterprise. Finally, a Systems Lifecycle Division would carry out the tedious, but necessary systems, network, and sensor maintenance. They would also help engineer tools and processes for the other functional areas.  
 
-# What is Role-Based Access Control?
+## What is Role-Based Access Control?
 Role-Based Access Control is a technique designed to mitigate Privilege Creep and enforces the security principle of Least Privilege. Privilege Creep is when a person gains exponential access over time. Least Privilege requires a person to have the minimum amount of access in order to do their job. An administrator can implement RBAC and invoke Least Privilege by organizing users into groups and then, grant them varying degrees of access based on their role or job function. 
 
 Take the zoo for example. The person working at the front-desk does not have access to the gorillas in the back. At the same time, the gorilla handlers do not have access to the cash register upfront. Finally, the zoo manager, despite being ultimately responsible for everything, should only have access to his or her office. 
@@ -74,7 +80,7 @@ To implement Role-Based Access Control for the rest of the SOC, a Portal or Web 
 |---|---|---|
 |SOC leaders|Web administrators|Finance personnel|
 
-# Using RBAC to Design a SOC Web Portal
+## Using RBAC to Design a SOC Web Portal
 Let's use the Tiki Wiki application we installed in the previous blog post and put these ideas into practice. To start, we will need to (1) create a Web Administrators group, (2) create a Web Administrator account, and (3) restrict the default administrator account.
 
 **How to Create a Group**<br>
@@ -357,7 +363,7 @@ UPDATE users_users SET hash = md5('password') WHERE userId=1;
 
 Check-out the final [blog post](http://www.yourserver.tech) of this series to learn how the same Tiki Wiki application and portal instance can be used to create a simple Security Incident Tracking System. 
 
-References
+### References
 * [Digital Guardian: What is a Security Operations Center (SOC)?](https://digitalguardian.com/blog/what-security-operations-center-soc)
 * [MITRE: Ten Strategies of a World-Class Cybersecurity Operations Center](https://www.mitre.org/sites/default/files/publications/pr-13-1028-mitre-10-strategies-cyber-ops-center.pdf)
 * [EY: Security Operations Centers — helping you get ahead of cybercrime](https://www.ey.com/Publication/vwLUAssets/EY-security-operations-centers-helping-you-get-ahead-of-cybercrime/$FILE/EY-security-operations-centers-helping-you-get-ahead-of-cybercrime.pdf)
