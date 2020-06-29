@@ -178,9 +178,14 @@ sudo suricata -V
 # https://www.snort.org/downloads/community/community-rules.tar.gz
 ```
 ```bash
+# this can be done from Powershell
+scp emerging.rules.tar.gz victor@foxhound-siem:~/
+scp community-rules.tar.gz victor@foxhound-siem:~/
+```
+```bash
 # step 3
 sudo mkdir /var/www/rules/
-sudo cp open.rules.tar community-rules.tar.gz /var/www/rules/
+sudo cp emerging.rules.tar.gz community-rules.tar.gz /var/www/rules/
 ```
 ```bash
 # step 4
