@@ -168,10 +168,12 @@ sudo suricata -V
 ```bash
 # step 2
 # https://securityonion.readthedocs.io/en/latest/rules.html
-
+```
+```bash
 # Emerging Threats Open ruleset: emerging.rules.tar.gz
 # https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
-
+```
+```bash
 # Snort Community ruleset: community-rules.tar.gz
 # https://www.snort.org/downloads/community/community-rules.tar.gz
 ```
