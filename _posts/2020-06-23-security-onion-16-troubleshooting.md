@@ -10,6 +10,7 @@ category: notes
 * [How to verify logs are being generated (written to disk)](#how-to-verify-logs-are-being-generated)
 * [How to verify logs are being collected, parsed, and indexed](#how-to-verify-logs-are-being-collected-parsed-and-indexed)
 * [How to verify network connectivity to the “Master”](#how-to-verify-network-connectivity-to-the-master)
+* [Unlock account after multiple password failures](#unlock-account-after-multiple-password-failures)
 
 ## How to verify “Heavy Node” services are running
 ```bash
@@ -71,4 +72,11 @@ sudo netstat -n | grep 22 # check if SSH tunnel is up
 sudo netstat -n | grep 4505 # check if inbound Salt connection is up
 sudo netstat -n | grep 4506 # check if outbound Salt connection is up
 sudo netstat -n | grep 7736 # check if outbound Squil connection is up
+```
+
+## Unlock account after multiple password failures
+```bash
+pam_tally2 --user=victor
+pam_tally2 --user=victor --reset
+pam_tally2 --user=victor
 ```
