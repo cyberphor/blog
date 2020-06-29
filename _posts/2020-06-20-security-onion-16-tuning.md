@@ -13,7 +13,7 @@ category: notes
 * [Syntax for querying the Elasticsearch database](#syntax-for-querying-the-elasticsearch-database)
 * [Change the name of a sensor (a.k.a Salt Minion ID)](#change-the-name-of-a-sensor-aka-salt-minion-id)
 * [Update NIDS (Snort/Zeek) rules](#update-nids-snortzeek-rules)
-* [Disable a NIDS (Snort) rule](#disable-a-nids-snort-rule)
+* [Disable a NIDS (Snort/Suricata) rule](#disable-a-nids-snort-rule)
 * [Clearing alerts](#clearing-alerts)
 * [Creating a custom Kibana dashboard](#creating-a-custom-kibana-dashboard)
 
@@ -189,14 +189,33 @@ sudo vim /etc/nsm/pulledpork/pulledpork.conf
 ```bash
 # rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
 rule_url=https://localhost/rules/|emerging.rules.tar.gz|open
-rule_url=https://localhost/rules/|rcommunity-rules.tar.gz|open
+rule_url=https://localhost/rules/|community-rules.tar.gz|open
 ```
 ```bash
 # step 5
 sudo rule-update
 ```
 
-## Disable a NIDS (Snort) rule
+## Disable a NIDS (Snort/Suricata) rule
+1. Login to the Master
+2. Identify the rule you want to disable
+3. Use a text-editor to open `/etc/nsm/pulledpork/disabledsid.conf`
+4. Add the rule using proper Snort/Suricata syntax (along with a comment for continiuity)
+5. Peform a manual rule update
+```bash
+# step 2
+sudo vim /etc/nsm/pulledpork/disabledsid.conf
+```
+```bash
+# step 3
+# Added by Victor on 29 JUN 2020
+1:2008123
+```
+```bash
+# step 4
+sudo rule-update
+sudo salt '*' cmd.run 'rule.update'
+```
 
 ## Clearing alerts
 
