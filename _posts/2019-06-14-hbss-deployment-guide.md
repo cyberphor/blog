@@ -1,38 +1,40 @@
 ---
 layout: post
-title: 'HBSS: Host-Based Security Solution'
-permalink: 'hbss'
+title: 'HBSS: Deployment Guide'
+permalink: 'hbss-deployment-guide'
 category: notes
 ---
 
-# Table of Contents
-- Hands-on 
-- HBSS Overview
-- Video Notes
+## Table of Contents
+* [HBSS Overview](#hbss-overview)
+* [Creating Agent Deployment URLs for Clients](#creating-agent-deployment-urls-for-clients)
+* [Removing an HBSS Client](#removing-an-hbss-client)
+* [Creating a Client Task](#creating-a-client-task)
+* [Running an Assigned Client Task manually](#running-an-assigned-client-task-manually)
+* [Deleting an Assigned Client Task](#deleting-an-assigned-client-task)
+* [Changing the McAfee Endpoint Security interface password](#changing-the-mcafee-endpoint-security-interface-password)
+* [Updating Firewall Rules](#updating-firewall-rules)
 
-# Hands-on 
-### Don't Forget
+## HBSS Overview
+* HBSS (Host-based System Security): an end-point security product
+	- Anti-virus solution
+	- Intrusion prevention solution
+	- Data loss prevention solution
+	- DoD Program of Record, acquired from McAfee
+	- Requires a license
+		- Downloads as nine compressed files (must input a password in order to unzip & compile into an .iso file)
+* ePolicy Orchestrater (ePO): a server used to manage how HBSS clients function
+	- Windows Server R2 & SQL Server 2014
+		- OS
+		- Apps
+		- Logs
+		- Database
+	- Integrates with ESM (a SIEM) 
 * Remote Registry service on client must running
 * Firewall on client/server must all remote connections
 
-## Accessing WOAC ePO Server for Labs
-```
-# https://hbssepo.train.net:8007
-```
-
-## How to Setup an HBSS Client (VM for a lab)
-```
-# Download Windows 10 VM
-## Not all versions of Windows 10 is supported!
-```
-
-## How to Setup an ePO Server (VM for a lab)
-```
-# Download Windows Server 2012 R2 VM
-```
-
-## How to Create a Agent Deployment URL for Clients
-```
+### Creating Agent Deployment URLs for Clients
+```bash
 1. Click-on System Tree
 2. Click-on the Agent Deployment
 3. Click-on the Create Agent Deployment URL button
@@ -42,8 +44,8 @@ category: notes
 - Copy & paste URL using client's web browser
 ```
 
-## How to Remove an HBSS Client
-```
+### Removing an HBSS Client
+```bash
 # Create a task to remove packages first
 1. Click-on System Tree > Select your OU
 	- Click-on the Systems tab
@@ -54,8 +56,9 @@ category: notes
 	- Click-on Collect and Send Props
 ```
 
-## How to Create a Client Task (ex: force install of ENS Modules)
-```
+### Creating a Client Task 
+(ex: force install of ENS Modules)
+```bash
 1. Click-on System Tree > Select your OU
 	- Click-on the Assigned Client Tasks tab
 3. Click-on the New Client Task Assignment button (at the bottom)
@@ -77,14 +80,14 @@ category: notes
 	- Click-on Collect and Send Props
 ```
 
-## How to Manually Run an Assigned Client Task
-```
+### Running an Assigned Client Task manually
+```bash
 1. Click-on System Tree > Select your OU
 	- Click-on the Assigned Client Tasks tab
 ```
 
-## How to Delete an Assigned Client Task
-```
+### Deleting an Assigned Client Task
+```bash
 1. Click-on System Tree > Select your OU
 	- Click-on the Systems tab
 2. Select your client
@@ -93,8 +96,8 @@ category: notes
 	- Click-on the Run Task Now button (at the bottom right)
 ```
 
-## How to Change the Password of the McAfee Endpoint Security interface
-```
+### Changing the McAfee Endpoint Security interface password
+```bash
 1. Click-on System Tree > Select your OU
 	- Click-on the Assigned Policies tab
 2. Click-on All in the Product drop-down menu > DISA Stig ENS Options Policy (Policy column)
@@ -113,8 +116,9 @@ category: notes
 	- Click-on Collect and Send Props
 ```
 
-# How to Update Firewall Rules (allow Facebook/Youtube, block MSN)
-```
+### Updating Firewall Rules
+Allow Facebook/Youtube, but block MSN.
+```bash
 1. Click-on System Tree > Select your OU
 	- Click-on the Assigned Policies tab
 2. Click-on All in the Product drop-down menu > Block & Allow Website List Policy (Policy column)
@@ -141,33 +145,13 @@ category: notes
 	- Click-on Collect and Send Props
 ```
 
-# HBSS Overview
-- HBSS (Host-based System Security) is an end-point security product
-	- Anti-virus solution
-	- Intrusion prevention solution
-	- Data loss prevention solution
-	- DoD Program of Record, acquired from McAfee
-	- Requires a license
-		- Downloads as nine compressed files (must input a password in order to unzip & compile into an .iso file)
+### Accessing WOAC ePO Server for Labs
+```bash
+# https://hbssepo.train.net:8007
 
-## ePolicy Orchestrater (ePO)
-- Servers used to manage how HBSS clients function
-	- Windows Server R2 & SQL Server 2014
-		- OS
-		- Apps
-		- Logs
-		- Database
-	- Integrates with ESM (a SIEM) 
+# How to Setup an HBSS Client 
+# download Windows 10 VM; not all versions of Windows 10 are supported!
 
-# Video Notes
-- McAfee Endpoint Security (ENS) is a platform of modules:
-	- Common platform
-	- Threat prevention: HIPS, OnAccess/OnDemand scanning
-	- Firewall
-	- Web control: displays website safety ratings
-- Policy migration
-	- Options to migrate to ENS from previous platform (called "VSE")
-		- Automatic
-		- Manual
-		- Best practice for tactical networks: stand-up new ePO server (don't migrate)
-- Transition to ENS product-line should be done NLT 2020 
+# How to Setup an ePO Server 
+# download Windows Server 2012 R2 VM
+```
