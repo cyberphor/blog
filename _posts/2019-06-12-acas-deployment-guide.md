@@ -1,84 +1,99 @@
 ---
 layout: post
 title: 'ACAS: Deployment Guide'
-permalink: 'acas'
+permalink: 'acas-deployment-guide'
 category: notes
 ---
 
 ## Table of Contents
-* [How to setup an ACAS server](#how-to-setup-an-acas-server)
+* [How to deploy an ACAS server](#how-to-deploy-an-acas-server)
 * [Access ACAS SecurityCenter](#access-acas-securitycenter)
-* [VirtualBox](#virtualbox)
-  * [Changing the hostname in CentOS](#changing-the-hostname-in-centos)
-  * [Configuring 3 DHCP NICs in CentOS](#configuring-3-dhcp-nics-in-centos)
-  * [Create an alias in CentOS](#create-an-alias-in-centos)
-  * [Install kernel headers in CentOS](#install-kernel-headers-in-centos)
-  * [Install VirtualBox Guest Additions for CentOS](#install-virtualbox-guest-additions-for-centos)
-  * [Add user to VirtualBox group to access shared folders](#add-user-to-virtualbox-group-to-access-shared-folders)
+* [Configure an ACAS Nessus Scanner](#configure-an-acas-nessus-scanner)
+* [Configure a Repository](#configre-a-repository)
+* [Configure an Organization](#configre-an-organization)
+* [Configure a Security Manager](#configure-a-security-manager)
+* [Troubleshooting](#troubleshooting)
 
-## How to setup an ACAS server
+## How to deploy an ACAS server
+1. Install [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
+2. Download Security Center and Nessus Scanner from [DISA](https://patches.csd.disa.mil/CollectionInfo.aspx)
+3. Install Security Center
+4. Install Nessus Scanner
+5. Browse to `https://localhost`
 ```bash
-# Install CentOS 6.9 (I used VirtualBox)
-# http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso
-
-# Install ACAS using .tar file from DISA (link requires CAC login)
-# https://patches.csd.disa.mil/CollectionInfo.aspx
-yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y # it will now be accessible via https://localhost
-
-# Install and start Nessus using .tar file from DISA (link requires CAC login)
+# step 3
+yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y 
+```
+```bash
+# step 4
 yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
-service nessud start
 ```
-```bash
-# How to un-install SecurityCenter (for t-shooting purposes)
-yum list | grep -i SecurityCenter
-yum remove SecurityCenter*
-for file in $(rpm -q --config SecurityCenter); do rm -f $file; done && rpm -e SecurityCenter
-# Reference
-# https://serverfault.com/questions/41502/yum-equivalent-of-apt-get-purge
 
-# How to un-install Nessus (for t-shooting purposes)
-yum list | grep -i Nessus
-yum remove Nessus*
-```
 ## Access ACAS SecurityCenter 
 ```bash
 # https://localhost
 # run `netstat -pant` to verify there is a port open for ACAS
 # Supply the <license-matching-your-hostname>.key file
+```
 
-# Configure an ACAS Nessus Scanner
+### Configure an ACAS Nessus Scanner
+```bash
 - Name: scanner01
 - Host: 192.168.56.106 (Host-only IP for personal lab environment)
 - Port: 8834
 - Username: victor (must match the user you create when you setup Nessus)
 - Password: <password>
+```
 
-# Configure a Repository
+### Configure a Repository
+```bash
 - Name: repo01
 - Description: "Nodes within my (Host-only) virtual lab"
 - IP ranges: 192.168.56.0/
+```
 
-# Configure an Organization
+### Configure an Organization
+```bash
 - Name: organization01
 - Description: "..."
+```
 
-# Configure a SecurityManager (255S)
+### Configure a Security Manager
+```bash
+# 255S
 - First Name: Victor
 - Last Name:  Fernandez
 - Username: victor
 - Password: <password>
 - Administrator (255A): <password>
 - # username for default admin is "admin"
+```
 
-# Start Nessus scanner
+## Start Nessus scanner
+```bash
 service nessusd start
+```
 
-# Setup Nessus Scanner (change IP/URL to where it's located; ex: localhost)
-# access via https://localhost:8834http
+### Setup Nessus Scanner (change IP/URL to where it's located; ex: localhost)
+```bash
+# access via https://localhost:8834
 - Username: victor
 - Password: <password>
 - Scanner Type: Managed By SecurityCenter
+```
+
+## Troubleshooting
+```bash
+# How to un-install SecurityCenter 
+yum list | grep -i SecurityCenter
+yum remove SecurityCenter*
+for file in $(rpm -q --config SecurityCenter); do rm -f $file; done && rpm -e SecurityCenter
+# Reference
+# https://serverfault.com/questions/41502/yum-equivalent-of-apt-get-purge
+
+# How to un-install Nessus 
+yum list | grep -i Nessus
+yum remove Nessus*
 ```
 
 **Hand-on Practical Exercise #1**
@@ -205,106 +220,24 @@ Scans > Active Scans > Add >
  Perform a scan
 ```
 
-## VirtualBox
-### Changing the hostname in CentOS
-```bash
-# step 0
-su root
+## Overview of ACAS
+ACAS is a collection vulnerability, port, and patch compliance scanners
+- SecurityCenter (SC) = web interface to manage/execute ACAS functions
+	- WIN-T increment 1b = 1 SC per BDE 
+- Nessus Scanner = establish one per scanner
+	- Downloaded plugin feeds must be younger than 7 days in order to be within DoD compliance
+	- WIN-T increment 1b = 1 SC per BDE
+	- WIN-T increment 1b = 1 SC per BN
+- Passive Vulnerability Scanner (PVS) = a sensor (like tcpdump, snort)
+	- Not really used (was also replaced with a similar tool)
 
-# step 1 (disable this bogus service)
-chkconfig NetworkManager off
+Doctrine mandating the use of ACAS
+- Task order 13-670
+- Task order 14-0294
+- DISA's ACAS TTP
 
-# step 2 (specify name in file)
-vim /etc/sysconfig/network
-(update this line) ---> HOSTNAME=<new hostname>
-
-# step 3 (reboot)
-reboot now
-```
-
-### Configuring 3 DHCP NICs in CentOS
-```bash
-# Create a configuration file for each NIC
-# I ended up having to use a NAT network, but the same process is necessary
-[Host-only] vim /etc/sysconfig/network-scripts/ifcfg-eth0
-[Bridged] vim /etc/sysconfig/network-scripts/ifcfg-eth1
-[NAT] vim /etc/sysconfig/network-scripts/ifcfg-eth2
-
-# Use the following syntax
-NAME=Host-only (or NAT, Bridged)
-DEVICE=eth0 (or eth1, eth2)
-ONBOOT=yes
-BOOTPROTO=dhcp
-
-# Restart the services to bring up the interfaces
-service network restart
-
-# References
-# https://www.cyberciti.biz/faq/setting-up-a-linux-for-dhcp/
-```
-
-### Create an alias in CentOS
-```
-# Open the appropiate file
-vim /etc/bashrc
-
-# Add your alias 
-alias cls='clear'
-```
-
-### Install kernel headers in CentOS
-```
-# install the latest headers
-yum install kernel-devel
-
-# install the matching kernel
-yum install kernel
-
-# ensure the kernel and kernel headers downloaded match
-uname -r 
-ls /usr/src/kernels/
-reboot
-```
-
-### Install VirtualBox Guest Additions for CentOS
-```
-# Ensure you have a valid network connection
-ping www.google.com
-
-# Ensure you have kernel headers installed
-<see above>
-
-# Update and upgrade
-yum update
-
-# Install the "gcc, make, and perl" libraries
-yum install gcc make perl
-
-# Identify the directory where the scripts are mounted to 
-mount | grep VBox
-cd /path/to/VBox/scripts/
-
-# Run the Vbox script for Linux from the correct directory
-./VBoxLinuxAdditions.run
-reboot
-
-# Manually change the resolution if desired
-
-# References
-# http://ask.xmodulo.com/install-kernel-headers-linux.html
-```
-
-### Add user to VirtualBox group to access shared folders
-```
-# Verify the name of the group
-cat /etc/group
-
-# Add user to the proper group
-su root
-usermod -a -G vboxsf
-
-# Logout of the shell/GUI
-```
+* DISA published Request For Proposal in 2013 to replace Retina Scanner
+* HP responded with Nessus Scanner, Passive Vulnerability Scanner, & SecurityCenter 
 
 **ACAS Roles**
 - Administrator (255A) = manages users & groups
@@ -322,25 +255,6 @@ usermod -a -G vboxsf
 - Usually installed on Red Hat (which requires another license, a unit responsibility)
 	- CentOS is an alternative (but not the newest version, 7)
 	- Can download a Red Hat VM from DISA with ACAS pre-installed 
-
-ACAS is a collection vulnerability, port, and patch compliance scanners
-- SecurityCenter (SC) = web interface to manage/execute ACAS functions
-	- WIN-T increment 1b = 1 SC per BDE 
-- Nessus Scanner = establish one per scanner
-	- Downloaded plugin feeds must be younger than 7 days in order to be within DoD compliance
-	- WIN-T increment 1b = 1 SC per BDE
-	- WIN-T increment 1b = 1 SC per BN
-- Passive Vulnerability Scanner (PVS) = a sensor (like tcpdump, snort)
-	- Not really used (was also replaced with a similar tool)
-
-Doctrine mandating the use of ACAS
-- Task order 13-670
-- Task order 14-0294
-- DISA's ACAS TTP
-
-## Overview of ACAS
-* DISA published Request For Proposal in 2013 to replace Retina Scanner
-* HP responded with Nessus Scanner, Passive Vulnerability Scanner, & SecurityCenter 
 
 **ACAS can scan for:**
 * Vulnerabilities (app, system, network)
