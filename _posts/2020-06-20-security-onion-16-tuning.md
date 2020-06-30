@@ -185,20 +185,27 @@ scp community-rules.tar.gz victor@foxhound-siem:~/
 ```bash
 # step 3
 sudo mkdir /var/www/rules/
-sudo cp emerging.rules.tar.gz community-rules.tar.gz /var/www/rules/
+sudo cp emerging.rules.tar.gz /var/www/rules/ 
+sudo cp community-rules.tar.gz /var/www/rules/
 ```
 ```bash
 # step 4
 sudo vim /etc/nsm/pulledpork/pulledpork.conf
 ```
 ```bash
-# rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
+rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
 rule_url=https://localhost/rules/|emerging.rules.tar.gz|open
 rule_url=https://localhost/rules/|community-rules.tar.gz|open
 ```
 ```bash
+sudo salt '*' cmd.run "echo '127.0.0.1 rules.emergingthreats.net' | sudo tee -a /etc/hosts"
+sudo salt '*' cmd.run 'cat /etc/hosts'
+sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
+```
+```bash
 # step 5
 sudo rule-update
+sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
 ```
 
 ## Disable a NIDS (Snort/Suricata) rule
