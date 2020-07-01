@@ -6,23 +6,19 @@ category: notes
 ---
 
 ## Table of Contents
-* [Fine-tuning OSSEC rules](#fine-tuning-ossec-rules)
-* [Whitelist a known-good IP address](#whitelist-a-known-good-ip-address)
-  * [Netsniff-NG](#netsniff-ng)
-  * [OSSEC](#ossec)
-* [Syntax for querying the Elasticsearch database](#syntax-for-querying-the-elasticsearch-database)
-* [Change the name of a sensor (a.k.a Salt Minion ID)](#change-the-name-of-a-sensor-aka-salt-minion-id)
-* [Update NIDS (Snort/Zeek) rules](#update-nids-snortzeek-rules)
-* [Disable a NIDS (Snort/Suricata) rule](#disable-a-nids-snort-rule)
-* [Clearing alerts](#clearing-alerts)
-* [Creating a custom Kibana dashboard](#creating-a-custom-kibana-dashboard)
+* [Fine-tuning OSSEC](#fine-tuning-ossec)
+* [Whitelisting in Netsniff-NG](#whitelisting-in-netsniff-ng)
+* [Whitelisting in OSSEC](#whitelisting-in-ossec)
+* [Elasticsearch queries](#elasticsearch-queries)
+* [Change the name of a sensor](#change-the-name-of-a-sensor)
+* [Update NIDS rules](#update-nids-rules)
+* [Disable a NIDS rule](#disable-a-nids-rule)
 
-## Fine-tuning OSSEC rules
+## Fine-tuning OSSEC
 1. Find the rule ID you want to disable
 2. Use a text-editor to open `/var/ossec/rules/local_rules.xml`
 3. Reduce the rule's alert level to zero
 4. Restart OSSEC
-
 ```bash
 # step 1
 sudo grep -Ri 'Web server 500' /var/ossec/rules/
@@ -44,8 +40,7 @@ sudo so-ossec-stop
 sudo so-ossec-start
 ```
 
-## Whitelist a known-good IP address
-### Netsniff-NG
+## Whitelisting in Netsniff-NG
 1. Identify the IP address you want to whitelist
 2. Use a text-editor to open `/etc/nsm/rules/bpf.conf`
 3. Add the IP address using proper BPF format (along with a comment for continiuity)
@@ -58,14 +53,14 @@ sudo vim /etc/nsm/rules/bpf.conf
 # step 3
 # IP address belongs to our vulnerability scanner
 # Added by Victor on 22 JUN 2020
-!(host 192.168.1.69)
+!(host 192.168.1.69) &&
 ```
 ```bash
 # step 4
 sudo so-rule-update
 ```
 
-### OSSEC
+## Whitelisting in OSSEC
 1. Identify the IP address you want to whitelist
 2. Use a text-editor to open `/var/ossec/rules/local_rules.xml`
 3. Add the IP address using proper XML format (along with a comment for continiuity)
@@ -74,10 +69,10 @@ sudo so-rule-update
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
-```html
+```xml
 <!-- Added by Victor on 25 JUN 2020 -->
 <rule id="100777" level="0">
-  <if_sid>5706, 5710, 5712</if_sid> <!-- Signature IDs for SSH login failures -->
+  <if_sid>5706, 5710, 5712</if_sid>
     <srcip>192.168.1.23</srcip>
     <srcip>192.168.1.69</srcip>
     <description>Whitelist: Authorized analyst workstations.</description>
@@ -88,7 +83,7 @@ sudo vim /var/ossec/rules/local_rules.xml
 sudo so-rule-update
 ```
 
-## Syntax for querying the Elasticsearch database
+## Elasticsearch queries
 ```bash
 # search for a specific source ip
 source_ip:192.168.1.69
@@ -104,7 +99,7 @@ source_ip:192.168.1.69 AND event_type:bro_dns
 source_ip:192.168.1.69 AND event_type:bro_dns AND @timestamp:["2020-06-23T09:00" TO "2020-06-23T17:00"]
 ```
 
-## Change the name of a sensor (a.k.a Salt Minion ID)
+## Change the name of a sensor 
 **Part 1 of 2**
 1. Login to the sensor
 2. Stop the `salt-minion` service on the sensor
@@ -151,7 +146,7 @@ sudo salt-key -d gecko-sensor1
 sudo salt '*' test.ping
 ```
 
-## Update NIDS (Snort/Zeek) rules
+## Update NIDS rules
 1. Verify your engine and ruleset
 2. Download the latest rules
 3. Upload the latest rules to `/var/www/`
@@ -208,7 +203,7 @@ sudo rule-update
 sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
 ```
 
-## Disable a NIDS (Snort/Suricata) rule
+## Disable a NIDS rule
 1. Login to the Master
 2. Identify the rule you want to disable
 3. Use a text-editor to open `/etc/nsm/pulledpork/disabledsid.conf`
@@ -228,7 +223,3 @@ sudo vim /etc/nsm/pulledpork/disabledsid.conf
 sudo rule-update
 sudo salt '*' cmd.run 'rule.update'
 ```
-
-## Clearing alerts
-
-## Creating a custom Kibana dashboard
