@@ -27,13 +27,13 @@ sudo grep -Ri 'Web server 500' /var/ossec/rules/
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
-```xml
+~~~xml
 <!-- Added by Victor on 22 JUN 2020 -->
 <rule id="100666" level="0">
   <if_sid>31120</if_sid>
   <description>Ignore 'Web server 500' errors relating to Kibana.</description>
 </rule>
-```
+~~~
 ```bash
 # step 4
 sudo so-ossec-stop
@@ -146,59 +146,54 @@ sudo salt '*' test.ping
 ```
 
 ## Update NIDS rules
-1. Verify your engine and ruleset
-2. Download the latest rules
-3. Upload the latest rules to `/var/www/`
-4. Modify `/etc/nsm/pulledpork.conf`
-5. Perform a manual rule update
+1. [Everytime] Login to the "Master"
+2. [The first time only] Create the directory `/var/www/rules/`
+3. [The first time only] Use a text-editor to modify `/etc/nsm/pulledpork.conf`
+4. [The first time only] Use `salt` to modify `/etc/hosts` across all of your nodes
+5. [Everytime] Verify your engine and ruleset
+6. [Everytime] Download the latest rules (ex: onto disc)
+  * [All rulsets](https://securityonion.readthedocs.io/en/latest/rules.html)
+  * [Emerging Threats Open ruleset](https://rules.emergingthreats.net/open/)
+  * [Snort Community ruleset](https://www.snort.org/downloads/community/)
+7. [Everytime] Upload the latest rules to the "Master"
+8. [Everytime] Copy the latest rules to `/var/www/rules/` on the "Master"
+9. [Everytime] Perform a manual rule update 
 ```bash
-# step 1
-# https://groups.google.com/forum/m/#!topic/security-onion/SyJSSYtZws0
-sudo grep 'ENGINE' /etc/nsm/securityonion.conf
+# step 2
+sudo mkdir /var/www/rules/
+```
+```bash
+# step 3
+sudo vim /etc/nsm/pulledpork/pulledpork.conf
+  rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open # keep
+  rule_url=https://localhost/rules/|emerging.rules.tar.gz|open # add
+  rule_url=https://localhost/rules/|community-rules.tar.gz|open # add
+```
+```bash
+# step 4
+sudo salt '*' cmd.run "echo '127.0.0.1 rules.emergingthreats.net' | sudo tee -a /etc/hosts"
+sudo salt '*' cmd.run "cat /etc/hosts"
+```
+```bash
+# step 5
 sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
+sudo grep -i 'engine' /etc/nsm/securityonion.conf
 sudo snort -V
 sudo suricata -V
 ```
 ```bash
-# step 2
-# https://securityonion.readthedocs.io/en/latest/rules.html
-```
-```bash
-# Emerging Threats Open ruleset: emerging.rules.tar.gz
-# https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
-```
-```bash
-# Snort Community ruleset: community-rules.tar.gz
-# https://www.snort.org/downloads/community/community-rules.tar.gz
-```
-```bash
-# this can be done from Powershell
+# step 7
 scp emerging.rules.tar.gz victor@foxhound-siem:~/
 scp community-rules.tar.gz victor@foxhound-siem:~/
 ```
 ```bash
-# step 3
-sudo mkdir /var/www/rules/
+# step 8
 sudo cp emerging.rules.tar.gz /var/www/rules/ 
 sudo cp community-rules.tar.gz /var/www/rules/
 ```
 ```bash
-# step 4
-sudo vim /etc/nsm/pulledpork/pulledpork.conf
-```
-```bash
-rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
-rule_url=https://localhost/rules/|emerging.rules.tar.gz|open
-rule_url=https://localhost/rules/|community-rules.tar.gz|open
-```
-```bash
-sudo salt '*' cmd.run "echo '127.0.0.1 rules.emergingthreats.net' | sudo tee -a /etc/hosts"
-sudo salt '*' cmd.run 'cat /etc/hosts'
-sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
-```
-```bash
-# step 5
-sudo rule-update
+# step 9
+sudo salt '*' cmd.rn 'rule-update'
 sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
 ```
 
@@ -222,3 +217,6 @@ sudo vim /etc/nsm/pulledpork/disabledsid.conf
 sudo rule-update
 sudo salt '*' cmd.run 'rule.update'
 ```
+
+### References
+* https://groups.google.com/forum/m/#!topic/security-onion/SyJSSYtZws0
