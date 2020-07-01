@@ -19,6 +19,7 @@ category: notes
 2. Use a text-editor to open `/var/ossec/rules/local_rules.xml`
 3. Reduce the rule's alert level to zero
 4. Restart OSSEC
+
 ```bash
 # step 1
 sudo grep -Ri 'Web server 500' /var/ossec/rules/
@@ -27,13 +28,15 @@ sudo grep -Ri 'Web server 500' /var/ossec/rules/
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
+
 {% highlight xml %}
 <!-- Added by Victor on 22 JUN 2020 -->
 <rule id="100666" level="0">
   <if_sid>31120</if_sid>
   <description>Ignore 'Web server 500' errors relating to Kibana.</description>
 </rule>
-{% endhighlight %}
+{% endhighlight %}  
+
 ```bash
 # step 4
 sudo so-ossec-stop
@@ -65,20 +68,21 @@ sudo so-rule-update
 2. Use a text-editor to open `/var/ossec/rules/local_rules.xml`
 3. Add the IP address using proper XML format (along with a comment for continiuity)
 4. Peform a manual rule update
+
 ```bash
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
+
 {% highlight xml %}
-```xml
 <rule id="100777" level="0">
   <if_sid>5706, 5710, 5712</if_sid>
     <srcip>192.168.1.23</srcip>
     <srcip>192.168.1.69</srcip>
     <description>Whitelist: Authorized analyst workstations.</description>
 </rule>
-```
-{% endhighlight %}
+{% endhighlight %}  
+
 ```bash
 # step 4
 sudo so-rule-update
