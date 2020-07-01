@@ -70,7 +70,6 @@ sudo so-rule-update
 sudo vim /var/ossec/rules/local_rules.xml
 ```
 ```xml
-<!-- Added by Victor on 25 JUN 2020 -->
 <rule id="100777" level="0">
   <if_sid>5706, 5710, 5712</if_sid>
     <srcip>192.168.1.23</srcip>
@@ -114,7 +113,7 @@ sudo service salt-minion stop
 # part 1: step 3
 sudo vim /etc/salt/minion-id
 ```
-```
+```bash
 # part 1: step 4
 # example old name = gecko-sensor1
 # example new name = foxhound-sensor1
