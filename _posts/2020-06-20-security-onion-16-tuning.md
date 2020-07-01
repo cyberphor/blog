@@ -27,13 +27,13 @@ sudo grep -Ri 'Web server 500' /var/ossec/rules/
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
-~~~xml
+{% highlight xml %}
 <!-- Added by Victor on 22 JUN 2020 -->
 <rule id="100666" level="0">
   <if_sid>31120</if_sid>
   <description>Ignore 'Web server 500' errors relating to Kibana.</description>
 </rule>
-~~~
+{% endhighlight %}
 ```bash
 # step 4
 sudo so-ossec-stop
@@ -69,6 +69,7 @@ sudo so-rule-update
 # step 2
 sudo vim /var/ossec/rules/local_rules.xml
 ```
+{% highlight xml %}
 ```xml
 <rule id="100777" level="0">
   <if_sid>5706, 5710, 5712</if_sid>
@@ -77,6 +78,7 @@ sudo vim /var/ossec/rules/local_rules.xml
     <description>Whitelist: Authorized analyst workstations.</description>
 </rule>
 ```
+{% endhighlight %}
 ```bash
 # step 4
 sudo so-rule-update
@@ -193,7 +195,7 @@ sudo cp community-rules.tar.gz /var/www/rules/
 ```
 ```bash
 # step 9
-sudo salt '*' cmd.rn 'rule-update'
+sudo salt '*' cmd.run 'rule-update'
 sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
 ```
 
