@@ -6,6 +6,7 @@ category: notes
 ---
 
 ## Table of Contents
+* [Request a license](#request-a-license)
 * [How to deploy an ACAS server](#how-to-deploy-an-acas-server)
 * [Access ACAS SecurityCenter](#access-acas-securitycenter)
 * [Configure an ACAS Nessus Scanner](#configure-an-acas-nessus-scanner)
@@ -13,6 +14,9 @@ category: notes
 * [Configure an Organization](#configre-an-organization)
 * [Configure a Security Manager](#configure-a-security-manager)
 * [Troubleshooting](#troubleshooting)
+
+## Request a license
+* [DISA Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
 
 ## How to deploy an ACAS server
 1. Install [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
