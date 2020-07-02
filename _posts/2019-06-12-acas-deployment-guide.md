@@ -30,9 +30,6 @@ category: notes
 ```bash
 # step 3
 yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y 
-```
-```bash
-# step 4
 yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
 ```
 
