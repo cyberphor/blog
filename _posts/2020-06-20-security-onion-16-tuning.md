@@ -264,6 +264,8 @@ sudo service apache2 restart
 ```bash
 # everytime
 # on foxhound-siem
+wget https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
+wget https://www.snort.org/downloads/community/community-rules.tar.gz
 sudo cp community-rules.tar.gz /var/www/html/
 sudo cp emerging.rules.tar.gz /var/www/html/
 ```
