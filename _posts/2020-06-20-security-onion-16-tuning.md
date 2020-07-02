@@ -234,12 +234,6 @@ sudo salt '*' test.ping
 [Security Onion Google Groups Thread (Reference)](https://groups.google.com/forum/#!topic/security-onion/oXdaQHVQ8-c)
 ```bash
 # once
-# on gecko-siem
-sudo vim /etc/nsm/securityonion.conf
-  LOCAL_NIDS_TUNING=no
-```
-```bash
-# once
 # once gecko-siem
 sudo vim /etc/hosts
   12.34.56.78 foxhound-siem
@@ -253,20 +247,25 @@ sudo vim /etc/nsm/pulledpork/pulledpork.conf
 ```bash
 # once
 # on gecko-siem
-openssl s_client -showcerts -connect server.edu:443 </dev/null 2>/dev/null|openssl x509 -outform PEM >mycertfile.pem
-sudo cp foxhound-siem.crt /usr/share/ca-certificates/mozilla/
-sudo dpkg-reconfigure ca-certificates
+sudo vim /etc/nsm/securityonion.conf
+  LOCAL_NIDS_TUNING=no
 ```
 ```bash
 # once
 # on foxhound-siem
-sudo mkdir /var/www/rules/
+sudo vim /etc/apache2/ports.conf
+  Listen 80
+```
+```bash
+# once
+# on foxhound-siem
+sudo service apache2 restart
 ```
 ```bash
 # everytime
 # on foxhound-siem
-sudo cp community-rules.tar.gz /var/www/rules/
-sudo cp emerging.rules.tar.gz /var/www/rules/
+sudo cp community-rules.tar.gz /var/www/html/
+sudo cp emerging.rules.tar.gz /var/www/html/
 ```
 ```bash
 # everytime
