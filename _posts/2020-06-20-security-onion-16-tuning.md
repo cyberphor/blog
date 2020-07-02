@@ -229,3 +229,47 @@ sudo salt '*' test.ping
 
 ### References
 * https://groups.google.com/forum/m/#!topic/security-onion/SyJSSYtZws0
+
+### Working
+[Security Onion Google Groups Thread (Reference)](https://groups.google.com/forum/#!topic/security-onion/oXdaQHVQ8-c)
+```bash
+# once
+# on gecko-siem
+sudo vim /etc/nsm/securityonion.conf
+  LOCAL_NIDS_TUNING=no
+```
+```bash
+# once
+# once gecko-siem
+sudo vim /etc/hosts
+  12.34.56.78 foxhound-siem
+```
+```bash
+# once 
+# on gecko-siem
+sudo vim /etc/nsm/pulledpork/pulledpork.conf
+  rule_url=https://foxhound-siem/rules
+```
+```bash
+# once
+# on gecko-siem
+openssl s_client -showcerts -connect server.edu:443 </dev/null 2>/dev/null|openssl x509 -outform PEM >mycertfile.pem
+sudo cp foxhound-siem.crt /usr/share/ca-certificates/mozilla/
+sudo dpkg-reconfigure ca-certificates
+```
+```bash
+# once
+# on foxhound-siem
+sudo mkdir /var/www/rules/
+```
+```bash
+# everytime
+# on foxhound-siem
+sudo cp community-rules.tar.gz /var/www/rules/
+sudo cp emerging.rules.tar.gz /var/www/rules/
+```
+```bash
+# everytime
+# on gecko-siem
+sudo salt '*' cmd.run 'rule-update'
+```
