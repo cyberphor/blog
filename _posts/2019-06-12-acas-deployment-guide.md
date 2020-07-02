@@ -17,7 +17,7 @@ category: notes
 
 ## Links
 * [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
-* [Download ACAS (Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx)
+* [Download ACAS (Tenable.sc & Nessus Scanner)](https://patches.csd.disa.mil/CollectionInfo.aspx)
 * [DISA ACAS (License) Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
   * [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
 
