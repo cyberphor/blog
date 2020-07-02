@@ -88,57 +88,60 @@ sudo so-ossec-stop
 sudo so-ossec-start
 ```
 
+
 ## Update NIDS rules
-1. [Everytime] Login to the "Master"
-2. [The first time only] Create the directory `/var/www/rules/`
-3. [The first time only] Use a text-editor to modify `/etc/nsm/pulledpork.conf`
-4. [The first time only] Use `salt` to modify `/etc/hosts` across all of your nodes
-5. [Everytime] Verify your engine and ruleset
-6. [Everytime] Download the latest rules (ex: onto disc)
-  * [All rulsets](https://securityonion.readthedocs.io/en/latest/rules.html)
-  * [Emerging Threats Open ruleset](https://rules.emergingthreats.net/open/)
-  * [Snort Community ruleset](https://www.snort.org/downloads/community/)
-7. [Everytime] Upload the latest rules to the "Master"
-8. [Everytime] Copy the latest rules to `/var/www/rules/` on the "Master"
-9. [Everytime] Perform a manual rule update 
+**Part 1 (do only once, ever)**
+1. Login to your Master Node
+2. Use a text-editor to modify `/etc/nsm/securityonion.conf` and disable `LOCAL_NIDS_RULE_TUNING`
+3. Use a text-editor to add a `rule_url` to `/etc/nsm/securityonion.conf`
+4. Use a text-editor to add `Listen 80` to `/etc/apache2/ports.conf`
+5. Restart the `apache2` service  
 
 ```bash
-# step 2
-sudo mkdir /var/www/rules/
+# part 1: step 2
+sudo vim /etc/nsm/securityonion.conf
+  LOCAL_NIDS_TUNING=no
 ```
 ```bash
-# step 3
+# part 1: step 3
 sudo vim /etc/nsm/pulledpork/pulledpork.conf
-  rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open # keep
-  rule_url=https://localhost/rules/|emerging.rules.tar.gz|open # add
-  rule_url=https://localhost/rules/|community-rules.tar.gz|open # add
+  rule_url=http://localhost/rules
 ```
 ```bash
-# step 4
-sudo salt '*' cmd.run "echo '127.0.0.1 rules.emergingthreats.net' | sudo tee -a /etc/hosts"
-sudo salt '*' cmd.run "cat /etc/hosts"
+# part 1: step 4
+sudo vim /etc/apache2/ports.conf
+  Listen 80
 ```
 ```bash
-# step 5
-sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
-sudo grep -i 'engine' /etc/nsm/securityonion.conf
+# part 1: step 5
+sudo service apache2 restart
+```
+**Part 2 (do every single time)**  
+6. Verify your IDS engine and supported ruleset  
+8. Download the latest rules (ex: onto disc)  
+7. Copy the latest rules to `/var/www/html/` on your Master Node  
+8. Perform a manual rule update  
+
+```bash
+# part 2: step 1
 sudo snort -V
 sudo suricata -V
+sudo grep -i 'engine' /etc/nsm/securityonion.conf
+sudo grep -i 'ruleset' sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
 ```
 ```bash
-# step 7
-scp emerging.rules.tar.gz victor@foxhound-siem:~/
-scp community-rules.tar.gz victor@foxhound-siem:~/
+# part 2: step 2
+wget https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
+wget https://www.snort.org/downloads/community/community-rules.tar.gz
 ```
 ```bash
-# step 8
-sudo cp emerging.rules.tar.gz /var/www/rules/ 
-sudo cp community-rules.tar.gz /var/www/rules/
+# part 2: step 3
+sudo cp community-rules.tar.gz /var/www/html/
+sudo cp emerging.rules.tar.gz /var/www/html/
 ```
 ```bash
-# step 9
-sudo salt '*' cmd.run 'rule-update'
-sudo salt '*' cmd.run 'wc -l /etc/nsm/rules/downloaded.rules'
+# part 2: step 4
+sudo salt '*' cmd.run 'so-rule-update'
 ```
 
 ## Disable a NIDS rule
@@ -178,7 +181,8 @@ source_ip:192.168.1.69 AND event_type:bro_dns
 source_ip:192.168.1.69 AND event_type:bro_dns AND @timestamp:["2020-06-23T09:00" TO "2020-06-23T17:00"]
 ```
 
-### Change the name of a sensor: Part 1 of 2
+## Change the name of a sensor
+### Part 1 of 2  
 1. Login to the sensor
 2. Stop the `salt-minion` service on the sensor
 3. Use a text-editor to open `/etc/salt/minion-id`
@@ -203,7 +207,7 @@ sudo vim /etc/salt/minion-id
 sudo service salt-minion start
 ```
 
-### Change the name of a sensor: Part 2 of 2
+### Part 2 of 2
 1. Login to the master
 2. List the currently accepted salt keys
 3. Accept the new key from the previously modified sensor
@@ -229,48 +233,4 @@ sudo salt '*' test.ping
 
 ### References
 * https://groups.google.com/forum/m/#!topic/security-onion/SyJSSYtZws0
-
-### Working
-[Security Onion Google Groups Thread (Reference)](https://groups.google.com/forum/#!topic/security-onion/oXdaQHVQ8-c)
-```bash
-# once
-# once gecko-siem
-sudo vim /etc/hosts
-  12.34.56.78 foxhound-siem
-```
-```bash
-# once 
-# on gecko-siem
-sudo vim /etc/nsm/pulledpork/pulledpork.conf
-  rule_url=https://foxhound-siem/rules
-```
-```bash
-# once
-# on gecko-siem
-sudo vim /etc/nsm/securityonion.conf
-  LOCAL_NIDS_TUNING=no
-```
-```bash
-# once
-# on foxhound-siem
-sudo vim /etc/apache2/ports.conf
-  Listen 80
-```
-```bash
-# once
-# on foxhound-siem
-sudo service apache2 restart
-```
-```bash
-# everytime
-# on foxhound-siem
-wget https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
-wget https://www.snort.org/downloads/community/community-rules.tar.gz
-sudo cp community-rules.tar.gz /var/www/html/
-sudo cp emerging.rules.tar.gz /var/www/html/
-```
-```bash
-# everytime
-# on gecko-siem
-sudo salt '*' cmd.run 'rule-update'
-```
+* https://groups.google.com/forum/#!topic/security-onion/oXdaQHVQ8-c
