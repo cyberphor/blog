@@ -6,8 +6,8 @@ category: notes
 ---
 
 ## Table of Contents
-* [Request a license](#request-a-license)
-* [How to deploy an ACAS server](#how-to-deploy-an-acas-server)
+* [Links](#links)
+* [Deploying ACAS](#deploying-acas)
 * [Access ACAS SecurityCenter](#access-acas-securitycenter)
 * [Configure an ACAS Nessus Scanner](#configure-an-acas-nessus-scanner)
 * [Configure a Repository](#configre-a-repository)
@@ -15,15 +15,18 @@ category: notes
 * [Configure a Security Manager](#configure-a-security-manager)
 * [Troubleshooting](#troubleshooting)
 
-## Request a license
-* [DISA Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
+## Links
+* [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
+* [Download ACAS (Tenable.sc & Nessus Scanner)(https://patches.csd.disa.mil/CollectionInfo.aspx)
+* [DISA ACAS (License) Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
+  * [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
 
-## How to deploy an ACAS server
-1. Install [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
-2. Download Security Center and Nessus Scanner from [DISA](https://patches.csd.disa.mil/CollectionInfo.aspx)
-3. Install Security Center
-4. Install Nessus Scanner
+## Deploying ACAS
+1. Install CentOS 6.9 OS
+2. Download ACAS (Tenable.sc & Nessus Scanner) binaries
+3. Install ACAS binaries
 5. Browse to `https://localhost`
+
 ```bash
 # step 3
 yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y 
