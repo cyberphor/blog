@@ -98,22 +98,22 @@ sudo so-ossec-start
 5. Restart the `apache2` service  
 
 ```bash
-# part 1: step 2
+# step 2
 sudo vim /etc/nsm/securityonion.conf
   LOCAL_NIDS_TUNING=no
 ```
 ```bash
-# part 1: step 3
+# step 3
 sudo vim /etc/nsm/pulledpork/pulledpork.conf
   rule_url=http://localhost/rules
 ```
 ```bash
-# part 1: step 4
+# step 4
 sudo vim /etc/apache2/ports.conf
   Listen 80
 ```
 ```bash
-# part 1: step 5
+# step 5
 sudo service apache2 restart
 ```
 **Part 2 (do every single time)**  
@@ -123,24 +123,24 @@ sudo service apache2 restart
 8. Perform a manual rule update  
 
 ```bash
-# part 2: step 1
+# step 6
 sudo snort -V
 sudo suricata -V
 sudo grep -i 'engine' /etc/nsm/securityonion.conf
-sudo grep -i 'ruleset' sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
+sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
 ```
 ```bash
-# part 2: step 2
+# step 7
 wget https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
 wget https://www.snort.org/downloads/community/community-rules.tar.gz
 ```
 ```bash
-# part 2: step 3
+# step 8
 sudo cp community-rules.tar.gz /var/www/html/
 sudo cp emerging.rules.tar.gz /var/www/html/
 ```
 ```bash
-# part 2: step 4
+# step 9
 sudo salt '*' cmd.run 'so-rule-update'
 ```
 
