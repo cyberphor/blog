@@ -14,7 +14,9 @@ minima:
     twitter: cyberphor
     github:  cyberphor
     linkedin: vicfernandeziii
-
+markdown: kramdown
+kramdown:
+  hard_wrap: false
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
