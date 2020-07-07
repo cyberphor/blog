@@ -94,8 +94,8 @@ sudo so-ossec-start
 2. Use a text-editor to set `LOCAL_NIDS_RULE_TUNING` to `yes` in `/etc/nsm/securityonion.conf`
 3. Verify your IDS engine and rule-set
 4. Use a text-editor to specify your desired rule-sets in `/etc/nsm/pulledpork/pulledpork.conf`
-5. Download the latest batch of your desired rule-sets
-6. Copy your rule updates to the `/tmp/` directory on your Master Node 
+5. Download the latest rule updates
+6. Copy the rule updates to `/tmp/` on your Master Node 
 7. Use `salt` to perform a manual rule update across all of your sensors
 
 ```bash
