@@ -90,57 +90,44 @@ sudo so-ossec-start
 
 
 ## Update NIDS rules
-**Part 1 (do only once, ever)**
 1. Login to your Master Node
-2. Use a text-editor to modify `/etc/nsm/securityonion.conf` and disable `LOCAL_NIDS_RULE_TUNING`
-3. Use a text-editor to add a `rule_url` to `/etc/nsm/securityonion.conf`
-4. Use a text-editor to add `Listen 80` to `/etc/apache2/ports.conf`
-5. Restart the `apache2` service  
+2. Use a text-editor to set `LOCAL_NIDS_RULE_TUNING` to `yes` in `/etc/nsm/securityonion.conf`
+3. Verify your IDS engine and rule-set
+4. Use a text-editor to specify your desired rule-sets in `/etc/nsm/pulledpork/pulledpork.conf`
+5. Download the latest batch of your desired rule-sets
+6. Copy your rule updates to the `/tmp/` directory on your Master Node 
+7. Use `salt` to perform a manual rule update across all of your sensors
 
 ```bash
 # step 2
 sudo vim /etc/nsm/securityonion.conf
-  LOCAL_NIDS_TUNING=no
+  LOCAL_NIDS_TUNING=yes
 ```
 ```bash
 # step 3
-sudo vim /etc/nsm/pulledpork/pulledpork.conf
-  rule_url=http://localhost/rules
-```
-```bash
-# step 4
-sudo vim /etc/apache2/ports.conf
-  Listen 80
-```
-```bash
-# step 5
-sudo service apache2 restart
-```
-**Part 2 (do every single time)**  
-6. Verify your IDS engine and supported ruleset  
-8. Download the latest rules (ex: onto disc)  
-7. Copy the latest rules to `/var/www/html/` on your Master Node  
-8. Perform a manual rule update  
-
-```bash
-# step 6
 sudo snort -V
 sudo suricata -V
 sudo grep -i 'engine' /etc/nsm/securityonion.conf
 sudo grep -i 'ruleset' /var/log/nsm/sosetup.log 
 ```
 ```bash
-# step 7
+# step 4
+sudo vim /etc/nsm/pulledpork/pulledpork.conf
+  rule_url=https://rules.emergingthreats.net/|emerging.rules.tar.gz|open
+  rule_url=https://snort.org/downloads/community/|community-rules.tar.gz|Commmunity
+```
+```bash
+# step 5
 wget https://rules.emergingthreats.net/open/snort-2.9.0/emerging.rules.tar.gz
 wget https://www.snort.org/downloads/community/community-rules.tar.gz
 ```
 ```bash
-# step 8
-sudo cp community-rules.tar.gz /var/www/html/
-sudo cp emerging.rules.tar.gz /var/www/html/
+# step 6
+sudo scp community-rules.tar.gz victor@foxhound-siem:/tmp/
+sudo scp emerging.rules.tar.gz victor@foxhound-siem:/tmp/
 ```
 ```bash
-# step 9
+# step 7
 sudo salt '*' cmd.run 'so-rule-update'
 ```
 
