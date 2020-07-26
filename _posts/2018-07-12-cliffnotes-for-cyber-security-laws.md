@@ -165,7 +165,7 @@ Enforced by the FTC. Learn more about nationally opting-out of junk mail from NY
 The Sarbanes-Oxley (SOX) Act of 2002 is comprised of 11 Titles with two of special significance: Title I and Title III. Title I addresses the oversight of accounting firms, auditing, and compliance. Title III emphasizes on the responsibilities of the Chief Executive Officer and Chief Financial Officer, both must certify and approve their organization's financial reports. 
 
 ### References
-* 
+* [H.R.3763 - Bill Summary](https://www.congress.gov/bill/107th-congress/house-bill/3763)
 
 **US Gramm-Leach-Bliley Act of 1999**
 > text goes here
