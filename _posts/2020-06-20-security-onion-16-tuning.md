@@ -7,7 +7,9 @@ category: notes
 
 ## Table of Contents
 * [Whitelisting in Netsniff-NG](#whitelisting-in-netsniff-ng)
+* [Whitelisting in Snort/Suricata](#whitelisting-in-snort-suricata)
 * [Whitelisting in OSSEC](#whitelisting-in-ossec)
+* [Fine-tuning Snort/Suricata](#fine-tuning-snort-suricata)
 * [Fine-tuning OSSEC](#fine-tuning-ossec)
 * [Update NIDS rules](#update-nids-rules)
 * [Disable a NIDS rule](#disable-a-nids-rule)
@@ -57,6 +59,34 @@ sudo vim /var/ossec/rules/local_rules.xml
 ```bash
 # step 4
 sudo so-rule-update
+```
+
+## Fine-tuning Snort/Suricata
+#### Whitelist an IP Address for a Specific Rule
+1. Identify the IP address you want to whitelist
+2. Identify the SID of the rule you want to fine-tine
+3. Use a text-editor to open `/etc/nsm/rules/local.rules` on your Master Node
+    * Create a variable for the IP address
+    * Copy/paste the rule with the variable 
+4. Use `salt` to perform a manual rule update across the relevant sensor
+5. Use `salt` to manually restart Snort/Suricata across the relevant sensor
+```bash
+# step 3
+sudo vim /etc/nsm/rules/local.rules
+```
+```bash
+# step 4
+ipvar WHITELIST_SID_3000001 [192.168.1.23, 192.168.1.69, 192.168.1.86]
+
+alert icmp !WHITELIST_SID_3000001 any -> any any (msg:"ICMP traffic!"; sid:3000001;)
+```
+```bash
+# step 4
+sudo salt 'foxhound-nids1' cmd.run 'so-rule-update'
+```
+```bash
+# step 5
+sudo salt 'foxhound-nids1' cmd.run 'so-nids-restart'
 ```
 
 ## Fine-tuning OSSEC
