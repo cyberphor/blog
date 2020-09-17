@@ -70,21 +70,18 @@ sudo so-rule-update
     * Copy/paste the rule with the variable 
 4. Use `salt` to perform a manual rule update across the relevant sensor
 5. Use `salt` to manually restart Snort/Suricata across the relevant sensor
+
 ```bash
 # step 3
 sudo vim /etc/nsm/rules/local.rules
-```
-```bash
+
 # step 4
 ipvar WHITELIST_SID_3000001 [192.168.1.23, 192.168.1.69, 192.168.1.86]
-
 alert icmp !WHITELIST_SID_3000001 any -> any any (msg:"ICMP traffic!"; sid:3000001;)
-```
-```bash
+
 # step 4
 sudo salt 'foxhound-nids1' cmd.run 'so-rule-update'
-```
-```bash
+
 # step 5
 sudo salt 'foxhound-nids1' cmd.run 'so-nids-restart'
 ```
