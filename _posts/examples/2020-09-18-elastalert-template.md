@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 'ElastAlert: Template'
-permalink: 'elastalert-template'
+title: 'ElastAlert'
+permalink: 'elastalert-example'
 category: notes
-subcategory: templates
+subcategory: examples
 ---
 
 ## Table of Contents
