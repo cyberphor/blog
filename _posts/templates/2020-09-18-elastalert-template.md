@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'ElastAlert'
+title: 'ElastAlert: Template'
 permalink: 'elastalert-template'
 category: notes
 subcategory: templates
