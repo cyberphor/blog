@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Scapy'
-permalink: 'scapy-example'
+permalink: 'scapy-examples'
 category: notes
 subcategory: examples
 ---
