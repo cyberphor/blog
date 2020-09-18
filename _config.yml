@@ -6,6 +6,7 @@ author:
 header_pages:
  - posts.md
  - notes.md
+ - examples.md
  - about.md
 theme: minima
 minima:
