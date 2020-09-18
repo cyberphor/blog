@@ -1,5 +1,7 @@
 ---
 layout: default
+title: 'posts'
+permalink: 'posts'
 ---
 
 <h3><img src="{{ site.baseurl }}/assets/pt.png"> Vulnerability Management</h3>
