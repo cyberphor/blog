@@ -6,9 +6,6 @@ author:
 header_pages:
  - posts.md
  - notes.md
-   - templates.md
-   - guides.md
-   - cheat-sheets.md
  - about.md
 theme: minima
 minima:
