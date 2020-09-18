@@ -3,6 +3,7 @@ layout: post
 title:  'Security Onion 16: Deployment Guide'
 permalink: 'security-onion-16-deployment-guide'
 category: notes
+subcategory: guides
 ---
 
 ## Table of Contents
