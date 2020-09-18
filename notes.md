@@ -22,7 +22,7 @@ permalink: 'notes'
 <ul class="notes-list">
   {% assign sorted_posts = site.posts | sort: 'title' %}
   {% for post in sorted_posts %}
-    {% if post.subcategory == 'tool-cheat-sheets' %}
+    {% if post.subcategory == 'cheat-sheets' %}
       <li>
         <a href="{{ post.url | relative_url }}">
           {{ post.title }}
