@@ -1,41 +1,36 @@
 ---
 layout: post
 title: 'ElastAlert'
-permalink: 'elastalert-example'
+permalink: 'elastalert-examples'
 category: notes
 subcategory: examples
 ---
 
 ## Table of Contents
 * [Whitelist for IP Addresses](#whitelist-for-ip-addresses)
-* [Whitelist for Ports](#whitelist-for-ports)
+    * [Baseline File](#baseline-file)
+    * [Configuration File](#configuration-file)
 
 ## Whitelist for IP Addresses
-Baseline file for IP addresses. 
-```bash
-sudo vim /etc/elastalert/rules/_authorized_ips.txt
-```
+### Baseline File
 ```bash
 192.168.56.1
 192.168.56.2
 192.168.56.3
 ```
-Configuration file for an IP address whitelist.
-```bash
-sudo vim whitelist-authorized_IPs.yaml
-```
+### Configuration File
 ```yaml
 # alert on any IP address not on the whitelist
 
 es_host: elasticsearch
 es_host: 9200
-name: Unknown IP detected!
+name: Unknown IP address detected!
 index: "*:logstash-*"
 type: whitelist
 compare_key: source_ip
 ignore_null: true
 whitelist:
-    - "!file /etc/elastalert/rules/_authorized_ips.txt"
+    - "!file /etc/elastalert/rules/ip_address_baseline.txt"
 alert:
     - debug
 ```
