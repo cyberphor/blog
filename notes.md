@@ -1,7 +1,7 @@
 ---
 layout: default
-title: 'Notes'
-permalink: 'notes'
+title: 'Guides'
+permalink: 'Guides'
 ---
 
 <h3><img src="{{ site.baseurl }}/assets/notes.png">Guides</h3>
