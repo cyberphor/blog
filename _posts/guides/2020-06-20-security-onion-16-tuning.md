@@ -3,6 +3,7 @@ layout: post
 title: 'Security Onion 16: Tuning'
 permalink: 'security-onion-16-tuning'
 category: notes
+subcategory: guides
 ---
 
 ## Table of Contents
