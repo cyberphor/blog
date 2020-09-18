@@ -7,6 +7,7 @@ header_pages:
  - essays.md
  - guides.md
  - examples.md
+ - demos.md
  - about.md
 theme: minima
 minima:
