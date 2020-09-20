@@ -10,7 +10,7 @@ subcategory: guides
 - [Overview](#overview)
 - [RECAP: Methods of Transforming Data](#recap-methods-of-transforming-data)
 - [Evidence: Values of Interest and Pivoting Fields](#evidence-values-of-interest-and-pivoting-fields)
-- [Data Sources: Memory, Disk, and Network](#data-sources-memory-disk-network)
+- [Data Sources: Memory, Disk, and Network](#data-sources-memory-disk-and-network)
 - [Pivoting Examples](#pivoting-examples)
 
 ### Overview
