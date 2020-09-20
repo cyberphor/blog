@@ -10,13 +10,15 @@ subcategory: guides
 - [Overview](#overview)
 - [RECAP: Methods of Transforming Data](#recap-methods-of-transforming-data)
 - [Evidence: Values of Interest and Pivoting Fields](#evidence-values-of-interest-and-pivoting-fields)
-- [Data Sources: Memory, Disk, and Network](#data-sources)
+- [Data Sources: Memory, Disk, and Network](#data-sources-memory-disk-network)
 - [Pivoting Examples](#pivoting-examples)
 
 ### Overview
 We use evidence to bridge the gap between perception and reality. The way we view evidence impacts how we answer specific questions about our reality (what happened). Transform data to answer questions more effectively. Pivoting is one of the best ways to conduct an analysis. 
 ```bash
-Observations --> (Questions <> Hypothesis <> Answers) --> Decisions based on "Evidence" and "Conclusions"
+Observations --> 
+    (Questions <> Hypothesis <> Answers) --> 
+        Decisions based on "Evidence" and "Conclusions"
 ```
 
 ### RECAP: Methods of Transforming Data
