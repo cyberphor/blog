@@ -1,25 +1,20 @@
 ---
 layout: post
-title: 'ACAS: Deployment Guide'
-permalink: 'acas-deployment-guide'
+title: 'Nessus: Deployment Guide'
+permalink: 'nessus-deployment-guide'
 category: notes
 subcategory: guides
 ---
 
 ### Table of Contents
-* [Links](#links)
 * [Deploying ACAS](#deploying-acas)
-* [Access ACAS SecurityCenter](#access-acas-securitycenter)
-* [Configure an ACAS Nessus Scanner](#configure-an-acas-nessus-scanner)
-* [Configure a Repository](#configre-a-repository)
-* [Configure an Organization](#configre-an-organization)
-* [Configure a Security Manager](#configure-a-security-manager)
-
-### Links
-* [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
-* [Download ACAS (Tenable.sc & Nessus Scanner)](https://patches.csd.disa.mil/CollectionInfo.aspx)
-* [DISA ACAS (License) Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
-  * [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
+* [Accessing SecurityCenter](#accessing-securitycenter)
+* [Configuring a Nessus Scanner](#configuring-a-nessus-scanner)
+* [Configuring a Repository](#configuring-a-repository)
+* [Configuring an Organization](#configuring-an-organization)
+* [Configuring a Security Manager](#configuring-a-security-manager)
+* [Scanning a Stand-Alone Network](#scanning-a-stand-alone-network)
+* [References & DoD Download Links](#references-dod-download-links)
 
 ### Deploying ACAS
 1. Install CentOS 6.9 OS
@@ -33,14 +28,14 @@ yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y
 yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
 ```
 
-### Access ACAS SecurityCenter 
+### Accessing SecurityCenter 
 ```bash
 # https://localhost
 # run `netstat -pant` to verify there is a port open for ACAS
 # Supply the <license-matching-your-hostname>.key file
 ```
 
-### Configure an ACAS Nessus Scanner
+### Configuring a Nessus Scanner
 ```bash
 - Name: scanner01
 - Host: 192.168.56.106 (Host-only IP for personal lab environment)
@@ -49,20 +44,29 @@ yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
 - Password: <password>
 ```
 
-### Configure a Repository
+### Configuring a Nessus Scanner  
+Change IP/URL to where it's located (ex: localhost).
+```bash
+# access via https://localhost:8834
+- Username: victor
+- Password: <password>
+- Scanner Type: Managed By SecurityCenter
+```
+
+### Configuring a Repository
 ```bash
 - Name: repo01
 - Description: "Nodes within my (Host-only) virtual lab"
 - IP ranges: 192.168.56.0/
 ```
 
-### Configure an Organization
+### Configuring an Organization
 ```bash
 - Name: organization01
 - Description: "..."
 ```
 
-### Configure a Security Manager
+### Configuring a Security Manager
 ```bash
 # 255S
 - First Name: Victor
@@ -73,17 +77,9 @@ yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
 - # username for default admin is "admin"
 ```
 
-### Start Nessus scanner
+### Starting Nessus
 ```bash
 service nessusd start
-```
-
-### Setup Nessus Scanner (change IP/URL to where it's located; ex: localhost)
-```bash
-# access via https://localhost:8834
-- Username: victor
-- Password: <password>
-- Scanner Type: Managed By SecurityCenter
 ```
 
 ### Overview of ACAS
@@ -164,47 +160,6 @@ Doctrine mandating the use of ACAS
 2. Click-on Profile
 3. Click-on preferred Time Zone
 
-# Menus
-* Navigation bar
-    * Dashboard: first button upon login
-    * Analysis: 
-        * Vulnerabilities
-        * Events: not supported by DISA right now; for log correlation 
-        * Mobile: MDM servers
-        * Queries: saved filters
-    * Scans
-        * Active scans: vulnerability scan, compliance scans
-        * Agent scans
-        * Scan results
-        * Policies: how scan will run (plugins, ports to scan, performance options)
-        * Audit files: compliance docs (.xml files with STIG checks)
-        * Credentials: for login to host being scanned (SSH)
-        * Blackout windows: set "do not scan" during these windows (or assets at certain times)
-    * Reporting
-        * Reports
-        * Report Results
-        * Report Images: company logos
-        * Report Attributes: scan data destined for CMRS (continuous monitoring risk score)
-    * Workflow
-        * Alerts: scan for specific vulnerability, if found, send an alert to someone
-        * Tickets: lightweight system for issue management
-        * Accept Risk Rules: mark a vulnerability as accepted
-        * Recast Risk Rules: 
-    * Users
-        * Users:
-        * Roles: "what I can do"
-        * Groups: "what I can see"
-* Username drop-down menu
-    * About: SecurityCenter version
-    * System Logs: login events, filter by severity, etc.
-    * Profile: change password, change Time Zone
-        * Responsibility: designate Assets by admin name ("Vic is responsible for Linux Hosts")
-    * Feeds: can connect to DISA or DoD patch repo for the latest plugins (downloaded as tar/zip files)
-    * Notifications
-    * Plugins: can write & upload custom scripts/plugins using Nessus Attack Scripting Language (NASL) using top-right button; plugin update time can be viewed here and in Feeds
-    * Help
-    * Logout
-
 ### SecurityCenter Building Blocks
 * Structure (within a single instance of SecurityCenter)
     * roles per org (group of people responsible for common assets): 1 admin, 2 security managers, 4 analysts 
@@ -239,7 +194,7 @@ Doctrine mandating the use of ACAS
         * Custom plugins: 900,001-999,999 
         * Compliance plugins: 1,000,000+ 
 
-### Scanning a Stand-Alone network
+### Scanning a Stand-Alone Network
 * Option 1: Install Nessus and SecurityCenter on RHEL laptop via Kickstart
     * Easy deployment; faster than Windows version of Nessus
 * Option 2: RHEL VMs (Nessus, SecurityCenter) on Windows laptop
@@ -247,3 +202,9 @@ Doctrine mandating the use of ACAS
 * Option 3: Detach Nessus Scanner from ACAS system for Stand-Alone network
     * Must re-attach scanner (RHEL laptop) to get plugin updates
     * Miss out on full functionality
+
+### References & DoD Download Links
+* [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
+* [Download ACAS (Tenable.sc & Nessus Scanner)](https://patches.csd.disa.mil/CollectionInfo.aspx)
+* [DISA ACAS (License) Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
+* [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
