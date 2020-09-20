@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "CliffsNotes for Cyber Security Laws"
+title: 'CliffsNotes for Cyber Security Laws'
 permalink: 'cliffnotes-for-cyber-security-laws'
 category: notes
+subcategory: guides
 ---
 
 NOTE 
