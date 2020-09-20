@@ -14,7 +14,7 @@ subcategory: guides
 - [Pivoting Examples](#pivoting-examples)
 
 ### Overview
-We use evidence to bridge the gap between perception and reality. The way we view evidence impacts how we answer specific questions about our reality (what happened). Transform data to answer questions more effectively. Pivoting is one of the best ways to conduct an analysis. 
+We use evidence to bridge the gap between perception and reality. The way we view evidence impacts how we answer specific questions about our reality (what happened). Transform data to answer questions more effectively. Pivoting between data sources is one of the best ways to answer questions during an analysis. 
 ```bash
 Observations --> 
     (Questions <> Hypothesis <> Answers) --> 
