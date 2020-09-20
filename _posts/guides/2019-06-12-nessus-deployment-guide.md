@@ -7,50 +7,36 @@ subcategory: guides
 ---
 
 ### Table of Contents
-* [Deploying ACAS](#deploying-acas)
-* [Accessing SecurityCenter](#accessing-securitycenter)
-* [Configuring a Nessus Scanner](#configuring-a-nessus-scanner)
+* [Overview](#overview)
+* [Configuring a Nessus Scanner in SecurityCenter](#configuring-a-nessus-scanner-in-securitycenter)
 * [Configuring a Repository](#configuring-a-repository)
 * [Configuring an Organization](#configuring-an-organization)
 * [Configuring a Security Manager](#configuring-a-security-manager)
-* [Scanning a Stand-Alone Network](#scanning-a-stand-alone-network)
+* [Changing the Default Timezone](#changing-the-default-timezone)
+* [Starting Nessus](#starting-nessus)
 * [References & DoD Download Links](#references-dod-download-links)
 
-### Deploying ACAS
-1. Install CentOS 6.9 OS
-2. Download ACAS (Tenable.sc & Nessus Scanner) binaries
-3. Install ACAS binaries
-5. Browse to `https://localhost`
+### Overview
+1. Request a license (ex: from the [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
+2. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system
+3. Download and install the [Nessus Scanner & SecurityCenter](https://patches.csd.disa.mil/CollectionInfo.aspx) binaries
+    ```bash
+    yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y 
+    yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
+    ```
+4. Access SecurityCenter by browsing to `https://localhost`
+    ```bash
+    # run `netstat -pant` to verify there is a port open for ACAS
+    # Supply the <license-matching-your-hostname>.key file
+    ```
 
-```bash
-# step 3
-yum install CM-235553-SecurityCenter-5.8.0-el6.x86_64.rpm -y 
-yum install CM-238325-Nessus-7.2.2-es6.x86_64.rpm -y
-```
-
-### Accessing SecurityCenter 
-```bash
-# https://localhost
-# run `netstat -pant` to verify there is a port open for ACAS
-# Supply the <license-matching-your-hostname>.key file
-```
-
-### Configuring a Nessus Scanner
+### Configuring a Nessus Scanner in SecurityCenter
 ```bash
 - Name: scanner01
 - Host: 192.168.56.106 (Host-only IP for personal lab environment)
 - Port: 8834
 - Username: victor (must match the user you create when you setup Nessus)
 - Password: <password>
-```
-
-### Configuring a Nessus Scanner  
-Change IP/URL to where it's located (ex: localhost).
-```bash
-# access via https://localhost:8834
-- Username: victor
-- Password: <password>
-- Scanner Type: Managed By SecurityCenter
 ```
 
 ### Configuring a Repository
@@ -77,134 +63,24 @@ Change IP/URL to where it's located (ex: localhost).
 - # username for default admin is "admin"
 ```
 
+### Changing the Default Timezone
+1. Click-on Username drop-down menu
+2. Click-on Profile
+3. Click-on preferred Time Zone
+
 ### Starting Nessus
 ```bash
 service nessusd start
 ```
 
-### Overview of ACAS
-ACAS is a collection vulnerability, port, and patch compliance scanners
-- SecurityCenter (SC) = web interface to manage/execute ACAS functions
-	- WIN-T increment 1b = 1 SC per BDE 
-- Nessus Scanner = establish one per scanner
-	- Downloaded plugin feeds must be younger than 7 days in order to be within DoD compliance
-	- WIN-T increment 1b = 1 SC per BDE
-	- WIN-T increment 1b = 1 SC per BN
-- Passive Vulnerability Scanner (PVS) = a sensor (like tcpdump, snort)
-	- Not really used (was also replaced with a similar tool)
-
-Doctrine mandating the use of ACAS
-- Task order 13-670
-- Task order 14-0294
-- DISA's ACAS TTP
-
-* DISA published Request For Proposal in 2013 to replace Retina Scanner
-* HP responded with Nessus Scanner, Passive Vulnerability Scanner, & SecurityCenter 
-
-**ACAS Roles**
-- Administrator (255A) = manages users & groups
-- Security manager (255S) = manages scans, blackout windows, updating plugins, etc and other users (except admins)
-- Security analyst (25D) = manages scans, etc. but CANNOT manage users
-- Auditor (255S at an RCC level org) = checks if scan activities are being done correctly
-- Executive (25/26/17A) = can read high-level view of reports 
-
-- ACAS is a Program of Record (managed by DISA)
-- Every unit should have an ACAS server
-- ACAS (SecurityCenter) software licenses are managed by DISA
-	- https://disa.deps.mil/extcop/mae/netops/acas/Lists/ACAS_License_Request/Submit.aspx
-	- Submit a form (type of license; unit)
-	- License expires after a year
-- Usually installed on Red Hat (which requires another license, a unit responsibility)
-	- CentOS is an alternative (but not the newest version, 7)
-	- Can download a Red Hat VM from DISA with ACAS pre-installed 
-
-**ACAS can scan for:**
-* Vulnerabilities (app, system, network)
-* Device configuration
-* Network discovery
-* Compliance with SCAP (Security Content Automation Protocol)
-
-**ACAS Components**
-* SecurityCenter
-    * Uses 8835 to connect to SecurityCenter 
-    * GUI; central console for ACAS and data; where to update plugins
-* Nessus Scanner
-    * Uses 8834
-    * Active passive scanner
-    * Compliance scanner (STIG, SCAP, etc.)
-    * Scans data at rest
-* Passive Vulnerability Scanner
-    * Uses 8835 to connect to SecurityCenter 
-    * Sniffs network for traffic via tap/span port; continuous monitoring solution
-    * Uses scripts/plugins to detect vulnerabilities on the network passively
-    * Scans data in transit/motion
-* 3D
-    * Uses 443 (can change)
-    * Relies on pre-built queries to generate visuals of vulnerabilities (like Kibana)
-    * Password-based authentication; if you require CAC, can't login
-
-**ACAS functions**
-* Discover assets via Ping, port scanners, traceroute, TTLs
-* Vulnerabilities are tied to the script/plugins that find them
-    * Vulns come from poor configuration (unneeded ports open), implementation (buffer overflows), or design (IP, Telnet, etc)
-    * ACAS plugins are developed by DISA using info from Tenable (via Bugtraq, OSVDB, CVE)
-
-**ACAS Task Orders**
+### ACAS Task Orders
 * Task Order 13-670 Implementation of ACAS for the Enterprise
 * Task Order 14-0294 IAVM Reporting Compliance Using CMRS
 * DISA's ACAS Tactics, Techniques, and Procedures
 
-### SecurityCenter 5.3
-**How to Change Your Default Timezone**
-1. Click-on Username drop-down menu
-2. Click-on Profile
-3. Click-on preferred Time Zone
-
-### SecurityCenter Building Blocks
-* Structure (within a single instance of SecurityCenter)
-    * roles per org (group of people responsible for common assets): 1 admin, 2 security managers, 4 analysts 
-    * structure designs: based on mission (directorate 1, directorate 2, tactical); CONUS/OCONUS; report authority (ARCENT v CENTCOM) 
-* Role, Group, User definitions
-    * Role: functional permissions
-    * Group: access controls
-    * Users: user details/assignments
-* Scan Zone (and Nessus Scanners)
-    * Scan Zone = specified subnet in SecurityCenter (if you select an IP to scan, SecurityCenter will select the appropriate Nessus Scanner based on the Scan Zone) 
-
-### Repos, Zones, and Plugins
-* Repository: folder with text-based scan files (containing IP addresses of hosts to scan). 
-    * Max-size is 32GBs
-* Zones: area where scans are performed
-* Admin manages Repos, Zones, and Plugins
-    * ex: Zone 1 references Repo A (a text-file with IPs) to know who to scan
-    * can add multiple IP ranges to a single Repo (so more than one Zone can use it)
-    * Repos are individual from Zones
-* Plugins
-    * How do you get your plugins?
-        * Vendor > DISA > DISA Plugin Server > Scheduled pull > SecurityCenter > Auto push > Nessus scanner
-    * How to search for plugins
-        * Can search for by Plugin family (MS Bulletins, device type, etc.)
-        * Can search by CVE ID, Bugtraq ID (BID), Name, etc. 
-            1.  Select "Name" by drop-down menu
-            2. Type keyword
-            3. Click-on **Apply**
-    * Plugin Ids (click on the "i" button to view source-code of plugins/scripts)
-        * Passive scanning plugins (PVS): 1-10,000 
-        * Active/Nessus plugins: 10,001-900,000 
-        * Custom plugins: 900,001-999,999 
-        * Compliance plugins: 1,000,000+ 
-
-### Scanning a Stand-Alone Network
-* Option 1: Install Nessus and SecurityCenter on RHEL laptop via Kickstart
-    * Easy deployment; faster than Windows version of Nessus
-* Option 2: RHEL VMs (Nessus, SecurityCenter) on Windows laptop
-    * Can use Windows browser to access SecurityCenter
-* Option 3: Detach Nessus Scanner from ACAS system for Stand-Alone network
-    * Must re-attach scanner (RHEL laptop) to get plugin updates
-    * Miss out on full functionality
-
 ### References & DoD Download Links
-* [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
-* [Download ACAS (Tenable.sc & Nessus Scanner)](https://patches.csd.disa.mil/CollectionInfo.aspx)
-* [DISA ACAS (License) Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
+* [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
 * [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
+* [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
+* [Download Nessus Scanner & Tenable.sc](https://patches.csd.disa.mil/CollectionInfo.aspx)
+
