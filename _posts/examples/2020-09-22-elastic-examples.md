@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Elastic Stack'
-permalink: 'elastic-stack-examples'
+permalink: 'elastic-examples'
 category: notes
 subcategory: examples
 ---
