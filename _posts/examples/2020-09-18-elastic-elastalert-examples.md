@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 'ElastAlert'
-permalink: 'elastalert-examples'
+title: 'Elastic Stack: ElastAlert'
+permalink: 'elastic-elastalert-examples'
 category: notes
 subcategory: examples
 ---
