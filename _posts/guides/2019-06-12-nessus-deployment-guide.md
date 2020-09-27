@@ -79,7 +79,7 @@ sudo reboot now # or logout the GUI shell
 ```bash
 # step 1
 sudo vim /etc/sysconfig/network
-    HOSTNAME=localhost # remove
+    HOSTNAME=localhost.localdomain # remove
     HOSTNAME=foxhound # add; ex: foxhound = new hostname
 
 # step 2
