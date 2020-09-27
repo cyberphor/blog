@@ -11,7 +11,7 @@ subcategory: guides
 * [How to Grant a User Administrator Privileges in CentOS](#how-to-grant-a-user-administrator-privileges-in-centos)
 * [How to Change the Hostname in CentOS](#how-to-change-the-username-in-centos)
 * [How to Assign a Static IP Address in CentOS](#how-to-assign-a-static-ip-address-in-centos)
-* [References](#references-dod-download-links)
+* [References](#references)
 
 ### How to Grant a User Administrator Privileges in CentOS
 ```bash
