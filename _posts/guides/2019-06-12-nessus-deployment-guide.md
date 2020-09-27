@@ -17,7 +17,7 @@ subcategory: guides
 ### Deploying Tenable.sc and Nessus
 1. Identify a hostname for your Tenable.sc server
 2. Request a Tenable.sc license (option 1: [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
-3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system ([change the hostname](#how-to-change-the-hostname-in-centos) and [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos))
+3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system ([change the hostname](#how-to-change-the-hostname-in-centos), [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos), and specify a DNS server)
 4. Download, install, and start the [Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx) binaries on the same machine you installed CentOS
     ```
     sudo mkdir /opt/downloads/
@@ -95,14 +95,16 @@ sudo vim ifcfg-eth0
     ONBOOT=yes
     BOOTPROTO=none
     PREFIX=24
-    IPADDR=192.168.1.69 # desired static ip
+    IPADDR=192.168.3.69 # desired static ip
+    DNS1=192.168.3.10 # local DNS server
 
 # step 2
 sudo service network restart
 
 # step 3
-ping 192.168.1.1 # ping your gateway
-ping 192.168.2.10 # ping something beyond your gateway
+ping 192.168.3.1 # ping your gateway
+ping 192.168.3.10 # ping your DNS server
+ping 8.8.8.8 # ping something beyond your gateway
 ```
 
 ### References
