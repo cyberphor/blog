@@ -17,8 +17,8 @@ subcategory: guides
 ### Deploying Tenable.sc and Nessus
 1. Identify a hostname for your Tenable.sc server
 2. Request a Tenable.sc license (option 1: [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
-3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system ([change the hostname](#how-to-change-the-hostname-in-centos), [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos), and specify a DNS server)
-4. Download, install, and start the [Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx) binaries on the same machine you installed CentOS
+3. Install [CentOS](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) ([change the hostname](#how-to-change-the-hostname-in-centos), [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos), and specify a DNS server)
+4. Download, install, and start the [Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx) binaries 
     ```
     sudo mkdir /opt/downloads/
     sudo cp ./*.rpm ./*.key /opt/downloads/
