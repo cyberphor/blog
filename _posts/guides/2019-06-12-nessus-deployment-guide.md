@@ -7,13 +7,13 @@ subcategory: guides
 ---
 
 ### Table of Contents
-* [Deploying Nessus](#deploy-nessus)
-* [How to Grant a User Administrator Privileges in CentOS](#how-to-grant-a-user-administrator-privileges-in-centos)
-* [How to Change the Hostname in CentOS](#how-to-change-the-username-in-centos)
-* [How to Assign a Static IP Address in CentOS](#how-to-assign-a-static-ip-address-in-centos)
+* [How to Grant Someone "Super-User" Privileges in CentOS](#how-to-grant-someone-super-user-privileges-in-centos)
+* [How to Change the Hostname in CentOS](#how-to-change-the-hostname-in-centos)
+* [How to Configure a Static IP Address in CentOS](#how-to-assign-a-static-ip-address-in-centos)
+* [Deploying Nessus](#deploying-nessus)
 * [References](#references)
 
-### How to Grant a User Administrator Privileges in CentOS
+### How to Grant Someone "Super-User" Privileges in CentOS
 ```bash
 # step 1
 su root
@@ -56,16 +56,19 @@ ping 192.168.2.10 # ping something beyond your gateway
 
 ### Deploying Nessus
 1. Identify a hostname for your Tenable.sc server (ex: `<Site><Organizational Code><System Type><Variable>`)
-2. Request a Tenable.sc license (ex: from the [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
-3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system
+2. Request a Tenable.sc license (option 1: [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
+3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system ([change the hostname](#how-to-change-the-hostname-in-centos) and [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos))
 4. Download, install, and start the [Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx) binaries on the same machine you installed CentOS
-    ```bash
-    rpm -i CM-243951-SecurityCenter-5.11.0-el6.x86_64.rpm
-    rpm -i CM-253106-Nessus-8.11.0-es6.x86_64.rpm
-    service SecurityCenter status
-    service SecurityCenter start
-    service nessusd status
-    service nessusd start 
+    ```
+    sudo mkdir /opt/downloads/
+    sudo cp ./*.rpm ./*.key /opt/downloads/
+    cd /opt/downloads
+    sudo rpm -i ./CM-243951-SecurityCenter-5.11.0-el6.x86_64.rpm
+    sudo rpm -i ./CM-253106-Nessus-8.11.0-es6.x86_64.rpm
+    sudo service SecurityCenter status
+    sudo service SecurityCenter start
+    sudo service nessusd status
+    sudo service nessusd start 
     ```
 5. Browse to `https://localhost:8834` to configure the Nessus Scanner
 6. Create an account on the Nessus Scanner
