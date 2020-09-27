@@ -15,9 +15,11 @@ subcategory: guides
 
 ### How to Grant a User Administrator Privileges in CentOS
 ```bash
+# step 1
 su root
 usermod -aG wheel victor # add the user to the 'wheel' group
 
+# step 2
 visudo 
     %wheel ALL=(ALL) ALL # uncommment this line
 ```
@@ -35,6 +37,7 @@ sudo reboot now
 
 ### How to Assign a Static IP Address in CentOS
 ```bash
+# step 1
 cd /etc/sysconfig/network-scripts/
 sudo vim ifcfg-eth0
     DEVICE=eth0
@@ -42,8 +45,11 @@ sudo vim ifcfg-eth0
     BOOTPROTO=none
     PREFIX=24
     IPADDR=192.168.1.69 # desired static ip
-        
+
+# step 2
 sudo service network restart
+
+# step 3
 ping 192.168.1.1 # ping your gateway
 ping 192.168.2.10 # ping something beyond your gateway
 ```
