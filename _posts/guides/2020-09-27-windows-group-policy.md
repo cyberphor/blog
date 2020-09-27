@@ -20,4 +20,4 @@ subcategory: guides
 11. Highlight your script and click-on "Open" 
 12. Specify any script parameters and then, click-on "OK"
   * Don't forget to link your existing GPO to the relevant OU
-  * Also, rememeber to run `gpupdate /force; shutdown /r /t 000` when testing your startup script
+  * Run `gpupdate /force; shutdown /r /t 000` when testing your startup script
