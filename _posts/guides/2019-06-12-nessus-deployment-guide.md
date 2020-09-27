@@ -7,13 +7,14 @@ subcategory: guides
 ---
 
 ### Table of Contents
-* [How to Grant Someone "Super-User" Privileges in CentOS](#how-to-grant-someone-super-user-privileges-in-centos)
-* [How to Change the Hostname in CentOS](#how-to-change-the-hostname-in-centos)
-* [How to Configure a Static IP Address in CentOS](#how-to-assign-a-static-ip-address-in-centos)
-* [Deploying Nessus](#deploying-nessus)
+* [Granting Someone "Super-User" Privileges in CentOS](#granting-someone-super-user-privileges-in-centos)
+* [Installing VirtualBox Guest Additions in CentOS](#installing-virtualbox-guest-additions-in-centos)
+* [Changing the Hostname in CentOS](#changing-the-hostname-in-centos)
+* [Configuring a Static IP Address in CentOS](#assigning-a-static-ip-address-in-centos)
+* [Deploying Tenable.sc and Nessus](#deploying-tenablesc-and-nessus)
 * [References](#references)
 
-### How to Grant Someone "Super-User" Privileges in CentOS
+### Granting Someone "Super-User" Privileges in CentOS
 ```bash
 # step 1
 su root
@@ -22,9 +23,33 @@ usermod -aG wheel victor # add the user to the 'wheel' group
 # step 2
 visudo 
     %wheel ALL=(ALL) ALL # uncommment this line
+    # use ':wq!' to exit the Vim text-editor
 ```
 
-### How to Change the Hostname in CentOS
+### Installing VirtualBox Guest Additions in CentOS
+```bash
+# step 1
+sudo yum install kernel kernel-devel gcc make perl
+sudo reboot now
+
+# step 2 (make sure the current kernel and downloaded one match)
+uname -r 
+ls /usr/src/kernels/ 
+
+# step 3
+# click-on "Insert Guest Additions CD image..." from the Devices drop-menu in VirtualBox
+
+# step 4
+cd /media/VBox_GAs_6.0.6 # change directories to where Guest Additions is mounted
+sudo ./autorun.sh
+sudo reboot now
+
+# step 5
+sudo usermod -aG vboxsf victor # do this to access folders shared between the host and guest
+sudo reboot now # or logout the GUI shell
+```
+
+### Changing the Hostname in CentOS
 ```bash
 # step 1
 sudo vim /etc/sysconfig/network
@@ -35,7 +60,7 @@ sudo vim /etc/sysconfig/network
 sudo reboot now
 ```
 
-### How to Assign a Static IP Address in CentOS
+### Assigning a Static IP Address in CentOS
 ```bash
 # step 1
 cd /etc/sysconfig/network-scripts/
@@ -54,7 +79,7 @@ ping 192.168.1.1 # ping your gateway
 ping 192.168.2.10 # ping something beyond your gateway
 ```
 
-### Deploying Nessus
+### Deploying Tenable.sc and Nessus
 1. Identify a hostname for your Tenable.sc server (ex: `<Site><Organizational Code><System Type><Variable>`)
 2. Request a Tenable.sc license (option 1: [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/))
 3. Install the [CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso) operating system ([change the hostname](#how-to-change-the-hostname-in-centos) and [configure a static IP address](#how-to-assign-a-static-ip-address-in-centos))
