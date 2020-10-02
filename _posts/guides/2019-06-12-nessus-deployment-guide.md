@@ -81,7 +81,7 @@ An Organization is a set of scanners (cybersecurity tools), users (cybersecurity
     - Username: `miles.dyson.sm`
     - Password: `ComeWithMeIfYouWantToLive1984`
     - Time Zone: `UTC`
-    - Administrator Password: `ComeWithMeIfYouWantToLive1984`
+    - Administrator Password: `ComeWithMeIfYouWantToLive1984` (this is for the built-in, default administrator `admin`)
 2. Click-on "Next" twice
 3. Click-on "Confirm"
 4. Click-on "Complete Setup" 
@@ -94,6 +94,11 @@ An Organization is a set of scanners (cybersecurity tools), users (cybersecurity
     - Username: `miles.dyson.aa`
     - Password: `ComeWithMeIfYouWantToLive1984`
     - Time Zone: `UTC`
+4. Click-on "admin > Logout"
+5. Login as the new Application Administrator 
+6. Click-on "Users > Users"
+7. Click-on the gear next to the `admin` account
+8. Click-on "Delete"
 
 ### Creating a Security Analyst
 1. Click-on "Users > Users"
