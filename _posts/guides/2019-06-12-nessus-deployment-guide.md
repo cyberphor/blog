@@ -14,7 +14,7 @@ subcategory: guides
     * [Configuring Your First Security Manager](#configuring-your-first-security-manager)
     * [Creating an Application Administrator](#creating-an-application-administrator)
     * [Creating an Security Analyst](#creating-a-security-analyst)
-* [Configuring a CentOS 6.9 Virtual Machine](granting-someone-super-user-privileges-in-centos)
+* [Configuring a CentOS 6.9 Virtual Machine](#granting-someone-super-user-privileges-in-centos)
     * [Granting Someone "Super-User" Privileges in CentOS](#granting-someone-super-user-privileges-in-centos)
     * [Installing VirtualBox Guest Additions in CentOS](#installing-virtualbox-guest-additions-in-centos)
     * [Changing the Hostname in CentOS](#changing-the-hostname-in-centos)
