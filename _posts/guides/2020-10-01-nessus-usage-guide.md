@@ -75,7 +75,7 @@ Policies represent what kind of scan you want to run. For example, you may want 
 4. Extract the downloaded .xml file
 
 ### Reviewing DISA STIG Compliance According to SCAP Benchmarks
-1. Download STIG SCAP benchmarks and the DISA STIG Viewer
+1. Download DISA SCAP benchmarks and the DISA STIG Viewer
 2. Run a `SCAP and OVAL Auditing` scan
 3. Do the following using the DISG STIG Viewer
     - Import the STIG SCAP benchmark
@@ -84,5 +84,5 @@ Policies represent what kind of scan you want to run. For example, you may want 
 
 ### References
 * [Download DISA STIG Viewer](https://public.cyber.mil/stigs/stig-viewing-tools/)
-* [Download DISA STIGs](https://dl.cyber.mil/stigs)
+* [Download DISA STIGs and SCAP Benchmarks](https://dl.cyber.mil/stigs)
 * [Download LGPO](https://www.microsoft.com/en-us/download/details.aspx?id=53319)
