@@ -83,6 +83,6 @@ Policies represent what kind of scan you want to run. For example, you may want 
     - Import the XCCDF file (the scan results exported as an .xml file) 
 
 ### References
-* [Download DISA STIG Viewer](https://public.cyber.mil/stigs/stig-viewing-tools/)
 * [Download DISA STIGs and SCAP Benchmarks](https://dl.cyber.mil/stigs)
+* [Download DISA STIG Viewer](https://public.cyber.mil/stigs/stig-viewing-tools/)
 * [Download LGPO](https://www.microsoft.com/en-us/download/details.aspx?id=53319)
