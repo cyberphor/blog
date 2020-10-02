@@ -13,7 +13,8 @@ subcategory: guides
 * [Creating a Policy](#creating-a-policy)
 * [Creating an Active Scan](#creating-an-active-scan)
 * [Scheduling a Scan](#launching-a-scan)
-* [Exporting a Report](#exporting-a-report)
+* [Exporting Scan Results](#exporting-scan-results)
+* [Reviewing DISA STIG Compliance According to SCAP Benchmarks](#reviewing-disa-stig-compliance-according-to-scap-benchmarks)
 
 ### Updating Nessus
 1. Download plugins
@@ -38,7 +39,7 @@ Audit Files are baselines you want to measure a machine against.
     - Name: `Baseline: Server 2012 R2 (v2)`
     - Logon Window Caption: `Notice and Consent Banner`
     - Logon Window Text: `You are accessing a Cyberdyne Systems (CS) machine that is provided for CS-authorized use only.`
-    - NTP Server: `dc1.sky.net`
+    - NTP Server: `ntp1.sky.net`
     
 ### Creating a Policy
 Policies represent what kind of scan you want to run. For example, you may want to perform a simple "host discovery" scan or audit known-machines for compliance.
@@ -55,10 +56,11 @@ Policies represent what kind of scan you want to run. For example, you may want 
 3. Provide the following details and click-on "Submit"
     - Name: `Weekly Baseline Compliance Audit`
     - Policy: `Policy: Audit via SCAP Definitions`
-    - Import Repository: `Client-Machines-VLAN`
+    - Schedule - Frequency: `Weekly`
+    - Import Repository: `Repository-California`
     - Max scan duration (hours): `3`
     - Target Type: `IP / DNS Name`
-        - IPs / DNS Names: `192.168.3.0/24`
+        - IPs / DNS Names: `192.168.1.0/24`
     - Credentials: `Windows-Admin-for-Nessus`
     
 ### Scheduling a Scan
@@ -66,7 +68,21 @@ Policies represent what kind of scan you want to run. For example, you may want 
 2. Click-on the play-button next to the Active Scan you previously created
 3. Click-on "Scans > Scan Results" and wait for your scan to complete
 
-### Exporting a Report
+### Exporting Scan Results
 1. Click-on "Scans > Scan Results"
 2. Click-on the gear next to the scan you previously ran
-3. Click-on "Browse"
+3. Click-on "Download SCAP XML"
+4. Extract the downloaded .xml file
+
+### Reviewing DISA STIG Compliance According to SCAP Benchmarks
+1. Download STIG SCAP benchmarks and the DISA STIG Viewer
+2. Run a `SCAP and OVAL Auditing` scan
+3. Do the following using the DISG STIG Viewer
+    - Import the STIG SCAP benchmark
+    - Create a checklist
+    - Import the XCCDF file (the scan results exported as an .xml file) 
+
+### References
+* [Download DISA STIG Viewer](https://public.cyber.mil/stigs/stig-viewing-tools/)
+* [Download DISA STIGs](https://dl.cyber.mil/stigs)
+* [Download LGPO](https://www.microsoft.com/en-us/download/details.aspx?id=53319)
