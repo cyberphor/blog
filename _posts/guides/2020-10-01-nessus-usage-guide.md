@@ -14,7 +14,7 @@ subcategory: guides
 * [Creating an Active Scan](#creating-an-active-scan)
 * [Scheduling a Scan](#scheduling-a-scan)
 * [Exporting Scan Results](#exporting-scan-results)
-* [Reviewing DISA STIG & SCAP Benchmark Compliance](#reviewing-disa-stig-scap-benchmark-compliance)
+* [Reviewing DISA STIG and SCAP Benchmark Compliance](#reviewing-disa-stig-and-scap-benchmark-compliance)
 
 ### Updating Nessus
 1. Download plugins
@@ -74,7 +74,7 @@ Policies represent what kind of scan you want to run. For example, you may want 
 3. Click-on "Download SCAP XML"
 4. Extract the downloaded .xml file
 
-### Reviewing DISA STIG & SCAP Benchmark Compliance
+### Reviewing DISA STIG and SCAP Benchmark Compliance
 1. Download SCAP benchmarks and the DISA STIG Viewer
 2. Run a `SCAP and OVAL Auditing` scan
 3. Do the following using the DISG STIG Viewer:
