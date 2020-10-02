@@ -81,7 +81,8 @@ An Organization is a set of scanners (cybersecurity tools), users (cybersecurity
     - Username: `miles.dyson.sm`
     - Password: `ComeWithMeIfYouWantToLive1984`
     - Time Zone: `UTC`
-    - Administrator Password: `ComeWithMeIfYouWantToLive1984` (this is for the built-in, default administrator `admin`)
+    - Administrator Password: `ComeWithMeIfYouWantToLive1984`
+        - **NOTE:** this is for the built-in, default administrator `admin`
 2. Click-on "Next" twice
 3. Click-on "Confirm"
 4. Click-on "Complete Setup" 
