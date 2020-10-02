@@ -54,7 +54,7 @@ subcategory: guides
 ### Adding Your First Nessus Scanner
 1. Provide the following details when prompted:
     - Name: `Scanner-California-LosAngeles-T800`
-    - Description: `Designated for scanning the "User" VLAN within the city of Los Angeles, California.`
+    - Description: `Designated for the "User" VLAN within the city of Los Angeles, California.`
     - Host: `192.168.1.69`
     - Port: `8834`
     - Username: `skynet` (use the credentials you created previously)
