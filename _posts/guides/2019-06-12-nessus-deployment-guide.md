@@ -181,4 +181,4 @@ ping 8.8.8.8 # ping something beyond your gateway
 * [Army Naming Convention and Standards (Annex C)]( https://army.deps.mil/netcom/sites/resourcecenter/pages/cinamingconventions.aspx)
 * [DISA ACAS License Request Portal](https://disa.deps.mil/ext/cop/mae/netops/acas/Requests/index.aspx#/)
 * [Download CentOS 6.9](http://archive.kernel.org/centos-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-LiveDVD.iso)
-* [Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx)
+* [Download Tenable.sc & Nessus Scanner](https://patches.csd.disa.mil/CollectionInfo.aspx)
