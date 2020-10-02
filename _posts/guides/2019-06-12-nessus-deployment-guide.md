@@ -13,6 +13,7 @@ subcategory: guides
     * [Configuring Your First Organization](#configuring-your-first-organization)
     * [Configuring Your First Security Manager](#configuring-your-first-security-manager)
     * [Creating an Application Administrator](#creating-an-application-administrator)
+    * [Creating an Security Analyst](#creating-a-security-analyst)
 * [Granting Someone "Super-User" Privileges in CentOS](#granting-someone-super-user-privileges-in-centos)
 * [Installing VirtualBox Guest Additions in CentOS](#installing-virtualbox-guest-additions-in-centos)
 * [Changing the Hostname in CentOS](#changing-the-hostname-in-centos)
@@ -83,7 +84,7 @@ An Organization is a set of scanners (cybersecurity tools), users (cybersecurity
     - Administrator Password: `ComeWithMeIfYouWantToLive1984`
 2. Click-on "Next" twice
 3. Click-on "Confirm"
-4. Click-on "Complete Setup" to start [Creating an Application Administrator](#creating-an-application-administrator)
+4. Click-on "Complete Setup" 
 
 ### Creating an Application Administrator
 1. Click-on "Users > Users"
