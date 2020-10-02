@@ -8,6 +8,11 @@ subcategory: guides
 
 ### Table of Contents
 * [Deploying Tenable.sc and Nessus](#deploying-tenablesc-and-nessus)
+    * [Adding Your First Nessus Scanner](#adding-your-first-nessus-scanner)
+    * [Configuring Your First Repository](#configuring-your-first-repository)
+    * [Configuring Your First Organization](#configuring-your-first-organization)
+    * [Configuring Your First Security Manager](#configuring-your-first-security-manager)
+    * [Creating an Application Administrator](#creating-an-application-administrator)
 * [Granting Someone "Super-User" Privileges in CentOS](#granting-someone-super-user-privileges-in-centos)
 * [Installing VirtualBox Guest Additions in CentOS](#installing-virtualbox-guest-additions-in-centos)
 * [Changing the Hostname in CentOS](#changing-the-hostname-in-centos)
@@ -31,14 +36,72 @@ subcategory: guides
     sudo service nessusd start 
     ```
 5. Browse to `https://localhost:8834` to configure the Nessus Scanner
-6. Create an account on the Nessus Scanner
+    - Select "Managed Scanner" when prompted
+    - Select "Tenable.sc" when prompted
+    - Create an account when prompted
 7. Browse to the Tenable.sc web interface using `https://localhost`
-8. Upload and activate the Tenable.sc license (rename the key file so it matches the Tenable.sc server hostname; ex: `hostname.key`)
-9. Configure Tenable.sc
-    * Add a Nessus Scanner
-    * Configure a Repository
-    * Configure an Organization
-    * Configure a Security Manager
+    - Click-on "Update License > Choose File" and select your Tenable.sc license when prompted (the key filename must match the server's hostname; ex: `hostname.key`)
+    - Click-on "Activate"
+    - Click-on "Next"     
+8. Configure Tenable.sc
+    * [Adding Your First Nessus Scanner](#adding-your-first-nessus-scanner)
+    * [Configuring Your First Repository](#configuring-your-first-repository)
+    * [Configuring Your First Organization](#configuring-your-first-organization)
+    * [Configuring Your First Security Manager](#configuring-your-first-security-manager)
+    * [Creating an Application Administrator](#creating-an-application-administrator)
+    
+### Adding Your First Nessus Scanner
+1. Provide the following details when prompted:
+    - Name: `Scanner-California-LosAngeles-T800`
+    - Description: `Designated for scanning the "User" VLAN within the city of Los Angeles, California.`
+    - Host: `192.168.1.69`
+    - Port: `8834`
+    - Username: `skynet` (use the credentials you created previously)
+    - Password: `ComeWithMeIfYouWantToLive1984` (use the credentials you created previously)
+2. Click-on "Next" to start [Configuring Your First Repository](#configuring-your-first-repository)
+
+### Configuring Your First Repository
+A Repository contains all the subnets of your organization. Specifically, it is a folder with text-files that identify the individual IP addresses of the machines on your network. It also holds vulnerability data when you begin scanning. Allocate one scanner to each subnet (text-file) within your Repository (a folder containing multiple text-files). 
+1. Provide the following details when prompted:
+    - Name: `Repository-California`
+    - Description: `"User" VLANs for all cities within the state of California.`
+    - IP Ranges: `192.168.1.0/24, 192.168.2.0/24, 192.168.3.0/24`
+2. Click-on "Next" to start [Configuring Your First Organization](#configuring-your-first-organization)
+
+### Configuring Your First Organization
+An Organization is a set of scanners (cybersecurity tools), users (cybersecurity personnel), and assets (machines on your network). 
+1. Provide the following details when prompted:
+    - Name: `Cyberdyne Systems`
+    - Description: `We Are the Future`
+2. Click-on "Next" and then, "Skip" to start [Configuring Your First Security Manager](#configuring-your-first-security-manager)
+
+### Configuring Your First Security Manager
+1. Provide the following details when prompted:
+    - Username: `miles.dyson.sm`
+    - Password: `ComeWithMeIfYouWantToLive1984`
+    - Time Zone: `UTC`
+    - Administrator Password: `ComeWithMeIfYouWantToLive1984`
+2. Click-on "Next" twice
+3. Click-on "Confirm"
+4. Click-on "Complete Setup" to start [Creating an Application Administrator](#creating-an-application-administrator)
+
+### Creating an Application Administrator
+1. Click-on "Users > Users"
+2. Click-on "+ Add"
+3. Provide the following details when prompted and click-on “Submit”
+    - Role: `Administrator`
+    - Username: `miles.dyson.aa`
+    - Password: `ComeWithMeIfYouWantToLive1984`
+    - Time Zone: `UTC`
+
+### Creating a Security Analyst
+1. Click-on "Users > Users"
+2. Click-on "+ Add"
+3. Provide the following details when prompted and click-on “Submit”
+    - Role: `Security Analyst`
+    - Username: `miles.dyson.sa`
+    - Password: `ComeWithMeIfYouWantToLive1984`
+    - Time Zone: `UTC`
 
 ### Granting Someone "Super-User" Privileges in CentOS
 ```bash
