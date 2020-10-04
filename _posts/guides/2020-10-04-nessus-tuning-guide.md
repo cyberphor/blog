@@ -7,9 +7,9 @@ subcategory: guides
 ---
 
 ### Table of Contents
-* [Updating Audit Files](#updating-audit-files)
+* [Uploading Custom Audit Files](#uploading-custom-audit-files)
 
-### Updating Audit Files
+### Uploading Custom Audit Files
 Audit Files are security baselines you want to measure a machine against. 
 1. Download the .xml or .audit file from [DISA](https://public.cyber.mil/stigs/), [NVD](https://nvd.nist.gov/ncp/repository), [CIS](https://www.cisecurity.org/cis-benchmarks/), [Tenable](https://www.tenable.com/downloads/audit)
 2. Unzip the .xml or .audit file
