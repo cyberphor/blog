@@ -30,7 +30,7 @@ subcategory: guides
     - Password: `ComeWithMeIfYouWantToLive1984`
     
 ### Adding an Audit File
-Audit Files are baselines you want to measure a machine against. 
+Audit Files are the baselines you want to measure a machine against. 
 1. Click-on "Scans > Audit Files"
 2. Click-on "Add an Audit File" or "+ Add" (top-right)
 3. Select "Windows"
