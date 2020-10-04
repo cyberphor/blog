@@ -16,10 +16,6 @@ subcategory: guides
 * [Exporting Scan Results](#exporting-scan-results)
 * [Reviewing DISA STIG and SCAP Benchmark Compliance](#reviewing-disa-stig-and-scap-benchmark-compliance)
 
-### Updating Nessus
-1. Download plugins
-2. Upload plugins
-
 ### Adding Credentials
 1. Click-on "Scans > Credentials"
 2. Click-on "Add a Credential" or "+ Add" (top-right)
