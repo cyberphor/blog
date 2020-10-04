@@ -25,4 +25,5 @@ Audit Files are security baselines you want to measure a machine against.
 * [DISA STIGs Document Library](https://public.cyber.mil/stigs/)
 * [NIST National Vulnerabiltiy Database](https://nvd.nist.gov/ncp/repository)
 * [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
+* [Tenable.sc - "Add a Custom Audit File"](https://docs.tenable.com/tenablesc/Content/AddCustomAuditFile.htm)
 * [Tenable Community - "How to upload Custom STIG file in Nessus Professional"](https://community.tenable.com/s/feed/0D53a00006WYfAwCAL)
