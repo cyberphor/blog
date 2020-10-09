@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Security Onion 16: Troubleshooting'
-permalink: 'security-onion-16-troubleshooting'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/so16/troubleshooting'
 ---
 
 ## Table of Contents
