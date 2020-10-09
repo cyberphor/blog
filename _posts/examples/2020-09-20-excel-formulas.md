@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Microsoft Excel Formulas'
-permalink: 'microsoft-excel-formulas'
-category: notes
-subcategory: examples
+category: examples
+permalink: 'examples/microsoft-excel-formulas'
 ---
 
 ### Table of Contents
