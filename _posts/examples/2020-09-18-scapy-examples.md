@@ -2,8 +2,7 @@
 layout: post
 title: 'Scapy'
 permalink: 'scapy-examples'
-category: notes
-subcategory: examples
+category: examples
 ---
 
 ## Table of Contents
