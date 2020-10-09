@@ -5,7 +5,7 @@ permalink: 'about'
 ---
 
 ![cyberphor.jpg]({{ site.url}}{{ site.baseurl }}/assets/profile.jpg)
-## cyberphor
+### cyberphor
 Victor Fernandez III serves as a Chief Warrant Officer 2 in the United States Army. He is responsible for engineering active & passive network defense capabilities. He also coaches junior cybersecurity personnel on how to resist, recognize, and respond to intrusions to the Department of Defense Information Network. Victor has over 11 years of experience protecting and defending Air and Missile Defense, Cyber, and Signal units.
 
 He graduated as Summa Cum Laude from American Military University in 2018, earning a Bachelors of Science in Information Systems Security with a concentration in Digital Forensics. He holds multiple technical certifications from ISC(2), GIAC, CompTIA, EC-Council, Cisco, Microsoft, LPI, and the ETA. Victor is also a member of Infragard, “a non-profit organization serving as a public-private partnership between U.S. businesses and the Federal Bureau of Investigation (FBI).”
