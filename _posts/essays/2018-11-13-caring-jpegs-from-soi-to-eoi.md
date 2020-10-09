@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Carving JPEGs from SOI to EOI"
-category: posts
+category: essays
 subcategory: 'digital-forensics'
 permalink: 'caring-jpegs-from-soi-to-eoi'
 ---
