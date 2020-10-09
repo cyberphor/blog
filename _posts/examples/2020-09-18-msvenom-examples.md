@@ -1,15 +1,14 @@
 ---
 layout: post
 title: 'MSFvenom'
-permalink: 'msfvenom-examples'
-category: notes
-subcategory: examples
+category: examples
+permalink: 'examples/msfvenom'
 ---
 
-## Table of Contents
+### Table of Contents
 * [Reverse Shell](#reverse-shell)
 
-## Reverse Shell
+### Reverse Shell
 ```bash
 msfvenom \
  --arch x86 \
