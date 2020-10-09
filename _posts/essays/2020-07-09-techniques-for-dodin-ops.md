@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'ATP 6-02.71 Techniques for DODIN Operations'
-permalink: 'dodin-ops'
-category: notes
+title: 'ATP 6-02.71 "Techniques for DODIN Operations"'
+category: essays
+permalink: 'essays/dodin-ops'
 ---
 
-# Army Cybersecurity
+### Army Cybersecurity
 *The DOD cybersecurity framework (see DODI 8500.01) provides the foundation for cybersecurity.*
 
 The cybersecurity framework consists of—
@@ -20,7 +20,7 @@ The cybersecurity framework consists of—
 * Cybersecurity workforce
 * Mission partners
 
-## Cyberspace defense
+### Cyberspace defense
 > actions normally created within Department of Defense cyberspace for securing, operating, and defending the Department of Defense information network. Specific actions include protect, detect, characterize, counter, and mitigate (DODI 8500.01).
 
 * Protect
@@ -29,7 +29,7 @@ The cybersecurity framework consists of—
 * Counter
 * Mitigate
 
-## Cybersecurity Performance
+### Cybersecurity Performance
 > Cybersecurity personnel measure, assess, and manage systems’ performance relative to their contributions to mission outcomes and strategic goals and objectives. They collect data to support reporting and cybersecurity management across the system life cycle. 
 
 ### Cybersecurity functions
