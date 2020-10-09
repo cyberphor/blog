@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'tcprewrite'
-permalink: 'tcprewrite'
-category: 'notes'
-subcategory: 'cheat-sheets'
+category: notes
+permalink: 'notes/tcprewrite'
 ---
 
 ```bash
