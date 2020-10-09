@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 'ElastAlert'
-permalink: 'elastalert'
 category: 'notes'
+permalink: 'notes/elastalert'
 ---
 
 ## Table of Contents
