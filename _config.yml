@@ -5,6 +5,7 @@ author:
   name: Victor Fernandez III
 header_pages:
  - essays.md
+ - notes.md
  - guides.md
  - examples.md
  - demos.md
