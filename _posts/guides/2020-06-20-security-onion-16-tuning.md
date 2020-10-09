@@ -2,7 +2,7 @@
 layout: post
 title: 'Security Onion 16: Tuning'
 category: guides
-permalink: 'guides/so16/tuning'
+permalink: 'guides/security-onion/16/tuning'
 ---
 
 ## Table of Contents
