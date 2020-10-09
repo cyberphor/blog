@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Nessus: Tuning Guide'
-permalink: 'nessus-tuning-guide'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/nessus/tuning'
 ---
 
 ### Table of Contents
