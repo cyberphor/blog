@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Nessus: Deployment Guide'
-permalink: 'nessus-deployment-guide'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/nessus-deployment-guide'
 ---
 
 ### Table of Contents
