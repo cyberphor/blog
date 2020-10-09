@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'HBSS: Deployment Guide'
+title: 'McAfee ePO: Deployment Guide'
 category: guides
-permalink: 'guides/hbss-deployment-guide'
+permalink: 'guides/mcafee-ePO/deployment'
 ---
 
 ## Table of Contents
