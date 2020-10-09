@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'The Investigative Process by Chris Sanders'
-permalink: 'investigative-process-by-chris-sanders'
 category: notes
-subcategory: guides
+permalink: 'notes/investigative-process-by-chris-sanders'
 ---
 
 ## Table of Contents
