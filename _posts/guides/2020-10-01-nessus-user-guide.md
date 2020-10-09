@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Nessus: User Guide'
-permalink: 'nessus-user-guide'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/nessus/user'
 ---
 
 ### Table of Contents
