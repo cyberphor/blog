@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Windows Group Policy'
-permalink: 'windows-group-policy'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guide/windows-group-policy'
 ---
 
 ### Using Startup Scripts to Deploy Software
