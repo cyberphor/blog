@@ -1,11 +1,11 @@
 ---
 layout: post
 title: 'Incident Response: Linux'
-permalink: 'incident-response-linux'
-category: notes
+category: guides
+permalink: 'guides/incident-response/linux'
 ---
 
-## Table of Contents
+### Table of Contents
 * [Review Running Processes](#review-running-processes)
 * [Search for Abnormal Files](#search-for-abnormal-files)
 * [Check Network Usage](#check-network-usage)
@@ -14,14 +14,14 @@ category: notes
 * [Review Logs](#review-logs)
 * [Check System Performance](#check-system-performance)
 
-## Review Running Processes
+### Review Running Processes
 ```bash
 sudo ps -aux
 sudo lsof -p 123
 chkconfig --list
 ```
 
-## Search for Abnormal Files
+### Search for Abnormal Files
 ```bash
 sudo find / -uid 0 -perm -4000 -print
 sudo find / -size 10000k -print
@@ -34,7 +34,7 @@ lsof +:1
 rpm -Va | sort
 ```
 
-## Check Network Usage
+### Check Network Usage
 ```bash
 ip link | grep PROMISC
 netstat -nap
@@ -42,14 +42,14 @@ lsof -i
 arp -a
 ```
 
-## Review Scheduled Tasks
+### Review Scheduled Tasks
 ```bash
 sudo crontab -u root -l
 cat /etc/crontab
 ls /etc/cron.*
 ```
 
-## Check for Bogus Accounts
+### Check for Bogus Accounts
 ```bash
 sudo sort -nk3 -t: /etc/passwd | less
 sudo egrep ':0+:' /etc/passwd
@@ -57,7 +57,7 @@ sudo getent passwd | egrep ':0+:'
 sudo find / -nouser -print
 ```
 
-## Review Logs
+### Review Logs
 ```bash
 # entered promiscuous mode
 # logon failres
@@ -66,7 +66,7 @@ sudo find / -nouser -print
 # reboots and app restarts
 ```
 
-## Check System Performance
+### Check System Performance
 ```bash
 sudo uptime # load average
 sudo free
