@@ -9,7 +9,6 @@ header_pages:
  - guides.md
  - examples.md
  - demos.md
- - about.md
 theme: minima
 minima:
   date_format: "%Y-%m-%d"
