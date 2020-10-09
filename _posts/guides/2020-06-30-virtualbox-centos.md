@@ -1,11 +1,11 @@
 ---
 layout: post
 title: 'VirtualBox: CentOS'
-permalink: 'virtualbox-centos'
-category: notes
+category: guides
+permalink: 'guides/virtualbox-centos'
 ---
 
-## Table of Contents
+### Table of Contents
 * [Changing the hostname in CentOS](#changing-the-hostname-in-centos)
 * [Configuring 3 DHCP NICs in CentOS](#configuring-3-dhcp-nics-in-centos)
 * [Create an alias in CentOS](#create-an-alias-in-centos)
