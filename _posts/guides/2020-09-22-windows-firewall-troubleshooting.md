@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Windows Firewall: Troubleshooting'
-permalink: 'windows-firewall-troubleshooting'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/windows-firewall/troubleshooting'
 ---
 
 ### Disable All Profiles
