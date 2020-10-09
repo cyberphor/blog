@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Ethics in Handling Plain-Text Information'
-permalink: 'ethics-in-handling-plain-text-information'
 category: posts
 subcategory: 'vulnerability-management'
+permalink: 'ethics-in-handling-plain-text-information'
 ---
 
 Cipher-text information is data that was encrypted (scrambled) in ordered to prevent unauthorized subjects from accessing said data. Plain-text information is data that is not encrypted and is inherently readable by subjects with access to it. The ethical dilemma of accessing and processing someone else’s plain-text information should be grounded using four principles: (1) maximization, (2) harmlessness, (3) fairness, and (4) openness [1].
@@ -12,5 +12,5 @@ Maximization requires the needs of “the collective” be prioritized over the 
 
 Lastly, organizations should be upfront about their surveillance techniques. End-users deserve to know who, how, and when their transmissions are being scrutinized.
 
-## References
+### References
 * [Analyzing Computer Security](https://online.vitalsource.com/#/books/9781269517003/) by Charles P. & Shari Lawrence Pfleeger
