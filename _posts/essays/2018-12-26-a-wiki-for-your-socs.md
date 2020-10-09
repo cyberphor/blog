@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'A Wiki for Your SOCs'
-permalink: 'a-wiki-for-your-socs'
 category: posts
 subcategory: 'network-security-monitoring'
+permalink: 'a-wiki-for-your-socs'
 ---
 
 You are reading part one of a series I wrote called, *A Wiki for Your SOCs*. In this specific blog post, I will explain what a Security Operations Center (SOC) is and outline how to install an application called Tiki Wiki which can be used as a web portal. My intent with this series is to ultimately demonstrate how personnel assigned to a SOC can use free & open-source alternatives like Tiki Wiki to track issues, share documents, and advertise information. 
