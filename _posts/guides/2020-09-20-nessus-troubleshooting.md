@@ -1,9 +1,8 @@
 ---
 layout: post
 title: 'Nessus: Troubleshooting'
-permalink: 'nessus-troubleshooting'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/nessus/troubleshooting'
 ---
 
 ### Table of Contents
