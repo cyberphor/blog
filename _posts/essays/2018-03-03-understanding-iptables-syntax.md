@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Understanding iptables Syntax'
-permalink: 'understanding-iptables-syntax'
 category: posts
 subcategory: 'vulnerability-management'
+permalink: 'understanding-iptables-syntax'
 ---
 
 ## Table of Contents
