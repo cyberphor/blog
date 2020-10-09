@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Compiling Apache2 Source Code'
-permalink: 'compiling-apache2-source-code'
 category: posts
 subcategory: 'vulnerability-management'
+permalink: 'compiling-apache2-source-code'
 ---
 
 I spent the better part of the weekend tinkering around, trying to learn how to secure an instance of Apache (httpd) web server. I ended up learning more about how to install Apache by compiling source code as well as how to create a service on a system using “Systemd.” To start, I created a Virtual Machine running the Linux-based OS, Debian 9 (x64bit). 
