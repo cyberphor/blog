@@ -1,14 +1,14 @@
 ---
 layout: post
 title: 'Scapy'
-permalink: 'scapy-examples'
 category: examples
+permalink: 'examples/scapy'
 ---
 
-## Table of Contents
+### Table of Contents
 * [DNS Request](#dns-request)
 
-## DNS Request
+### DNS Request
 ```python
     ether = Ether()
     ether.src = '00:0a:0b:0c:0d:11'
