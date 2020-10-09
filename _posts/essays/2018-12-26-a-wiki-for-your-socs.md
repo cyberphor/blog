@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'A Wiki for Your SOCs'
-category: posts
+category: essays
 subcategory: 'network-security-monitoring'
 permalink: 'a-wiki-for-your-socs'
 ---
