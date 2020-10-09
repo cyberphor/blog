@@ -2,20 +2,11 @@
 layout: default
 ---
 
-### Essays
-* [Blog posts about cyber security](/blog/essays)
-
-### Notes
-* [Notes and cheat-sheets designed to be printed](/blog/notes)
-
-### Guides
-* [Field guides for deploying cyber security tools](/blog/guides)
-
-### Examples
-* [Example syntax for tools, plugins, and programming concepts](/blog/examples)
-
-### Demos
-* [GIFs demonstrating various tools and programming concepts](/blog/demos)
-
-### About
-* [Victor Fernandez III](/blog/about)
+| Category | Description |
+|----------|-------------|
+| [Essays](/blog/essays) | Blog posts about cyber security |
+| [Notes](/blog/notes) | Notes and cheat-sheets designed to be printed |
+| [Guides](/blog/guides) | Field guides for deploying cyber security tools |
+| [Examples](/blog/examples) | Example syntax for tools, plugins, and programming concepts |
+| [Demos](/blog/demos) | GIFs demonstrating various tools and programming concepts |
+| [About](/blog/about) | Victor Fernandez III |
