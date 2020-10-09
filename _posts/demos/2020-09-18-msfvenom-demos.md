@@ -1,13 +1,12 @@
 ---
 layout: post
 title: 'MSFvenom'
-permalink: 'msfvenom-demos'
 category: notes
-subcategory: demos
+permalink: 'demos/msfvenom'
 ---
 
-## Table of Contents
+### Table of Contents
 * [Reverse Shell](#reverse-shell)
 
-## Reverse Shell
+### Reverse Shell
 ![hackmefast.gif]({{ site.url }}{{ site.baseurl }}/assets/Hasty/hackmefast.gif)
