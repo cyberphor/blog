@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Ethics in Handling Plain-Text Information'
-category: posts
+category: essays
 subcategory: 'vulnerability-management'
 permalink: 'ethics-in-handling-plain-text-information'
 ---
