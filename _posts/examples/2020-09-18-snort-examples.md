@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Snort'
-category: guides
+category: examples
 permalink: 'examples/snort'
 ---
 
