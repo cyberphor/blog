@@ -3,7 +3,6 @@ layout: post
 title: 'ElastAlert'
 permalink: 'elastalert'
 category: 'notes'
-subcategory: 'cheat-sheets'
 ---
 
 ## Table of Contents
