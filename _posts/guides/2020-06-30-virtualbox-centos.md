@@ -2,7 +2,7 @@
 layout: post
 title: 'VirtualBox: CentOS'
 category: guides
-permalink: 'guides/virtualbox-centos'
+permalink: 'guides/virtualbox/centos'
 ---
 
 ### Table of Contents
