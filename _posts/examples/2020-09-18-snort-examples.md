@@ -1,15 +1,14 @@
 ---
 layout: post
 title: 'Snort'
-permalink: 'snort-examples'
-category: notes
-subcategory: examples
+category: guides
+permalink: 'examples/snort'
 ---
 
-## Table of Contents
+### Table of Contents
 * [ICMP](#icmp)
 
-## ICMP
+### ICMP
 ```bash
 alert icmp any any -> $HOME_NET any (msg:"ICMP traffic!"; sid:3000001;)
 ```
