@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Using RBAC to Organize a SOC Web Portal'
-permalink: 'using-rbac-to-organize-a-soc-web-portal'
 category: posts
 subcategory: 'network-security-monitoring'
+permalink: 'using-rbac-to-organize-a-soc-web-portal'
 ---
 
 ## Table of Contents
