@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Different Types of Security Incidents'
-permalink: 'different-types-of-security-incidents'
 category: posts
 subcategory: 'incident-response'
+permalink: 'different-types-of-security-incidents'
 ---
 
 Digital Forensics and Incident Response capabilities, otherwise known as DFIR, are services aimed at explaining and reducing the dynamic loss of information confidentiality, integrity, and availability. In particular, Incident Response personnel will be called upon when there is a violation to an organization’s security policy. For example, an organization may engage their Incident Response team when the following occurs: conflicts in repudiation, unauthorized surveillance activities, harassment, extortion, the trafficking of pornography, organized crime, subversion, and hoaxes [1]. 
