@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'MSFvenom'
-category: notes
+category: demos
 permalink: 'demos/msfvenom'
 ---
 
