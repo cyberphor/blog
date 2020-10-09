@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Nmap & Getting to Know Thy Enemy'
-permalink: 'nmap-getting-to-know-thy-enemy'
 category: posts
 subcategory: 'vulnerability-management'
+permalink: 'nmap-getting-to-know-thy-enemy'
 ---
 
 ![knowthyenemy]({{ site.url }}{{ site.baseurl }}/assets/theOffice.jpg)
