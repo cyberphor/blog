@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 'HBSS: Deployment Guide'
-permalink: 'hbss-deployment-guide'
-category: notes
+category: guides
+permalink: 'guides/hbss-deployment-guide'
 ---
 
 ## Table of Contents
