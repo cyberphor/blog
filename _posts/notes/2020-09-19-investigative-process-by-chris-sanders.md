@@ -5,7 +5,7 @@ category: notes
 permalink: 'notes/investigative-process-by-chris-sanders'
 ---
 
-## Table of Contents
+### Table of Contents
 - [Overview](#overview)
 - [RECAP: Methods of Transforming Data](#recap-methods-of-transforming-data)
 - [Evidence: Values of Interest and Pivoting Fields](#evidence-values-of-interest-and-pivoting-fields)
