@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Carving JPEGs from SOI to EOI"
-permalink: 'caring-jpegs-from-soi-to-eoi'
 category: posts
 subcategory: 'digital-forensics'
+permalink: 'caring-jpegs-from-soi-to-eoi'
 ---
 
 ## Table of Contents
