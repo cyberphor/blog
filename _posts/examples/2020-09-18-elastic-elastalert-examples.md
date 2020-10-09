@@ -1,24 +1,21 @@
 ---
 layout: post
 title: 'Elastic Stack: ElastAlert'
-permalink: 'elastic-elastalert-examples'
-category: notes
-subcategory: examples
+category: examples
+permalink: 'examples/elastic-stack-elastalert'
 ---
 
-## Table of Contents
+### Table of Contents
 * [Whitelist for IP Addresses](#whitelist-for-ip-addresses)
-    * [Baseline File](#baseline-file)
-    * [Configuration File](#configuration-file)
 
-## Whitelist for IP Addresses
-### Baseline File
+### Whitelist for IP Addresses
+Baseline File
 ```bash
 192.168.56.1
 192.168.56.2
 192.168.56.3
 ```
-### Configuration File
+Configuration File
 ```yaml
 # alert on any IP address not on the whitelist
 
