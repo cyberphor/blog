@@ -1,9 +1,8 @@
 ---
 layout: post
 title:  'Security Onion 16: Deployment Guide'
-permalink: 'security-onion-16-deployment-guide'
-category: notes
-subcategory: guides
+category: guides
+permalink: 'guides/security-onion/16/deployment'
 ---
 
 ## Table of Contents
