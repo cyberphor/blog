@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Creating an Incident Tracking System'
-permalink: 'creating-an-incident-tracking-system'
 category: posts
 subcategory: 'incident-response'
+permalink: 'creating-an-incident-tracking-system'
 ---
 
 ## Table of Contents
