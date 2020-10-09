@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Creating an Incident Tracking System'
-category: posts
+category: essays
 subcategory: 'incident-response'
 permalink: 'creating-an-incident-tracking-system'
 ---
