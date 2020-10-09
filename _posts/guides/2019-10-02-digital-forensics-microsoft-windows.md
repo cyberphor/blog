@@ -1,16 +1,16 @@
 ---
 layout: post
-title: 'Forensics: Microsoft Windows'
-permalink: 'forensics-microsoft-windows'
-category: notes
+title: 'Digital Forensics: Microsoft Windows'
+category: guides
+permalink: 'guides/digital-forensics/microsoft-windows'
 ---
 
-## Table of Contents
+### Table of Contents
 1. [Image RAM from a live system](#image-ram-from-a-live-system)
 2. [Check for disk encryption on a live system](#check-for-disk-encryption-on-a-live-system)
 3. [Create a quick triage image on a live system](#create-a-quick-triage-image-on-a-live-system)
 
-## Image RAM from a live system
+### Image RAM from a live system
 Using FTK Imager (launched from a USB connected to live system)
 ```bash
 1. Click-on 'File' > 'Capture Memory'
@@ -26,13 +26,13 @@ Using DumpIt (launched from a USB connected to live system)
 # image of RAM is saved w/YYYY-MM-DD-HH-MM-SS (UTC timestamp) as filename on USB
 ```
 
-## Check for disk encryption on a live system
+### Check for disk encryption on a live system
 Using Encrypted Disk Detector (launched from a USB connected to live system)
 ```bash
 edd.exe /accepteula # only checks TrueCrypt, PGP, BitLocker, SafeBoot, Checkpoint, Sophos, and Symantec; if encrypted, create a live Logical image w/FTK Imager next *
 ```
 
-## Create a quick triage image on a live system
+### Create a quick triage image on a live system
 Create a custom triage image using FTK Imager (launched from a USB connected to live system)
 ```bash
 # FTK Imager doesn’t truly mount a device, so it ignores NTFS (does things at the physical level, not through the kernel). Use Arsenal Image Mounter to access Volume Shadow Copies and other NTFS-required nuances (BitLocker).
