@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'Nessus: Practical Exercises'
-category: exercises
-permalink: 'exercises/nessus'
+title: 'Nessus: Lab'
+category: labs
+permalink: 'labs/nessus'
 ---
 
 **Hand-on Practical Exercise #1**
