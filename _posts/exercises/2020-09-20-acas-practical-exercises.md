@@ -1,9 +1,8 @@
 ---
 layout: post
-title: 'ACAS: Practical Exercises'
-permalink: 'acas-practical-exercises'
-category: notes
-subcategory: exercises
+title: 'Nessus: Practical Exercises'
+category: exercises
+permalink: 'exercises/nessus'
 ---
 
 **Hand-on Practical Exercise #1**
