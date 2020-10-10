@@ -8,6 +8,7 @@ permalink: 'examples/elastic-stack-elastalert'
 ### Table of Contents
 * [Whitelist IP Addresses](#whitelist-ip-addresses)
 * [Whitelist Ports](#whitelist-ports)
+* [Whitelist DNS Queries](#whitelist-dns-queries)
 
 ### Whitelist IP Addresses
 Baseline File
@@ -56,6 +57,35 @@ compare_key: destination_port
 ignore_null: true
 whitelist:
     - "!file /etc/elastalert/rules/_authorized_ports.txt"
+alert:
+    - debug
+```
+
+### Whitelist DNS Queries
+Baseline File
+```bash
+# this file is saved under /etc/elastalert/rules/_normal_DNS_queries.txt
+github.com
+google.com
+cyberphor.com
+```
+
+Configuration File
+```yaml
+# alert on any DNS query not on the whitelist
+
+es_host: elasticsearch
+es_host: 9200
+name: Unknown IP detected!
+index: "*:logstash-*"
+type: whitelist
+compare_key: query
+ignore_null: true
+whitelist:
+    - "!file /etc/elastalert/rules/_normal_DNS_queries.txt"
+filter:
+    - wildcard:
+        event_type: "bro_dns"
 alert:
     - debug
 ```
