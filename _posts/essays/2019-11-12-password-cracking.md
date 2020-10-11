@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Password Cracking'
-category: posts
+category: essays
 subcategory: 'vulnerability-management'
 ---
 
@@ -31,7 +31,7 @@ john --format=raw-sha512 crackme_sha512_nosalt.txt
 ## Hashes used in Windows (with no salt added)
 Open a text-editor
 ```bash
-vim nt_hash_generator.py 
+vim nt_hash_generator.py
 ```
 
 Copy & paste the code below
@@ -51,12 +51,12 @@ generate_nt_hash()
 
 Generate an NT hash
 ```bash
-python3 nt_hash_generator.py 
+python3 nt_hash_generator.py
 ```
 
 Crack the hash
 ```bash
-john --format=nt crackme_nt_nosalt.txt 
+john --format=nt crackme_nt_nosalt.txt
 ```
 
 ## Hashes used in Linux (with salt added automatically)
@@ -75,7 +75,7 @@ password	[success=1 default=ignore]	pam_unix.so obscure sha256
 password	[success=1 default=ignore]	pam_unix.so obscure md5
 ```
 
-Create an account 
+Create an account
 ```bash
 useradd victim1
 passwd victim1
@@ -104,7 +104,7 @@ password	[success=1 default=ignore]	pam_unix.so obscure md5
 password	[success=1 default=ignore]	pam_unix.so obscure sha256
 ```
 
-Create an account 
+Create an account
 ```bash
 useradd victim2
 passwd victim2

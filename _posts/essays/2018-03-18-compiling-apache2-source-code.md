@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Compiling Apache2 Source Code'
-category: posts
+category: essays
 subcategory: 'vulnerability-management'
 permalink: 'compiling-apache2-source-code'
 ---

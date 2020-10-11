@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Understanding iptables Syntax'
-category: posts
+category: essays
 subcategory: 'vulnerability-management'
 permalink: 'understanding-iptables-syntax'
 ---

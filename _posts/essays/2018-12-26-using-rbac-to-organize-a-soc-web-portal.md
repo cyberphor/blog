@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Using RBAC to Organize a SOC Web Portal'
-category: posts
+category: essays
 subcategory: 'network-security-monitoring'
 permalink: 'using-rbac-to-organize-a-soc-web-portal'
 ---
@@ -15,24 +15,24 @@ permalink: 'using-rbac-to-organize-a-soc-web-portal'
 Welcome back for part two of my three-post series called, *A Wiki for Your SOCs*. Expanding upon the previous blog post, I will now outline SOC functional areas, explain Role-Based Access Control (RBAC), and show how it can be used to organize a web portal. As before, my intent is to ultimately demonstrate how SOC personnel can use free & open-source software to track issues, share documents, and advertise information.
 
 ## SOC Functional Areas
-According to MITRE's [Ten Strategies of a World-Class Cybersecurity Operations Center](https://www.mitre.org/publications/all/ten-strategies-of-a-world-class-cybersecurity-operations-center?fbclid=IwAR1bOR4g6wbYxna52C5pfb9PbWGFfbUyNkkr0wnTtUtvlfb0X0-ygNee0YU), a SOC can be represented by three functional areas: Analysis & Response, Vulnerability Management, and Systems Lifecycle. 
+According to MITRE's [Ten Strategies of a World-Class Cybersecurity Operations Center](https://www.mitre.org/publications/all/ten-strategies-of-a-world-class-cybersecurity-operations-center?fbclid=IwAR1bOR4g6wbYxna52C5pfb9PbWGFfbUyNkkr0wnTtUtvlfb0X0-ygNee0YU), a SOC can be represented by three functional areas: Analysis & Response, Vulnerability Management, and Systems Lifecycle.
 
-![socFunctions]({{ site.url }}{{ site.baseurl }}/assets/socFunctions.jpg)
+![socFunctions]({{ site.url }}{{ site.baseurl }}/_assets/socFunctions.jpg)
 
 Each division serves to protect an organization's assets through unique, but complimentary roles. For example, an Analysis & Response Division would provide triage services, digital forensics & incident response, malware analysis, and threat intelligence. A Vulnerability Management Division would perform scans, self-assessments, and proactively hunt for threats to the enterprise. Finally, a Systems Lifecycle Division would carry out the tedious, but necessary systems, network, and sensor maintenance. They would also help engineer tools and processes for the other functional areas.  
 
 ## What is Role-Based Access Control?
-Role-Based Access Control is a technique designed to mitigate Privilege Creep and enforces the security principle of Least Privilege. Privilege Creep is when a person gains exponential access over time. Least Privilege requires a person to have the minimum amount of access in order to do their job. An administrator can implement RBAC and invoke Least Privilege by organizing users into groups and then, grant them varying degrees of access based on their role or job function. 
+Role-Based Access Control is a technique designed to mitigate Privilege Creep and enforces the security principle of Least Privilege. Privilege Creep is when a person gains exponential access over time. Least Privilege requires a person to have the minimum amount of access in order to do their job. An administrator can implement RBAC and invoke Least Privilege by organizing users into groups and then, grant them varying degrees of access based on their role or job function.
 
-Take the zoo for example. The person working at the front-desk does not have access to the gorillas in the back. At the same time, the gorilla handlers do not have access to the cash register upfront. Finally, the zoo manager, despite being ultimately responsible for everything, should only have access to his or her office. 
+Take the zoo for example. The person working at the front-desk does not have access to the gorillas in the back. At the same time, the gorilla handlers do not have access to the cash register upfront. Finally, the zoo manager, despite being ultimately responsible for everything, should only have access to his or her office.
 
-Yet, RBAC can be cumbersome if not managed properly. Therefore, I recommend using a *permissions model* typically seen in Microsoft Windows environments called [AGDLP](https://resources.infosecinstitute.com/agdlp-group-scope-active-directory-account-global-domain-local-permissions). AGDLP involves daisy-chaining access starting with the user's Account, their Global group, their Domain Local group, and finally, their Permission set (hence the acronym). 
+Yet, RBAC can be cumbersome if not managed properly. Therefore, I recommend using a *permissions model* typically seen in Microsoft Windows environments called [AGDLP](https://resources.infosecinstitute.com/agdlp-group-scope-active-directory-account-global-domain-local-permissions). AGDLP involves daisy-chaining access starting with the user's Account, their Global group, their Domain Local group, and finally, their Permission set (hence the acronym).
 
-[![agdlp]({{ site.url }}{{ site.baseurl }}/assets/agdlp.png)](https://resources.infosecinstitute.com/agdlp-group-scope-active-directory-account-global-domain-local-permissions/#gref)
+[![agdlp]({{ site.url }}{{ site.baseurl }}/_assets/agdlp.png)](https://resources.infosecinstitute.com/agdlp-group-scope-active-directory-account-global-domain-local-permissions/#gref)
 
 A Global group can be equated with the role an employee performs across the organization. Meanwhile, a Domain Local group represents the specific permissions they are allowed to exercise.  
 
-Let's take the fictional company "BlunderMuffin" as a use-case. Within BlunderMuffin's Security Operations Center, there is an employee named Jim Halpert who is responisble for Tier 2 - Incident Response. According to the AGDLP method, his access to the organization's web portal can be expressed using the following matrix. 
+Let's take the fictional company "BlunderMuffin" as a use-case. Within BlunderMuffin's Security Operations Center, there is an employee named Jim Halpert who is responisble for Tier 2 - Incident Response. According to the AGDLP method, his access to the organization's web portal can be expressed using the following matrix.
 
 <table>
   <tbody>
@@ -85,7 +85,7 @@ Let's use the Tiki Wiki application we installed in the previous blog post and p
 
 **How to Create a Group**<br>
 1. Click-on *Settings* > *Groups*
-	* Click-on the *Create group* tab 
+	* Click-on the *Create group* tab
 2. Specify the following to create a *Web administrators* group:
 	* Group: `Web administrators`
 	* Description: `Administer the web portal`
@@ -99,7 +99,7 @@ Let's use the Tiki Wiki application we installed in the previous blog post and p
 **How to Create a User Account**<br>
 1. Click-on *Settings* > *Users*
 	* Click-on the *Add a New User* tab
-2. Specify the following to create an account for *Ryan Howard*: 
+2. Specify the following to create an account for *Ryan Howard*:
 	* User: `ryan_howard`
 	* Password: `ryan_howard` (use their username as their temporary password)
 	* User must change password at next login: (check)
@@ -176,7 +176,7 @@ Using the steps for creating a group covered above, establish the following Doma
 |Forensic examiners|Tier 2 Section|365|
 
 **How to Secure Wiki Pages Using Groups**<br>
-In practice, you may find it easier to leave "being a Registered user" as the minimum requirement to access a page. Yet, there may also be scenarios where a page must be exclusive. For example, in a SOC you may only want specific personnel interacting with your Tier 2 Section page (reserved for digital forensics, incident response, and malware analysis). The steps below outline how to fulfill such a need. 
+In practice, you may find it easier to leave "being a Registered user" as the minimum requirement to access a page. Yet, there may also be scenarios where a page must be exclusive. For example, in a SOC you may only want specific personnel interacting with your Tier 2 Section page (reserved for digital forensics, incident response, and malware analysis). The steps below outline how to fulfill such a need.
 
 1. Click-on *Wiki* > *List Pages*
 2. Click-on the <font color='blue'>wrench</font> icon of the *Tier 2 Section* page
@@ -233,7 +233,7 @@ To review, we just created several pages for our SOC portal and then, locked-dow
   </tbody>
 </table>
 
-This provides a lot of security & flexibility because only accounts organized under these specific groups will inherit access to the page. If another group needed similar access, they would be configured to inherit permissions from the corresponding Domain Local group. For example, if the  SOC leaders group needed Read-only access to the Tier 2 Section page, they would be configured to inherit permissions from the Tier 2 Section Read group. 
+This provides a lot of security & flexibility because only accounts organized under these specific groups will inherit access to the page. If another group needed similar access, they would be configured to inherit permissions from the corresponding Domain Local group. For example, if the  SOC leaders group needed Read-only access to the Tier 2 Section page, they would be configured to inherit permissions from the Tier 2 Section Read group.
 
 <table>
   <tbody>
@@ -252,14 +252,14 @@ This provides a lot of security & flexibility because only accounts organized un
   </tbody>
 </table>
 
-Finally, let's (1) experiment with creating & deleting accounts en masse as well as (2) establishing a Top Navigation bar to help structure our portal. 
+Finally, let's (1) experiment with creating & deleting accounts en masse as well as (2) establishing a Top Navigation bar to help structure our portal.
 
 **How to Create a Comma Separated Value (CSV) File**<br>
-For bulk account creation, we must first draft a file ending with the `.csv` extension. 
+For bulk account creation, we must first draft a file ending with the `.csv` extension.
 ```
 sudo vim users.csv
 ```
-Then, make sure the first line of the file identifies the columns your data will be organized into. There are purposefully four columns in my example below (they correspond to the minimum fields required for creating user accounts). 
+Then, make sure the first line of the file identifies the columns your data will be organized into. There are purposefully four columns in my example below (they correspond to the minimum fields required for creating user accounts).
 ```bash
 login,password,email,default_group
 dwight_schrute,dwight_schrute,dwight_schrute@blundermuffin.net,Malware analysts
@@ -303,7 +303,7 @@ Now, for establishing a Top Navigation bar...
 4. Click-on the newly created *Top Navigation Bar* menu (to bring up *Menu Options* for it)
 5. Drag & drop a *New option* widget onto the dotted menu area
 	* Repeat this step as desired
-	* For example, I added 17 widgets total (1 for the Home page, 4 for the SOC Divisions, and 12 for the SOC Sections) 
+	* For example, I added 17 widgets total (1 for the Home page, 4 for the SOC Divisions, and 12 for the SOC Sections)
 		* Nest the Section widgets under their respective Division widgets (you may need to hover your cursor over the Division widget with the Section widget until nesting is enabled)
 6. Fill-in the *Label* and *URL* text-boxes (see below for an example)
 	* Click-on **Save Options**
@@ -337,7 +337,7 @@ Now, for establishing a Top Navigation bar...
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Web Administration Section|http://www.blundermuffin.net/<br>tiki-index.php?page=Web-Administration-Section|
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finance Section|http://www.blundermuffin.net/<br>tiki-index.php?page=Finance-Section|
 
-As a bonus, here's how to change the default Tiki Wiki logo see at the top left of your portal. 
+As a bonus, here's how to change the default Tiki Wiki logo see at the top left of your portal.
 
 **How to Customize the Logo**
 1. Click-on *File Galleries* > *Upload File*
@@ -361,7 +361,7 @@ Also, if you did not delete your default `admin` account and you need to reset i
 UPDATE users_users SET hash = md5('password') WHERE userId=1;
 ```
 
-Check-out the final [blog post](http://www.yourserver.tech) of this series to learn how the same Tiki Wiki application and portal instance can be used to create a simple Security Incident Tracking System. 
+Check-out the final [blog post](http://www.yourserver.tech) of this series to learn how the same Tiki Wiki application and portal instance can be used to create a simple Security Incident Tracking System.
 
 ### References
 * [Digital Guardian: What is a Security Operations Center (SOC)?](https://digitalguardian.com/blog/what-security-operations-center-soc)

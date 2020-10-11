@@ -9,4 +9,4 @@ permalink: 'demos/msfvenom'
 * [Reverse Shell](#reverse-shell)
 
 ### Reverse Shell
-![hackmefast.gif]({{ site.url }}{{ site.baseurl }}/assets/Hasty/hackmefast.gif)
+![hackmefast.gif]({{ site.url }}{{ site.baseurl }}/_assets/Hasty/hackmefast.gif)

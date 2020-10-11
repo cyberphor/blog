@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'The Basic Steps of a Computer Forensics Investigation'
-category: posts
+category: essays
 subcategory: 'digital-forensics'
 ---
 
