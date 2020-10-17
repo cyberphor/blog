@@ -52,7 +52,7 @@ permalink: 'guide/windows-group-policy'
     * Select “Enabled”
     * Click-on “Show…”
     * Add an similar entry below to the “Value” field for each “Event Collector:”
-        * Server=http://dc1.vanilla.sky.net:5985/wsman/SubscriptionManager/WEC,Refresh=60
+        * `Server=http://dc1.vanilla.sky.net:5985/wsman/SubscriptionManager/WEC,Refresh=60`
     * Click-on “Apply”
     * Click-on “OK”
 
