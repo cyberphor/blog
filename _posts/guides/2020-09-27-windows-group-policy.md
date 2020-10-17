@@ -6,11 +6,18 @@ permalink: 'guide/windows-group-policy'
 ---
 
 ### Table of Contents
+* [Remote Procedure Call (RPC) Service](#remote-procedure-call-rpc-service)
 * [Logging the "Sexy Six" Windows Event IDs](#logging-the-sexy-six-windows-event-ids)
 * [Windows Remote Management (WinRM)](#windows-remote-management-winrm)
 * [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
 * [Windows Event Collection (WEC)](#windows-event-collection-wec)
 * [Startup Scripts](#startup-scripts)
+
+### Remote Procedure Call (RPC) Service
+1. Computer Configuration > Windows Settings > Security Settings > System Services
+    * Right-click "Remote Procedure Call (RPC)" and select "Properties"
+    * Click-on "Define this policy setting" and select "Automatic"
+    * Click-on "Apply" and then, "OK"
 
 ### Logging the "Sexy Six" Windows Event IDs
 1. Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options 
@@ -97,9 +104,19 @@ permalink: 'guide/windows-group-policy'
     * Right-click "Windows Event Collector" and select "Properties"
     * Click-on "Define this policy setting" and select "Automatic"
     * Click-on "Apply" and then, "OK"
-2. Execute the following command sentence on every Event Collector:
-    * `wecutil.exe cs SexySixSubscription.xml`
-
+#### How to Configure an Event Collector to Subscribe to the Sexy Six Windows Event IDs
+1. Click-on "Subscriptions"
+2. If prompted with the message below, select "Yes"
+    * `To work with subscriptions, the Windows Event Collector Service must be running and configured. Do you want to start the service and/or configure it to automatically start when the the computer is restarted?`
+3. Click-on "Create Subscription..."
+4. Specify the following and click-on "OK"
+    * Subscription name: `Forwarded Events`
+    * Subscription type: `Source computer initiated`
+    * Source computers: `Domain Computers`
+    * Events to Collect
+        * By log - Event logs: `Application, Security, System`
+        * Event IDs: `4688,4624,5140,4663,4657,5156`
+    
 ### Startup Scripts
 1. Open the "Group Policy Management" snap-in
 2. Right-click "Group Policy Objects" and select "New"
