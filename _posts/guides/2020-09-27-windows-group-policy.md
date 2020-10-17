@@ -6,8 +6,8 @@ permalink: 'guide/windows-group-policy'
 ---
 
 ### Table of Contents
-* [Windows Remote Management (WinRM)](#windows-remote-management-winrm)
 * [Logging the "Sexy Six" Windows Event IDs](#logging-the-sexy-six-windows-event-ids)
+* [Windows Remote Management (WinRM)](#windows-remote-management-winrm)
 * [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
 * [Windows Event Collection (WEC)](#windows-event-collection-wec)
 * [Startup Scripts](#startup-scripts)
