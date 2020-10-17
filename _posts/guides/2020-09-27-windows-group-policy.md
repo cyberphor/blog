@@ -7,6 +7,7 @@ permalink: 'guide/windows-group-policy'
 
 ### Table of Contents
 * [Windows Remote Management](#windows-remote-management)
+* [Windows Event Forwarding](#windows-event-forwarding)
 * [Startup Scripts](#startup-scripts)
 
 ### Windows Remote Management
@@ -42,6 +43,16 @@ permalink: 'guide/windows-group-policy'
     * Right-click on “Windows Defender Firewall: Allow inbound remote administration exception” and select “Edit”
     * Select “Enabled”
     * Type an asterisk (“*”) into the IPv4 field
+    * Click-on “Apply”
+    * Click-on “OK”
+
+### Windows Event Forwardning
+1. Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
+    * Right-click “Configure target Subscription Manager” and select “Edit”
+    * Select “Enabled”
+    * Click-on “Show…”
+    * Add an similar entry below to the “Value” field for each “Event Collector:”
+        * Server=http://dc1.vanilla.sky.net:5985/wsman/SubscriptionManager/WEC,Refresh=60
     * Click-on “Apply”
     * Click-on “OK”
 
