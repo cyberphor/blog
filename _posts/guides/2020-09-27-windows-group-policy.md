@@ -6,25 +6,25 @@ permalink: 'guide/windows-group-policy'
 ---
 
 ### Table of Contents
-* [Windows Remote Management](#windows-remote-management)
-* [Windows Event Forwarding](#windows-event-forwarding)
+* [Windows Remote Management (WinRM)](#windows-remote-management-winrm)
+* [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
+* [Windows Event Collection (WEC)](#windows-event-collection-wec)
 * [Startup Scripts](#startup-scripts)
 
-### Windows Remote Management
+### Windows Remote Management (WinRM)
 **TLDR**  
-1. Configure the WinRM service so it starts automatically
+1. Configure the WinRM service to start automatically
 2. Configure the WinRM service to listen for HTTP requests on all available NICs
 3. Configure Windows Firewall with Advanced Security to allow inbound connections to the WinRM service
 4. Configure Windows Defender to allow remote administration 
+5. Link the "WinRM" Group Policy Object to the domain
 
-**Procedures**
-1. Computer Configuration > Preferences > Control Panel Settings > Services
-    * Right-click on “Service” and select “New > Service”
-    * Select “Automatic” for the “Startup” option
-    * Select “WinRM” as the “Service name”
-    * Select “Start service” as the “Service action”
-    * Click-on “Apply”
-    * Click-on “OK”
+**Procedures**  
+*Configuring the "WinRM" Group Policy Object*  
+1. Computer Configuration > Windows Settings > Security Settings > System Services
+    * Right-click "Windows Remote Management" and select "Properties"
+    * Click-on "Define this policy setting" and select "Automatic"
+    * Click-on "Apply" and then, "OK"    
 2. Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Remote Management (WinRM) > WinRM Service
     * Right-click on “Allow remote server management through WinRM” and select “Edit”
     * Select “Enabled”
@@ -46,15 +46,42 @@ permalink: 'guide/windows-group-policy'
     * Click-on “Apply”
     * Click-on “OK”
 
-### Windows Event Forwarding
+### Windows Event Forwarding (WEF)
+**TLDR**  
+1. Configure [Windows Remote Management](#windows-remote-management-winrm)
+2. Configure clients to forward events to your Event Collectors
+3. Authorize the Network Service (SID: `S-1-5-20`) access to logs you wanted collected (ex: Security Logs)
+4. Link the "WEF" Group Policy Object to the domain
+
+**Procedures**  
+*Configuring the "WEF" Group Policy Object*  
 1. Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
     * Right-click “Configure target Subscription Manager” and select “Edit”
     * Select “Enabled”
     * Click-on “Show…”
-    * Add an similar entry below to the “Value” field for each “Event Collector:”
+    * Add an entry like below to the “Value” field for each “Event Collector”:
         * `Server=http://dc1.vanilla.sky.net:5985/wsman/SubscriptionManager/WEC,Refresh=60`
     * Click-on “Apply”
     * Click-on “OK”
+2. Computer Configuration > Polices > Administrative Templates > Windows Components > Event Log Service > Security
+    * Right-click "Configure log access" and select "Edit"
+    * Select "Enabled"
+    * Add an entry like below to the "Log Access" field:
+        * `O:BAG:SYD:(A;;0xf0007;;;SY)(A;;0x7;;;BA)(A;;0x1;;;BO)(A;;0x1;;;SO)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;S-1-5-20)`
+
+### Windows Event Collection (WEC)
+**TLDR**  
+1. Configure [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
+2. Configure the WEC service to start automatically
+3. Configure Event Collectors to subscribe to the logs you wanted collected (ex: Security Logs)
+4. Link the "WEC" Group Policy Object to your Event Collectors
+
+**Procedures**  
+*Configuring the "WEC" Group Policy Object*  
+1. Computer Configuration > Windows Settings > Security Settings > System Services
+    * Right-click "Windows Event Collector" and select "Properties"
+    * Click-on "Define this policy setting" and select "Automatic"
+    * Click-on "Apply" and then, "OK"
 
 ### Startup Scripts
 1. Open the "Group Policy Management" snap-in
@@ -71,3 +98,6 @@ permalink: 'guide/windows-group-policy'
 12. Specify any script parameters and then, click-on "OK"
   * Don't forget to link your existing GPO to the relevant OU
   * Run `gpupdate /force; shutdown /r /t 000` when testing your startup script
+
+### References
+* [How To Set Up Windows Event Log Forwarding In Windows Server 2016](https://adamtheautomator.com/windows-event-log-forwarding/#Allowing_the_Network_Service_to_Read_Event_Logs)
