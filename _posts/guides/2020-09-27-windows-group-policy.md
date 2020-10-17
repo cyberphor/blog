@@ -113,7 +113,8 @@ permalink: 'guide/windows-group-policy'
     * Subscription name: `Forwarded Events`
     * Subscription type: `Source computer initiated`
     * Source computers: `Domain Computers`
-    * Events to Collect
+    * Events to Collect:
+        * Event level: `Critical, Warning, Verbose, Error, Information`
         * By log - Event logs: `Application, Security, System`
         * Event IDs: `4688,4624,5140,4663,4657,5156`
     
