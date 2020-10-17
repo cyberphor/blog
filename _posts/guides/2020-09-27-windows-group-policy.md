@@ -65,7 +65,7 @@ permalink: 'guide/windows-group-policy'
 ### Windows Event Forwarding (WEF)
 #### TLDR 
 1. Configure [Windows Remote Management](#windows-remote-management-winrm)
-2. Configure clients to log the [Sexy Six Event IDs](#logging-the-sexy-six-windows-event-ids)
+2. Configure clients to log the [Sexy Six Windows Event IDs](#logging-the-sexy-six-windows-event-ids)
 2. Configure clients to forward events to your Event Collectors
 3. Authorize the Network Service (SID: `S-1-5-20`) access to logs you wanted collected (ex: Security Logs)
 4. Link the "WEF" Group Policy Object to the domain
@@ -89,7 +89,7 @@ permalink: 'guide/windows-group-policy'
 #### TLDR 
 1. Configure [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
 2. Configure the WEC service to start automatically
-3. Configure Event Collectors to subscribe to the logs you wanted collected (ex: Security Logs)
+3. Configure Event Collectors to subscribe to the Sexy Six Windows Event IDs
 4. Link the "WEC" Group Policy Object to your Event Collectors
 
 #### How to Configure a Group Policy Object for "WEC"  
@@ -97,6 +97,8 @@ permalink: 'guide/windows-group-policy'
     * Right-click "Windows Event Collector" and select "Properties"
     * Click-on "Define this policy setting" and select "Automatic"
     * Click-on "Apply" and then, "OK"
+2. Execute the following command sentence on every Event Collector:
+    * `wecutil.exe cs SexySixSubscription.xml`
 
 ### Startup Scripts
 1. Open the "Group Policy Management" snap-in
@@ -117,5 +119,5 @@ permalink: 'guide/windows-group-policy'
 ### References
 * [How To Set Up Windows Event Log Forwarding In Windows Server 2016](https://adamtheautomator.com/windows-event-log-forwarding/#Allowing_the_Network_Service_to_Read_Event_Logs)
 * [Use Windows Event Forwarding to help with intrusion detection](https://docs.microsoft.com/en-us/windows/security/threat-protection/use-windows-event-forwarding-to-assist-in-intrusion-detection)
-* https://www.slideshare.net/Hackerhurricane/ask-aalware-archaeologist
+* [Ask a Malware Archaeologist](https://www.slideshare.net/Hackerhurricane/ask-aalware-archaeologist)
 * [Implement Auditing Using Group Policy and AuditPol.exe](https://www.rootusers.com/implement-auditing-using-group-policy-and-auditpol-exe/)
