@@ -7,20 +7,36 @@ permalink: 'guide/windows-group-policy'
 
 ### Table of Contents
 * [Windows Remote Management (WinRM)](#windows-remote-management-winrm)
+* [Logging the "Sexy Six" Windows Event IDs](#logging-the-sexy-six-windows-event-ids)
 * [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
 * [Windows Event Collection (WEC)](#windows-event-collection-wec)
 * [Startup Scripts](#startup-scripts)
 
+### Logging the "Sexy Six" Windows Event IDs
+1. Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options 
+    * Right-click "Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings"
+    * Select "Properties"
+    * Select "Define this policy setting:" and "Enabled"
+    * Click-on "Apply" and then, "OK"
+2. Computer Configuration > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies
+    * Expand these categories and select "Configure the following audit events:" and "Success"
+        * Detailed Tracking > Audit Process Creation
+        * Object Access > Audit File Share
+        * Object Access > Audit File System
+        * Object Access > Audit Registry
+        * Object Access > Audit Filtering Platform Connection
+    * Expand these categories and select "Configure the following audit events:", "Success", and "Failure"
+        * Logon/Logoff > Audit Logon
+
 ### Windows Remote Management (WinRM)
-**TLDR**  
+#### TLDR
 1. Configure the WinRM service to start automatically
 2. Configure the WinRM service to listen for HTTP requests on all available NICs
 3. Configure Windows Firewall with Advanced Security to allow inbound connections to the WinRM service
 4. Configure Windows Defender to allow remote administration 
 5. Link the "WinRM" Group Policy Object to the domain
 
-**Procedures**  
-*Configuring the "WinRM" Group Policy Object*  
+#### How to Configure a Group Policy Object for "WinRM"
 1. Computer Configuration > Windows Settings > Security Settings > System Services
     * Right-click "Windows Remote Management" and select "Properties"
     * Click-on "Define this policy setting" and select "Automatic"
@@ -47,14 +63,14 @@ permalink: 'guide/windows-group-policy'
     * Click-on “OK”
 
 ### Windows Event Forwarding (WEF)
-**TLDR**  
+#### TLDR 
 1. Configure [Windows Remote Management](#windows-remote-management-winrm)
+2. Configure clients to log the [Sexy Six Event IDs](#logging-the-sexy-six-windows-event-ids)
 2. Configure clients to forward events to your Event Collectors
 3. Authorize the Network Service (SID: `S-1-5-20`) access to logs you wanted collected (ex: Security Logs)
 4. Link the "WEF" Group Policy Object to the domain
 
-**Procedures**  
-*Configuring the "WEF" Group Policy Object*  
+#### How to Configure a Group Policy Object for "WEF" 
 1. Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
     * Right-click “Configure target Subscription Manager” and select “Edit”
     * Select “Enabled”
@@ -70,14 +86,13 @@ permalink: 'guide/windows-group-policy'
         * `O:BAG:SYD:(A;;0xf0007;;;SY)(A;;0x7;;;BA)(A;;0x1;;;BO)(A;;0x1;;;SO)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;S-1-5-20)`
 
 ### Windows Event Collection (WEC)
-**TLDR**  
+#### TLDR 
 1. Configure [Windows Event Forwarding (WEF)](#windows-event-forwarding-wef)
 2. Configure the WEC service to start automatically
 3. Configure Event Collectors to subscribe to the logs you wanted collected (ex: Security Logs)
 4. Link the "WEC" Group Policy Object to your Event Collectors
 
-**Procedures**  
-*Configuring the "WEC" Group Policy Object*  
+#### How to Configure a Group Policy Object for "WEC"  
 1. Computer Configuration > Windows Settings > Security Settings > System Services
     * Right-click "Windows Event Collector" and select "Properties"
     * Click-on "Define this policy setting" and select "Automatic"
@@ -101,3 +116,6 @@ permalink: 'guide/windows-group-policy'
 
 ### References
 * [How To Set Up Windows Event Log Forwarding In Windows Server 2016](https://adamtheautomator.com/windows-event-log-forwarding/#Allowing_the_Network_Service_to_Read_Event_Logs)
+* [Use Windows Event Forwarding to help with intrusion detection](https://docs.microsoft.com/en-us/windows/security/threat-protection/use-windows-event-forwarding-to-assist-in-intrusion-detection)
+* https://www.slideshare.net/Hackerhurricane/ask-aalware-archaeologist
+* [Implement Auditing Using Group Policy and AuditPol.exe](https://www.rootusers.com/implement-auditing-using-group-policy-and-auditpol-exe/)
