@@ -46,7 +46,7 @@ permalink: 'guide/windows-group-policy'
     * Click-on “Apply”
     * Click-on “OK”
 
-### Windows Event Forwardning
+### Windows Event Forwarding
 1. Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
     * Right-click “Configure target Subscription Manager” and select “Edit”
     * Select “Enabled”
