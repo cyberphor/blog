@@ -17,12 +17,6 @@ permalink: 'guides/security-onion/16/deployment'
 * [Configuring a Heavy Node](#configuring-a-heavy-node)
   * [Ingesting Microsoft Windows events](#ingesting-microsoft-windows-events)
   * [Ingesting Syslog events](#ingesting-syslog-events)
-* [Configuring WEF](#configuring-wef)
-  * [Enabling WinRM via Group Policy](#enabling-winrm-via-group-policy)
-  * [Enabling WEF via Group Policy](#enabling-wef-via-group-policy)
-  * [Deploying Sysmon via Group Policy](#deploying-sysmon-via-group-policy)
-  * [Deploying Winlogbeat via Group Policy](#deploying-winlogbeat-via-group-policy)
-* [Configuring Syslog Forwarding](#configuring-syslog-forwarding)
 * [Download links](#download-links)
 
 ## Overview
@@ -248,113 +242,6 @@ sudo so-allow
 # enter the IP address of the Event Collector; ex: '10.10.10.99'
 # press 'Enter' when prompted
 ```
-
-## Configuring WEF
-### Enabling WinRM via Group Policy
-1. Create a GPO so the WinRM service listens for HTTP requests on all available NICs
-    * Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Remote Management (WinRM) > WinRM Service
-        * Right-click on “Allow remote server management through WinRM” and select “Edit”
-        * Select “Enabled”
-        * Type an asterisk (*) into the “IPv4 filter” field
-        * Click-on “Apply”
-        * Click-on “OK”
-2. Configure the same GPO to auto-start the WinRM service
-    * Computer Configuration > Preferences > Control Panel Settings > Services
-        * Right-click on “Service” and select “New > Service”
-        * Select “Automatic” for the “Startup” option
-        * Select “WinRM” as the “Service name”
-        * Select “Start service” as the “Service action”
-        * Click-on “Apply”
-        * Click-on “OK”
-3. Configure the same GPO to allow inbound connections to the WinRM service
-    * Computer Configuration > Policies > Windows Settings > Security Settings > Windows Firewall with Advanced Security > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security
-        * Right-click-on “Inbound Rules” and select “New Rule”
-        * Select “Predefined” and then, “Windows Remote Management”
-        * Click-on “Next”
-        * Remove the check from the “Public” profile
-        * Click-on “Next”
-        * Select “Allow the connection”
-        * Click-on “Finish”
-    * Computer Configuration > Policies > Administrative Templates > Network > Network Connections > Windows Defender Firewall > Domain Profile
-        * Right-click on “Windows Defender Firewall: Allow inbound remote administration exception” and select “Edit”
-        * Select “Enabled”
-        * Type an asterisk (“*”) into the IPv4 field
-        * Click-on “Apply”
-        * Click-on “OK”
-4. Link the same GPO to the domain
-
-
-### Enabling WEF via Group Policy
-1. Download “Sysmon” (see "Download Links")
-2. Download a “Sysmon” install script (see “Download Links”)
-3. Download a “Sysmon” configuration file (see "Download Links")
-    * NOTE: if using the install script listed under “Download Links,” make sure the “Sysmon” configuration file is renamed to “SysmonConfig.xml”
-4. Create a GPO called “Deploy-Sysmon,” but do not configure any settings yet
-5. Use “File Explorer” to navigate to the following path on your Domain Controller:
-    * C:\Windows\SYSVOL\sysvol\<your_domain_name>\Policies\<guid_of_deploy_sysmon_gpo>\Machine\Scripts\Startup\
-6. Copy the items listed below to the folder mentioned above:
-    * Eula.txt
-    * Sysmon.exe
-    * Sysmon64.exe
-    * Install-Sysmon.ps1
-    * SysmonConfig.xml
-7. Now, configure the “Deploy-Sysmon” GPO to require the install script to be executed at “Startup”
-    * Computer Configuration > Policies > Windows Settings > Scripts
-        * Right-click “Startup” and select “Properties”
-        * Click-on the “PowerShell Scripts” tab
-        * Click-on “Add…”
-        * Click-on “Browse”
-        * Select the install script previously copied
-        * Click-on “OK”
-        * Click-on “Apply”
-        * Click-on “OK”
-8. Link the “Deploy-Sysmon” GPO to the domain
-9. Reboot target machines
-
-### Deploying Sysmon via Group Policy
-1. Create a GPO to enable “WinRM” and link it to the domain (see above)
-2. Create a “Enable-WEF” GPO so clients send events to designated “Event Collectors”
-    * Computer Configuration > Policies > Administrative Templates > Windows Components > Event Forwarding
-        * Right-click “Configure target Subscription Manager” and select “Edit”
-        * Select “Enabled”
-        * Click-on “Show…”
-        * Add an similar entry below to the “Value” field for each “Event Collector:”
-            * Server=http://<event_collector_fqdn>:5985/wsman/SubscriptionManager/WEC,Refresh=60
-        * Click-on “Apply”
-        * Click-on “OK”
-3. Link the “Enable-WEF” GPO to the domain
-4. Create a Security Group called “Event Collectors”
-    * Add servers designated for this role to this Security Group 
-5. Create a GPO called “Deploy-EventCollectors,” but do not configure any settings yet
-6. Use “File Explorer” to navigate to the following path on your Domain Controller:
-    * C:\Windows\SYSVOL\sysvol\<your_domain_name>\Policies\<guid_of_deploy_event_collectors_gpo>\Machine\Scripts\Startup\
-7. Copy the items listed below to the folder mentioned above:
-    * Configure-EventCollector.ps1
-    * EventSubscription-Sysmon.xml
-8. Now, configure the “Deploy-EventCollectors” GPO to require the install script to be executed at “Startup”
-    * Computer Configuration > Policies > Windows Settings > Scripts
-        * Right-click “Startup” and select “Properties”
-        * Click-on the “PowerShell Scripts” tab
-        * Click-on “Add…”
-        * Click-on “Browse”
-        * Select the install script previously copied
-        * Click-on “OK”
-        * Click-on “Apply”
-        * Click-on “OK”
-9. Configure the “Deploy-EventCollectors” GPO so it is only applied to the “Event Collectors” Security Group
-    * Click-on “Add” under the “Security Filtering” settings
-    * Browse for and select the “Event Collectors” Security Group
-    * Click-on “OK”
-    * Highlight “Authenticated Users” and click-on “Remove”
-10. Link the “Deploy-EventCollectors” GPO to the domain
-
-### Deploying Winlogbeat via Group Policy
-1. Download Winlogbeat (see "Download Links") 
-2. Modify YAML file
-3. Install Winlogbeat using PowerShell
-    * NOTE: only install Winlogbeat on the “Event Collector” 
-4. Configure the “Winlogbeat” service to auto-start
-5. Manually start the “Winlogbeat” service if it’s not started already
 
 ## Configuring Syslog Forwarding
 ```bash
