@@ -5,7 +5,47 @@ category: guides
 permalink: 'guide/windows-group-policy'
 ---
 
-### Using Startup Scripts to Deploy Software
+### Table of Contents
+* [Windows Remote Management](#windows-remote-management)
+* [Startup Scripts](#startup-scripts)
+
+### Windows Remote Management
+**TLDR**  
+1. Configure the WinRM service so it starts automatically
+2. Configure the WinRM service to listen for HTTP requests on all available NICs
+3. Configure Windows Firewall with Advanced Security to allow inbound connections to the WinRM service
+4. Configure Windows Defender to allow remote administration 
+
+**Procedures**
+1. Computer Configuration > Preferences > Control Panel Settings > Services
+    * Right-click on “Service” and select “New > Service”
+    * Select “Automatic” for the “Startup” option
+    * Select “WinRM” as the “Service name”
+    * Select “Start service” as the “Service action”
+    * Click-on “Apply”
+    * Click-on “OK”
+2. Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Remote Management (WinRM) > WinRM Service
+    * Right-click on “Allow remote server management through WinRM” and select “Edit”
+    * Select “Enabled”
+    * Type an asterisk (*) into the “IPv4 filter” field
+    * Click-on “Apply”
+    * Click-on “OK”
+3. Computer Configuration > Policies > Windows Settings > Security Settings > Windows Firewall with Advanced Security > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security
+    * Right-click-on “Inbound Rules” and select “New Rule”
+    * Select “Predefined” and then, “Windows Remote Management”
+    * Click-on “Next”
+    * Remove the check from the “Public” profile
+    * Click-on “Next”
+    * Select “Allow the connection”
+    * Click-on “Finish”
+4. Computer Configuration > Policies > Administrative Templates > Network > Network Connections > Windows Defender Firewall > Domain Profile
+    * Right-click on “Windows Defender Firewall: Allow inbound remote administration exception” and select “Edit”
+    * Select “Enabled”
+    * Type an asterisk (“*”) into the IPv4 field
+    * Click-on “Apply”
+    * Click-on “OK”
+
+### Startup Scripts
 1. Open the "Group Policy Management" snap-in
 2. Right-click "Group Policy Objects" and select "New"
 3. Name your GPO when prompted
