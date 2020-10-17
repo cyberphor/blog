@@ -104,6 +104,7 @@ permalink: 'guide/windows-group-policy'
     * Right-click "Windows Event Collector" and select "Properties"
     * Click-on "Define this policy setting" and select "Automatic"
     * Click-on "Apply" and then, "OK"
+
 #### How to Configure an Event Collector to Subscribe to the Sexy Six Windows Event IDs
 1. Click-on "Subscriptions"
 2. If prompted with the message below, select "Yes"
