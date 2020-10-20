@@ -19,4 +19,4 @@ permalink: 'notes'
 </ul>
 
 <h3><img src="{{ site.baseurl }}/_assets/notes.png"> Print-Friendly Notes</h3>
-* [Windows Group Policy]({{ site.url }}{{ site.baseurl }}/notes/notes-group-policy.pdf)
+* [Windows Group Policy]({{ site.baseurl }}/_assets/notes-group-policy.pdf)
