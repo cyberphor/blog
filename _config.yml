@@ -3,6 +3,7 @@ author: cyberphor
 include:
   - _assets
   - _navigation
+  - notes
 header_pages:
   - _navigation/essays.md
   - _navigation/guides.md
