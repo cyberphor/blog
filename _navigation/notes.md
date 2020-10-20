@@ -17,3 +17,6 @@ permalink: 'notes'
     {% endif %}
   {% endfor %}
 </ul>
+
+<h3><img src="{{ site.baseurl }}/_assets/notes.png"> Print-Friendly Notes</h3>
+* [Windows Group Policy]({{ site.url }}{{ site.baseurl }}/notes/notes-group-policy.pdf)
