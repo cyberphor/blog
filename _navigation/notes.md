@@ -19,4 +19,7 @@ permalink: 'notes'
 </ul>
 
 <h3><img src="{{ site.baseurl }}/_assets/notes.png"> Print-Friendly Notes</h3>
-* [Windows Group Policy]({{ site.baseurl }}/_assets/notes-group-policy.pdf)
+* [The Investigative Process by Chris Sanders]({{ site.baseurl }}/notes/investigative-process.pdf)
+* [Nessus]({{ site.baseurl }}/notes/nessus.pdf)
+* [Nmap]({{ site.baseurl }}/notes/nmap.pdf)
+* [Windows Group Policy]({{ site.baseurl }}/notes/group-policy.pdf)
