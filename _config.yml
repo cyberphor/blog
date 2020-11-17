@@ -5,11 +5,8 @@ include:
   - _navigation
   - notes
 header_pages:
-  - _navigation/essays.md
-  - _navigation/guides.md
-  - _navigation/notes.md
-  - _navigation/examples.md
-  - _navigation/demos.md
+- _navigation/blog.md
+- _navigation/guides.md
 theme: minima
 minima:
   social_links:
