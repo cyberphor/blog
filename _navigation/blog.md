@@ -1,7 +1,7 @@
 ---
 layout: default
-title: 'Essays'
-permalink: 'essays'
+title: 'Blog'
+permalink: 'blog'
 ---
 
 <h3><img src="{{ site.baseurl }}/_assets/pt.png"> Vulnerability Management</h3>
