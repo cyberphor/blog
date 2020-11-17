@@ -2,11 +2,46 @@
 layout: default
 ---
 
-| Category | Description |
-|----------|-------------|
-| [Essays]({{ site.url }}{{ site.baseurl }}/essays) | Blog entries about cyber security. |
-| [Notes]({{ site.url }}{{ site.baseurl }}/notes) | Notes and cheat-sheets designed to be printed. |
-| [Guides]({{ site.url }}{{ site.baseurl }}/guides) | Field guides for deploying cyber security tools. |
-| [Examples]({{ site.url }}{{ site.baseurl }}/examples) | Example syntax for tools, plugins, and programming concepts. |
-| [Demos]({{ site.url }}{{ site.baseurl }}/demos) | Various demonstrations in GIF format. |
-| [About]({{ site.url }}{{ site.baseurl }}/about) | Victor Fernandez III |
+<h3><img src="{{ site.baseurl }}/_assets/pt.png"> Vulnerability Management</h3>
+  <ul class="posts-list">
+    {% for post in site.posts %}
+      {% if post.category == 'essays' %}
+        {% if post.subcategory == 'vulnerability-management' %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+<h3><img src="{{ site.baseurl }}/_assets/nsm.png"> Network Security Monitoring</h3>
+  <ul class="posts-list">
+    {% for post in site.posts %}
+      {% if post.category == 'essays' %}
+        {% if post.subcategory == 'network-security-monitoring' %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+<h3><img src="{{ site.baseurl }}/_assets/df.png"> Digital Forensics</h3>
+  <ul class="posts-list">
+    {% for post in site.posts %}
+      {% if post.category == 'essays' %}
+        {% if post.subcategory == 'digital-forensics' %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+<h3><img src="{{ site.baseurl }}/_assets/ir.png"> Incident Response</h3>
+  <ul class="posts-list">
+    {% for post in site.posts %}
+      {% if post.category == 'essays' %}
+        {% if post.subcategory == 'incident-response' %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
