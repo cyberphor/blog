@@ -1,5 +1,6 @@
 title: 'Blue Team Victor'
 author: 'Victor Fernandez III'
+description: 'My blog about tactical cybersecurity operations.'
 include:
   - _assets
   - _navigation
