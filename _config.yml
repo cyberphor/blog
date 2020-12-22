@@ -1,5 +1,5 @@
-title: 'Victor Fernandez III'
-author: cyberphor
+title: 'Blue Team Victor'
+author: 'Victor Fernandez III'
 include:
   - _assets
   - _navigation
@@ -13,4 +13,5 @@ minima:
     linkedin: vicfernandeziii
     github: cyberphor
     twitter: cyberphor
+    
 # https://dev.to/charalambosioannou/create-a-static-webpage-with-a-contact-form-on-github-pages-3532
