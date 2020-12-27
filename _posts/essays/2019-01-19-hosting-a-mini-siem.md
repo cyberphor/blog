@@ -15,23 +15,23 @@ Therefore, this tutorial has three primary objectives: (1) get an ELK stack runn
 ## Table of Contents
 * Software Requirements
 * Objective #1: Get an ELK Stack Running on a Raspberry Pi
-  1. [How to Install and Configure Elasticsearch](#get-an-elk-stack-running-on-a-raspberry-pi)
-  2. [How to Install and Configure Logstash](#how-to-install-and-configure-logstash)
-  3. [How to Install and Configure Kibana](#how-to-install-and-configure-kibana)
+  * [How to Install and Configure Elasticsearch](#get-an-elk-stack-running-on-a-raspberry-pi)
+  * [How to Install and Configure Logstash](#how-to-install-and-configure-logstash)
+  * [How to Install and Configure Kibana](#how-to-install-and-configure-kibana)
 * Objective #2: Develop Universal Plugins to Support a Broad Range of Security Tools
-  1. [How to Configure Rsyslog](#how-to-configure-rsyslog)
+  * [How to Configure Rsyslog](#how-to-configure-rsyslog)
     * [How to Install and Configure SNORT](#develop-universal-plugins-to-support-a-broad-range-of-security-tools)
-  2. [How to Write Logstash Input Plugins](#how-to-write-logstash-input-plugins)
-  3. [How to Write Logstash Filter Plugins](#how-to-write-logstash-filter-plugins)
-    *  [Grok Patterns](#grok-patterns)
-  4. [How to Write Logstash Output Plugins](#how-to-write-logstash-output-plugins)
-  5. Supporting Other Security Tools
+  * [How to Write Logstash Input Plugins](#how-to-write-logstash-input-plugins)
+  * [How to Write Logstash Filter Plugins](#how-to-write-logstash-filter-plugins)
+    * [Grok Patterns](#grok-patterns)
+  * [How to Write Logstash Output Plugins](#how-to-write-logstash-output-plugins)
+  * Supporting Other Security Tools
     * [Adding fail2ban](#supporting-other-security-tools)
     * [Adding ModSecurity](#adding-modsecurity)
 * Objective #3: Design a Dashboard for Basic Security Analysis
-  1. [How to Create an Index Pattern](#design-a-dashboard-for-basic-security-analysis)
-  2. [How to Create a Visualization](#how-to-create-a-visualization)
-  3. [How to Create a Dashboard](#how-to-create-a-dashboard)
+  * [How to Create an Index Pattern](#design-a-dashboard-for-basic-security-analysis)
+  * [How to Create a Visualization](#how-to-create-a-visualization)
+  * [How to Create a Dashboard](#how-to-create-a-dashboard)
 
 ## Software Requirements
 I was previously successful in completing this project using Raspbian Stretch 9.8, Linux kernel 4.14.98-v7+, Open Java Development Kit (OpenJDK) version 1.8.0\_181, and Elastic Stack (a.k.a ELK stack) version 6.5.4. Please ensure you have at least these software versions prior to beginning. Commands for checking and installing the required versions are below.
@@ -387,7 +387,7 @@ Therefore, to completely parse our Rsyslog messages we must use Grok variables t
 
 To move on, here is a Grok pattern you can use to filter for Rsyslog messages containing SNORT alerts. I added `snort_rule`, `alert`, `protocol`, `src_ip`, and `dst_ip` to my Grok pattern as _field names_. If there’s a match, the corresponding values will be identified using the respective label.
 ```bash
- %{SYSLOGBASE} \[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip} \-\> %{IPV4:dst_ip}
+# code goes here
 ```
 
 There’s one more thing. In your Logstash Filter plugin, you’re only going to focus on matching the contents of the Rsyslog message (part B, as described above). Below is an example designed to match both alerts provided earlier.
@@ -397,11 +397,11 @@ There’s one more thing. In your Logstash Filter plugin, you’re only going to
 ```bash
 filter {
   grok {
-    match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip} \-\> %{IPV4:dst_ip}"}    
+    match => {"message" => "# code goes here"}    
   }
 
   grok {  
-    match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip}\:%{INT:src_port} \-\> %{IPV4:dst_ip}\:%{INT:dst_port}"}    
+    match => {"message" => "# code goes here"}    
   }  
 }
 ```
