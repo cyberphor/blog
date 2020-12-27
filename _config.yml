@@ -7,7 +7,6 @@ include:
   - _downloads
 header_pages:
 - _navigation/blog.md
-- _navigation/guides.md
 - _navigation/downloads.md
 - _navigation/about.md
 theme: minima
