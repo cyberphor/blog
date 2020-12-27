@@ -4,7 +4,7 @@ description: 'My blog about tactical cybersecurity operations.'
 include:
   - _assets
   - _navigation
-  - notes
+  - _downloads
 header_pages:
 - _navigation/blog.md
 - _navigation/guides.md
