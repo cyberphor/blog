@@ -13,206 +13,205 @@ I will specifically teach you how to install & configure an ELK (Elasticsearch, 
 Therefore, this tutorial has three primary objectives: (1) get an ELK stack running on a Raspberry Pi, (2) develop universal plugins to support a broad range of security tools, and (3) design a dashboard for basic security analysis.
 
 ## Table of Contents
-
-*   Software Requirements
-*   Objective #1: Get an ELK Stack Running on a Raspberry Pi
- 1.  [How to Install and Configure Elasticsearch](#get-an-elk-stack-running-on-a-raspberry-pi)
- 2.  [How to Install and Configure Logstash](#how-to-install-and-configure-logstash)
- 3.  [How to Install and Configure Kibana](#how-to-install-and-configure-kibana)
-*   Objective #2: Develop Universal Plugins to Support a Broad Range of Security Tools
- 1.  [How to Configure Rsyslog](#how-to-configure-rsyslog)
-     *   [How to Install and Configure SNORT](#develop-universal-plugins-to-support-a-broad-range-of-security-tools)
- 2.  [How to Write Logstash Input Plugins](#how-to-write-logstash-input-plugins)
- 3.  [How to Write Logstash Filter Plugins](#how-to-write-logstash-filter-plugins)
-     *   [Grok Patterns](#grok-patterns)
- 4.  [How to Write Logstash Output Plugins](#how-to-write-logstash-output-plugins)
- 5.  Supporting Other Security Tools
-     *   [Adding fail2ban](#supporting-other-security-tools)
-     *   [Adding ModSecurity](#adding-modsecurity)
-*   Objective #3: Design a Dashboard for Basic Security Analysis
- 1.  [How to Create an Index Pattern](#design-a-dashboard-for-basic-security-analysis)
- 2.  [How to Create a Visualization](#how-to-create-a-visualization)
- 3.  [How to Create a Dashboard](#how-to-create-a-dashboard)
+* Software Requirements
+* Objective #1: Get an ELK Stack Running on a Raspberry Pi
+  1. [How to Install and Configure Elasticsearch](#get-an-elk-stack-running-on-a-raspberry-pi)
+  2. [How to Install and Configure Logstash](#how-to-install-and-configure-logstash)
+  3. [How to Install and Configure Kibana](#how-to-install-and-configure-kibana)
+* Objective #2: Develop Universal Plugins to Support a Broad Range of Security Tools
+  1. [How to Configure Rsyslog](#how-to-configure-rsyslog)
+    * [How to Install and Configure SNORT](#develop-universal-plugins-to-support-a-broad-range-of-security-tools)
+  2. [How to Write Logstash Input Plugins](#how-to-write-logstash-input-plugins)
+  3. [How to Write Logstash Filter Plugins](#how-to-write-logstash-filter-plugins)
+    *  [Grok Patterns](#grok-patterns)
+  4. [How to Write Logstash Output Plugins](#how-to-write-logstash-output-plugins)
+  5. Supporting Other Security Tools
+    * [Adding fail2ban](#supporting-other-security-tools)
+    * [Adding ModSecurity](#adding-modsecurity)
+* Objective #3: Design a Dashboard for Basic Security Analysis
+  1. [How to Create an Index Pattern](#design-a-dashboard-for-basic-security-analysis)
+  2. [How to Create a Visualization](#how-to-create-a-visualization)
+  3. [How to Create a Dashboard](#how-to-create-a-dashboard)
 
 ## Software Requirements
 I was previously successful in completing this project using Raspbian Stretch 9.8, Linux kernel 4.14.98-v7+, Open Java Development Kit (OpenJDK) version 1.8.0\_181, and Elastic Stack (a.k.a ELK stack) version 6.5.4. Please ensure you have at least these software versions prior to beginning. Commands for checking and installing the required versions are below.
 
 **Raspbian Operating System**  
 The command `lsb_release` displays information about the currently installed Linux Standard Base, otherwise known as “distribution” or operating system. Most folks just use “distro” as slang. When the command `lsb_release` is used with `-irc`, only the distro ID, distro release, and distro codename is shown.
+```bash
+lsb_release -irc
 ```
- lsb_release -irc
-```
-```
- Distributor ID: Raspbian
- Release:        9.8
- Codename:       stretch
+```bash
+Distributor ID: Raspbian
+Release:        9.8
+Codename:       stretch
 ```
 
 **Linux Kernel**  
 The command `uname` is short for “Unix name” and displays information about the kernel when executed. When used with `-r`, only the kernel release or version is shown.
+```bash
+uname -r
 ```
- uname -r
-```
-```
- 4.14.98-v7+
+```bash
+4.14.98-v7+
 ```
 
 **Java**  
 To install the correct version of Java and two additional dependencies (required packages), use the following command.
+```bash
+sudo apt install openjdk-8-jdk libjffi-java libjffi-jni
 ```
- sudo apt install openjdk-8-jdk libjffi-java libjffi-jni
+```bash
+java -version
 ```
-```
- java -version
-```
-```
- openjdk version "1.8.0_181"
- OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-2~deb9u1-b13)
- OpenJDK Client VM (build 25.181-b13, mixed mode)
+```bash
+openjdk version "1.8.0_181"
+OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-2~deb9u1-b13)
+OpenJDK Client VM (build 25.181-b13, mixed mode)
 ```
 
 ## Get an ELK Stack Running on a Raspberry Pi
 
 ## How to Install and Configure Elasticsearch
 Elasticsearch is the ELK component responsible for indexing our security alerts and logs. To download it, use `wget`.
-```
- sudo wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.deb
+```bash
+sudo wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.deb
 ```
 
 Then, install it (`-i`) using the Debian package manager `dpkg`.
-```
- sudo dpkg -i elasticsearch-6.5.4.deb
+```bash
+sudo dpkg -i elasticsearch-6.5.4.deb
 ```
 
 Next, use your preferred text-editor to open the main Elasticsearch configuration file.
-```
- sudo vim /etc/elasticsearch/elasticsearch.yml
+```bash
+sudo vim /etc/elasticsearch/elasticsearch.yml
 ```
 
 At the very least, specify the IP address you want Elasticsearch to communicate on. Below are the parameters I used.
-```
- cluster.name: siem.sky.net
- node.name: node01.siem.sky.net
- network.host: 192.168.1.44
- discovery.type: single-node
- xpack.ml.enabled: false
+```bash
+cluster.name: siem.sky.net
+node.name: node01.siem.sky.net
+network.host: 192.168.1.44
+discovery.type: single-node
+xpack.ml.enabled: false
 ```
 
 Since the Raspberry Pi 3 only has 1GB of RAM, we must be methodical about memory management while configuring our ELK stack. For example, use the command below to check-on your memory usage.
-```
- free total -th
+```bash
+free total -th
 ```
 
 To explain, we’re asking the `free` program to display the total (`-t`) Random-Access and Swap (disk-based) Memory usage in a human-readable (`h`) format. On my Pi, I got the output below. It indicates I have 751 Megabytes (MBs) available out of 1.0 Gigabytes (GBs) total.
-```
-                total        used        free      shared  buff/cache   available
- Mem:           923M         87M         64M         20M        771M        751M
- Swap:           99M          0B         99M
- Total:         1.0G         87M        164M
+```bash
+              total        used        free      shared  buff/cache   available
+Mem:           923M         87M         64M         20M        771M        751M
+Swap:           99M          0B         99M
+Total:         1.0G         87M        164M
 ```
 
 With this in mind, configure Elasticsearch to use a max of 256MBs.
+```bash
+sudo vim /etc/elasticsearch/jvm.options
 ```
- sudo vim /etc/elasticsearch/jvm.options
-```
-```
- ################################################################
- ## IMPORTANT: JVM heap size
- ################################################################
- ##
- ## You should always set the min and max JVM heap
- ## size to the same value. For example, to set
- ## the heap to 4 GB, set:
- ##
- ## -Xms4g
- ## -Xmx4g
- ##
- ## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
- ## for more information
- ##
- ################################################################  
+```bash
+################################################################
+## IMPORTANT: JVM heap size
+################################################################
+##
+## You should always set the min and max JVM heap
+## size to the same value. For example, to set
+## the heap to 4 GB, set:
+##
+## -Xms4g
+## -Xmx4g
+##
+## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+## for more information
+##
+################################################################  
 
- # Xms represents the initial size of total heap space
- # Xmx represents the maximum size of total heap space  
+# Xms represents the initial size of total heap space
+# Xmx represents the maximum size of total heap space  
 
- -Xms256m
- -Xmx256m
+-Xms256m
+-Xmx256m
 ```
 
 Systemctl is the program responsible for starting and stopping services on a Systemd-configured machine. Use it to start Elasticsearch.
-```
- sudo systemctl start elasticsearch
+```bash
+sudo systemctl start elasticsearch
 ```
 
 Previously, Linux machines primarily used initialization, or _init_, scripts designed according to the System V standard. Confusingly, some Systemd-configured Linux distros still support commands which are meant to support the System V ecosystem. For example, to verify Elasticsearch is running, you can use either one of the following two commands.
+```bash
+# sysV, the "old" way
+sudo service elasticsearch status
 ```
- # sysV, the "old" way
- sudo service elasticsearch status
+```bash
+# systemd, the "new" way
+sudo systemctl status elasticsearch
 ```
-```
- # systemd, the "new" way
- sudo systemctl status elasticsearch
-```
-```
- * elasticsearch.service - Elasticsearch
-    Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; enabled; vendor
-    Active: active (running) since Sun 2019-01-20 21:42:46 UTC; 4s ago
-      Docs: http://www.elastic.co
-  Main PID: 4865 (java)
-    CGroup: /system.slice/elasticsearch.service
-            +-4865 /usr/bin/java -Xms256m -Xmx256m -XX:+UseConcMarkSweepGC -XX:CMSI
+```bash
+* elasticsearch.service - Elasticsearch
+  Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; enabled; vendor
+  Active: active (running) since Sun 2019-01-20 21:42:46 UTC; 4s ago
+    Docs: http://www.elastic.co
+Main PID: 4865 (java)
+  CGroup: /system.slice/elasticsearch.service
+          +-4865 /usr/bin/java -Xms256m -Xmx256m -XX:+UseConcMarkSweepGC -XX:CMSI
 
- Jan 20 21:42:46 pi02 systemd[1]: Started Elasticsearch.
+Jan 20 21:42:46 pi02 systemd[1]: Started Elasticsearch.
 ```
 
 Finally, put a tail on your Elasticsearch log to watch the daemon boot-up. This is a great place to check for any configuration or runtime errors. Make sure to specify the correct cluster name (if you did not specify a cluster name, your log file-path should be `/var/log/elasticsearch/elasticsearch.log`); you’re looking for a basic license validation.
-```
- sudo tail -f /var/log/elasticsearch/siem.sky.net.log
+```bash
+sudo tail -f /var/log/elasticsearch/siem.sky.net.log
 ```
 
 You can also verify Elasticsearch is running by using `nmap` (it is my preference to use over `netstat`).
+```bash
+sudo apt install nmap
 ```
- sudo apt install nmap
+```bash
+sudo nmap 192.168.1.44 -p9200
 ```
-```
- sudo nmap 192.168.1.44 -p9200
-```
-```
- Starting Nmap 7.40 ( https://nmap.org ) at 2019-02-23 13:51 GMT
- Nmap scan report for 192.168.1.44
- Host is up (0.00011s latency).
- PORT     STATE  SERVICE
- 9200/tcp open  wap-wsp
+```bash
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-02-23 13:51 GMT
+Nmap scan report for 192.168.1.44
+Host is up (0.00011s latency).
+PORT     STATE  SERVICE
+9200/tcp open  wap-wsp
 
- Nmap done: 1 IP address (1 host up) scanned in 0.73 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.73 seconds
 ```
 
 **NOTE:** Turn-off Elasticsearch before proceeding.
-```
- sudo systemctl stop elasticsearch
+```bash
+sudo systemctl stop elasticsearch
 ```
 
 ## How to Install and Configure Logstash
 Logstash is the ELK component responsible for parsing our security alerts and logs. Use `wget` & `dpkg` like before to download and install the 6.5.4 version.
+```bash
+sudo wget https://artifacts.elastic.co/downloads/logstash/logstash-6.5.4.deb
 ```
- sudo wget https://artifacts.elastic.co/downloads/logstash/logstash-6.5.4.deb
-```
-```
- sudo dpkg -i logstash-6.5.4.deb
+```bash
+sudo dpkg -i logstash-6.5.4.deb
 ```
 
 Next, modify the configuration file below and restrict Logstash’s memory usage to 256MBs as well.
 ```bash
  sudo vim /etc/logstash/jvm.options
 ```
-```
- ## JVM configuration
+```bash
+# JVM configuration
 
- # Xms represents the initial size of total heap space
- # Xmx represents the maximum size of total heap space
+# Xms represents the initial size of total heap space
+# Xmx represents the maximum size of total heap space
 
- -Xms256m
- -Xmx256m
+-Xms256m
+-Xmx256m
 ```
 
 Then, specify the following parameters in Logstash’s main configuration file (FYI, I’m using default ports for simplicity).
@@ -227,53 +226,53 @@ Then, specify the following parameters in Logstash’s main configuration file (
 ```
 
 Finally, start and monitor it for any errors.
-```
+```bash
 sudo systemctl start logstash
 ```
 
 It may take a few seconds to boot-up. Nonetheless, look for the message `Successfully started Logstash API endpoint`.
-```
+```bash
 sudo tail -f /var/log/logstash/logstash-plain.log
 ```
 
 **NOTE:** If you have no errors to resolve, turn-off Logstash before proceeding.
-```
+```bash
 sudo systemctl stop logstash
 ```
 
 ## How to Install and Configure Kibana
 Kibana is the ELK component responsible for visualizing our security alerts and notifications. Kibana version 6.5.4 depends on Node.js version 8.14. Use the steps below to download, extract, and copy this particular binary into the correct directory.
-```
+```bash
 sudo wget https://nodejs.org/dist/v8.14.0/node-v8.14.0-linux-armv7l.tar.xz
 ```
-```
+```bash
 sudo tar -xvf node-v8.14.0-linux-armv7l.tar.xz node-v8.14.0-linux-armv7l/bin/node --strip 2
 ```
-```
+```bash
 sudo cp ./node /usr/local/bin/
 ```
 
 With the correct Node.js version in-place, now install Kibana.
-```
+```bash
 sudo wget https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz
 ```
-```
+```bash
 sudo mkdir /usr/share/kibana/
 ```
-```
+```bash
 sudo tar -xvf kibana-6.5.4-linux-x86_64.tar.gz --strip 1 --directory /usr/share/kibana/
 ```
 
 To explain, we just decompressed the contents of the Kibana `tar` file into the `/usr/share/kibana` directory while simultaneously removing the top-level wrapper (`--strip 1`) they were packaged in. Next, configure Kibana using similar parameters shown below.
+```bash
+sudo vim /usr/share/kibana/config/kibana.yml
 ```
- sudo vim /usr/share/kibana/config/kibana.yml
-```
-```
- server.port: 80
- server.host: "192.168.1.44"
- server.name: node01.siem.sky.net
- elasticsearch.url: "http://192.168.1.44:9200"
- logging.dest: /var/log/kibana.log
+```bash
+server.port: 80
+server.host: "192.168.1.44"
+server.name: node01.siem.sky.net
+elasticsearch.url: "http://192.168.1.44:9200"
+logging.dest: /var/log/kibana.log
 ```
 
 Finally, we need to (1) set-aside the Node.js binary Kibana came with, (2) force it to use the one we downloaded, and then, (3) write a Systemd service file to reference when starting and stopping Kibana.
@@ -282,7 +281,7 @@ sudo mv /usr/share/kibana/node/bin/node /usr/share/kibana/node/bin/node.bak
 sudo ln -s /usr/local/bin/node /usr/share/kibana/node/bin/node
 sudo vim /etc/systemd/system/kibana.service
 ```
-```
+```bash
 [Unit]
 Description=Kibana
 
@@ -318,32 +317,32 @@ sudo systemctl start rsyslog
 
 ## How to Install and Configure SNORT
 Next, check-out a blog post I wrote called, [SNORT & Sniff: an IDS/IPS](https://www.yoursecurity.tech/snort-sniff-an-ids-ips.html) to get a basic installation and configuration of SNORT running. Then, update the main `snort.conf` file to include the parameter specified below.
-```
+```bash
 sudo vim /etc/snort/snort.conf
 ```
-```
+```bash
 output alert_syslog: LOG_LOCAL6 LOG_ALERT
 ```
 
 ## How to Verify SNORT Input is Getting Logged Locally & Remotely
 
 1.  Start SNORT
-```
+```bash
 sudo snort -i eth0 -c /etc/snort/snort.conf
 ```
 
 2.  Test a SNORT rule (the tutorial I referenced creates a rule for ICMP traffic)
-```
+```bash
 ping 192.168.1.44
 ```
 
 3.  Check our local log (as specified in the first line of `/etc/rsyslog.d/snort.conf`)
-```
+```bash
 sudo tail -f /var/log/snort_alerts.log
 ```
 
 4.  Check outbound traffic destined for the Logstash-based Rsyslog server we’re about to setup
-```
+```bash
 sudo tcpdump -n dst port 5140 -XX
 ```
 
@@ -369,7 +368,7 @@ If you import data without parsing it correctly, you will eventually be left wit
 Before going further, you need to know _how to grok_. [By defintion](https://www.dictionary.com/browse/grok), to grok, means to understand something thoroughly and intuitively. Logstash defines their plugin of the same name as a means to, “\[parse\] unstructured event data into fields.” Let’s use the SNORT alerts below as a use-case.
 
 **SNORT Alert Examples**
-```
+```bash
  Jan 24 05:25:05 pi01 snort: [1:3000001:0] ICMP traffic! {ICMP} 192.168.1.44 -> 192.168.1.38
  Jan 24 05:25:05 pi01 snort: [1:408:5] ICMP Echo Reply [Classification: Misc activity] [Priority: 3] {ICMP} 192.168.1.44 -> 192.168.1.38
 ```
@@ -395,7 +394,7 @@ There’s one more thing. In your Logstash Filter plugin, you’re only going to
 ```bash
  sudo vim /etc/logstash/conf.d/filter-rsyslog-snort.conf
 ```
-```
+```bash
 filter {
   grok {
     match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip} \-\> %{IPV4:dst_ip}"}    
@@ -437,9 +436,9 @@ sudo nmap 192.168.1.44 -p5140
 ```
 
 **NOTE:** If you have no errors to resolve, turn-off Logstash before proceeding.
-
- sudo systemctl stop logstash
-
+```bash
+sudo systemctl stop logstash
+```
 
 ## Supporting Other Security Tools
 
@@ -448,10 +447,10 @@ To include other tools in our mini-SIEM, one has the option of using up a Rsyslo
 **NOTE:** Writing Logstash plugins for fail2ban & ModSecurity is not required to get your mini-SIEM up and running. Feel free to skip these two sections.
 
 ## Adding fail2ban
-```
+```bash
 sudo vim /etc/logstash/conf.d/input-file-fail2ban.conf
 ```
-```
+```bash
 input {
   file {
     type => 'fail2ban'
@@ -465,7 +464,7 @@ You may notice I also include another plugin Logstash provides called `geoip`. T
 ```bash
 sudo vim /etc/logstash/conf.d/filter-file-fail2ban.conf
 ```
-```
+```bash
 filter {
   grok {
     match => {"message" => "%{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA} \[%{WORD:service}\] Ban %{IPV4:src_ip}"}
@@ -556,13 +555,13 @@ Once you’re confident your mini-SIEM is fully operational (to include receivin
 
 ## How to Create an Index Pattern
 You should not have to do this part often, but you must do it at least once.
-1.  Click-on **Management**
-2.  Click-on **Index Patterns**
-3.  Click-on **Create index pattern**
- *   In the _Index Pattern_ text-box, type “logstash-\*”
- *   Click-on **Next step**
-4.  Under the _Time Filter field name_ drop-box, select “_I don’t want to use the Time Filter_”
-5.  Click-on **Create index pattern**
+1. Click-on **Management**
+2. Click-on **Index Patterns**
+3. Click-on **Create index pattern**
+  * In the _Index Pattern_ text-box, type “logstash-\*”
+  * Click-on **Next step**
+4. Under the _Time Filter field name_ drop-box, select “_I don’t want to use the Time Filter_”
+5. Click-on **Create index pattern**
 
 ## How to Create a Visualization
 If it is not apparent, this portion is the “meat & potatoes” of your mini-SIEM. You’ll need to repeat the steps below for every widget you want on your dashboard. I initially ran into the problem of not knowing what I needed to know. To get you started, consider creating a _Visualization_ for each aspect of a SALUTE (Size, Activity, Location, Unit, Time, Equipment) report. In the US military, we use SALUTE reports to quickly summarize information and provide intelligence.
@@ -571,41 +570,40 @@ If it is not apparent, this portion is the “meat & potatoes” of your mini-SI
 ```
 
 **How to Create a Visualization**
-1.  Click-on **Visualize**
-2.  Click-on **Create a visualization**
-3.  Click-on **Metric**
-4.  Click-on “_logstash-_ \*”
- *   Click-on **Add a filter**
-     *   Specify the following:
-         *   _Fields_ = `program`
-         *   _Operators…_ = `is`
-         *   _Value…_ = `snort`
-         *   _Label_ = `Sensor`
-     *   Click-on **Save**
- *   Click-on **Add a filter**
-     *   Specify the following:
-         *   _Fields_ = `alert`
-         *   _Operators…_ = `is`
-         *   _Value…_ = `ICMP traffic!`
-         *   _Label_ = `Alert`
-     *   Click-on **Save**
- *   Under _Metrics_, click-on the arrow pointing down
-     *   In the _Custom label_ text-box, type “ICMP Alerts”
- *   Click-on the arrow pointing sideways to apply
-5.  Click-on _Save_ (top-right)
- *   Under the _Title_ text-box, type “SNORT: ICMP Alerts (Counter)”
- *   Click-on **Confirm Save**
+1. Click-on **Visualize**
+2. Click-on **Create a visualization**
+3. Click-on **Metric**
+4. Click-on “_logstash-_ \*”
+  * Click-on **Add a filter**
+    * Specify the following:
+      * _Fields_ = `program`
+      * _Operators…_ = `is`
+      * _Value…_ = `snort`
+      * _Label_ = `Sensor`
+    * Click-on **Save**
+  * Click-on **Add a filter**
+    * Specify the following:
+      * _Fields_ = `alert`
+      * _Operators…_ = `is`
+      * _Value…_ = `ICMP traffic!`
+      * _Label_ = `Alert`
+    * Click-on **Save**
+  * Under _Metrics_, click-on the arrow pointing down
+    * In the _Custom label_ text-box, type “ICMP Alerts”
+  * Click-on the arrow pointing sideways to apply
+5. Click-on _Save_ (top-right)
+  * Under the _Title_ text-box, type “SNORT: ICMP Alerts (Counter)”
+  * Click-on **Confirm Save**
 
 ## How to Create a Dashboard
 Follow these steps to add the widget you just created. As before, repeat/modify this process as necessary.
-
-1.  Click-on **Dashboard**
-2.  Click-on **Create new dashboard**
-3.  Click-on **Add** (top-right)
-4.  Select _SNORT: ICMP Alerts (Counter)_
-5.  Click-on **Save**
- *   Under the _Title_ text-box, type “Security Posture”
- *   Click-on **Confirm Save**
+1. Click-on **Dashboard**
+2. Click-on **Create new dashboard**
+3. Click-on **Add** (top-right)
+4. Select _SNORT: ICMP Alerts (Counter)_
+5. Click-on **Save**
+  * Under the _Title_ text-box, type “Security Posture”
+  * Click-on **Confirm Save**
 
 ## Summary
 In summary, we achieved our three objectives: (1) we got an ELK stack running on a Raspberry Pi, (2) we developed multiple, universal plugins to support a broad range of security tools, and (3) we designed a dashboard for basic security analysis. We were able to accomplish all of this by downloading and installing OpenJDK 1.8.0\_181, Node.js 8.14, and the 6.5.4 Debian & x86-based packages for an ELK stack. To support a greater number of security tools, we learned we must at least start with a Rsyslog-based or file-based Logstash Input plugin. Most importantly, we also realized a corresponding Grok pattern is key to correctly parsing any tool’s output.
