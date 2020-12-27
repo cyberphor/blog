@@ -228,41 +228,40 @@ Then, specify the following parameters in Logstash’s main configuration file (
 
 Finally, start and monitor it for any errors.
 ```
- sudo systemctl start logstash
+sudo systemctl start logstash
 ```
 
 It may take a few seconds to boot-up. Nonetheless, look for the message `Successfully started Logstash API endpoint`.
 ```
- sudo tail -f /var/log/logstash/logstash-plain.log
+sudo tail -f /var/log/logstash/logstash-plain.log
 ```
 
 **NOTE:** If you have no errors to resolve, turn-off Logstash before proceeding.
 ```
- sudo systemctl stop logstash
+sudo systemctl stop logstash
 ```
 
 ## How to Install and Configure Kibana
-
 Kibana is the ELK component responsible for visualizing our security alerts and notifications. Kibana version 6.5.4 depends on Node.js version 8.14. Use the steps below to download, extract, and copy this particular binary into the correct directory.
 ```
- sudo wget https://nodejs.org/dist/v8.14.0/node-v8.14.0-linux-armv7l.tar.xz
-
-
- sudo tar -xvf node-v8.14.0-linux-armv7l.tar.xz node-v8.14.0-linux-armv7l/bin/node --strip 2
-
-
- sudo cp ./node /usr/local/bin/
+sudo wget https://nodejs.org/dist/v8.14.0/node-v8.14.0-linux-armv7l.tar.xz
+```
+```
+sudo tar -xvf node-v8.14.0-linux-armv7l.tar.xz node-v8.14.0-linux-armv7l/bin/node --strip 2
+```
+```
+sudo cp ./node /usr/local/bin/
 ```
 
 With the correct Node.js version in-place, now install Kibana.
 ```
- sudo wget https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz
-
-
- sudo mkdir /usr/share/kibana/
-
-
- sudo tar -xvf kibana-6.5.4-linux-x86_64.tar.gz --strip 1 --directory /usr/share/kibana/
+sudo wget https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz
+```
+```
+sudo mkdir /usr/share/kibana/
+```
+```
+sudo tar -xvf kibana-6.5.4-linux-x86_64.tar.gz --strip 1 --directory /usr/share/kibana/
 ```
 
 To explain, we just decompressed the contents of the Kibana `tar` file into the `/usr/share/kibana` directory while simultaneously removing the top-level wrapper (`--strip 1`) they were packaged in. Next, configure Kibana using similar parameters shown below.
@@ -279,21 +278,19 @@ To explain, we just decompressed the contents of the Kibana `tar` file into the 
 
 Finally, we need to (1) set-aside the Node.js binary Kibana came with, (2) force it to use the one we downloaded, and then, (3) write a Systemd service file to reference when starting and stopping Kibana.
 ```bash
- sudo mv /usr/share/kibana/node/bin/node /usr/share/kibana/node/bin/node.bak
+sudo mv /usr/share/kibana/node/bin/node /usr/share/kibana/node/bin/node.bak
+sudo ln -s /usr/local/bin/node /usr/share/kibana/node/bin/node
+sudo vim /etc/systemd/system/kibana.service
+```
+```
+[Unit]
+Description=Kibana
 
- sudo ln -s /usr/local/bin/node /usr/share/kibana/node/bin/node
+[Service]
+ExecStart=/usr/share/kibana/bin/kibana
 
- sudo vim /etc/systemd/system/kibana.service
- ```
- ```
- [Unit]
- Description=Kibana
-
- [Service]
- ExecStart=/usr/share/kibana/bin/kibana
-
- [Install]
- WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
 ```
 **NOTE:** Stop Kibana before proceeding if you started it for any reason. Also, Kibana will run as **root**. Address this as you see fit.
 
@@ -321,33 +318,34 @@ sudo systemctl start rsyslog
 
 ## How to Install and Configure SNORT
 Next, check-out a blog post I wrote called, [SNORT & Sniff: an IDS/IPS](https://www.yoursecurity.tech/snort-sniff-an-ids-ips.html) to get a basic installation and configuration of SNORT running. Then, update the main `snort.conf` file to include the parameter specified below.
-
- sudo vim /etc/snort/snort.conf
-
-
- output alert_syslog: LOG_LOCAL6 LOG_ALERT
-
+```
+sudo vim /etc/snort/snort.conf
+```
+```
+output alert_syslog: LOG_LOCAL6 LOG_ALERT
+```
 
 ## How to Verify SNORT Input is Getting Logged Locally & Remotely
 
 1.  Start SNORT
-
-     sudo snort -i eth0 -c /etc/snort/snort.conf
-
+```
+sudo snort -i eth0 -c /etc/snort/snort.conf
+```
 
 2.  Test a SNORT rule (the tutorial I referenced creates a rule for ICMP traffic)
-
-     ping 192.168.1.44
-
+```
+ping 192.168.1.44
+```
 
 3.  Check our local log (as specified in the first line of `/etc/rsyslog.d/snort.conf`)
-
-     sudo tail -f /var/log/snort_alerts.log
-
+```
+sudo tail -f /var/log/snort_alerts.log
+```
 
 4.  Check outbound traffic destined for the Logstash-based Rsyslog server we’re about to setup
-
-     sudo tcpdump -n dst port 5140 -XX
+```
+sudo tcpdump -n dst port 5140 -XX
+```
 
 ## How to Write Logstash Input Plugins
 Your collection of plugins is the catalyst for transforming data into information and eventually, decisions. The first one we need to write for our mini-SIEM is an Input plugin to recieve Rsyslog data.
@@ -522,17 +520,17 @@ To move on, here is a Grok pattern you can use to filter for Rsyslog messages co
 There’s one more thing. In your Logstash Filter plugin, you’re only going to focus on matching the contents of the Rsyslog message (part B, as described above). Below is an example designed to match both alerts provided earlier.
 ```bash
  sudo vim /etc/logstash/conf.d/filter-rsyslog-snort.conf
+```
+```
+filter {
+  grok {
+    match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip} \-\> %{IPV4:dst_ip}"}    
+  }
 
-
- filter {
-   grok {
-     match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip} \-\> %{IPV4:dst_ip}"}    
-   }
-
-   grok {  
-     match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip}\:%{INT:src_port} \-\> %{IPV4:dst_ip}\:%{INT:dst_port}"}    
-   }  
- }
+  grok {  
+    match => {"message" => "\[%{DATA:snort_rule}\] %{GREEDYDATA:alert} \{%{WORD:protocol}\} %{IPV4:src_ip}\:%{INT:src_port} \-\> %{IPV4:dst_ip}\:%{INT:dst_port}"}    
+  }  
+}
 ```
 
 ## How to Write Logstash Output Plugins
@@ -542,11 +540,11 @@ Finally, we need to make sure our Logstash pipeline directs its output to our El
 sudo vim /etc/logstash/conf.d/output-elasticsearch-all.conf
 ```
 ```bash
- output {
-   elasticsearch {
-     hosts => ['http://192.168.1.44:9200']
-   }
- }
+output {
+  elasticsearch {
+    hosts => ['http://192.168.1.44:9200']
+  }
+}
 ```
 
 At this point, it is safe to restart Logstash.
@@ -577,33 +575,34 @@ To include other tools in our mini-SIEM, one has the option of using up a Rsyslo
 
 ## Adding fail2ban
 ```
- sudo vim /etc/logstash/conf.d/input-file-fail2ban.conf
-
-
- input {
-   file {
-     type => 'fail2ban'
-     path => '/var/log/sensors/fail2ban.log'
-     mode => 'tail'
-   }
- }
+sudo vim /etc/logstash/conf.d/input-file-fail2ban.conf
+```
+```
+input {
+  file {
+    type => 'fail2ban'
+    path => '/var/log/sensors/fail2ban.log'
+    mode => 'tail'
+  }
+}
 ```
 
 You may notice I also include another plugin Logstash provides called `geoip`. This feature allows me to geographically map IP addresses using the the “GeoLite2 City database” provided by Maxmind.
 ```bash
 sudo vim /etc/logstash/conf.d/filter-file-fail2ban.conf
-
+```
+```
 filter {
-   grok {
-     match => {"message" => "%{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA} \[%{WORD:service}\] Ban %{IPV4:src_ip}"}
-     add_tag => 'banned'
-   }
+  grok {
+    match => {"message" => "%{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA} \[%{WORD:service}\] Ban %{IPV4:src_ip}"}
+    add_tag => 'banned'
+  }
 
-   geoip {
-     source => 'src_ip'
-     target => 'geo_ip'
-   }
- }
+  geoip {
+    source => 'src_ip'
+    target => 'geo_ip'
+  }
+}
 ```
 
 ## Adding ModSecurity
