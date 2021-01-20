@@ -1,5 +1,5 @@
 ---
 layout: default
 title: 'Learn2Code'
-permalink: https://learn2code.cyberphor.com
+url: https://learn2code.cyberphor.com
 ---
