@@ -4,6 +4,7 @@ description: 'Tactical Cybersecurity Operations'
 include:
   - _assets
   - _navigation
+  - _data
   - _downloads
 header_pages:
 - _navigation/blog.md
