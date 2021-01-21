@@ -8,14 +8,14 @@ include:
 header_pages:
 - _navigation/blog.md
 - _navigation/downloads.md
-- name: Learn2Code
-  url: https://learn2code.cyberphor.com
+- title: 'Learn2Code' 
+  permalink: https://learn2code.cyberphor.com
 - _navigation/about.md
 theme: minima
 minima:
   social_links:
-    linkedin: vicfernandeziii
-    github: cyberphor
     twitter: cyberphor
-    
+    github: cyberphor
+    linkedin: vicfernandeziii
+
 # https://dev.to/charalambosioannou/create-a-static-webpage-with-a-contact-form-on-github-pages-3532
