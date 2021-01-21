@@ -8,7 +8,8 @@ include:
 header_pages:
 - _navigation/blog.md
 - _navigation/downloads.md
-- _navigation/learn2code.md
+- name: Learn2Code
+  url: https://learn2code.cyberphor.com
 - _navigation/about.md
 theme: minima
 minima:
