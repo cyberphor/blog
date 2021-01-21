@@ -8,7 +8,7 @@ include:
 header_pages:
 - _navigation/blog.md
 - _navigation/downloads.md
-- _navgiation/learn2code.md
+- _navigation/learn2code.md
 - _navigation/about.md
 theme: minima
 minima:
