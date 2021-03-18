@@ -9,7 +9,8 @@ Thanks for checking out my digital notebooks. They are specifically focused on c
 
 * [CompTIA IT Fundamentals (GitBook)](https://itfplus.cyberphor.com)
 * [Learn2Code (GitBook)](https://learn2code.cyberphor.com)
-* [CompTIA Security+ (GitBook)](https://securityplus.cyberphor.com)
 * [CompTIA Security+ (Google Doc)](https://docs.google.com/document/d/1wcQyeU_1hZkpnyqdtMinFIfvym83pi6_QHoQwgVKa4U/edit?usp=sharing)
+* [CompTIA Security+ (GitBook)](https://securityplus.cyberphor.com)
+* [CompTIA CySA+ (Google Doc)](https://docs.google.com/document/d/1x6ISY0J3zZ9EqvDSEi3ZNrdNXL3DToHsQqK1LddI08o/edit?usp=sharing)
 * [CompTIA CySA+ (GitBook)](https://cysaplus.cyberphor.com)
 * [CompTIA CASP (Google Doc)](https://docs.google.com/document/d/109LnHd5HIAvpf-CrqqJy98GmnuIEm0y6D9z3nXuSFv0/edit?usp=sharing)
