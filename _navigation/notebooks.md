@@ -14,3 +14,4 @@ Thanks for checking out my digital notebooks. They are specifically focused on c
 * [CompTIA CySA+ (Google Doc)](https://docs.google.com/document/d/1x6ISY0J3zZ9EqvDSEi3ZNrdNXL3DToHsQqK1LddI08o/edit?usp=sharing)
 * [CompTIA CySA+ (GitBook)](https://cysaplus.cyberphor.com)
 * [CompTIA CASP (Google Doc)](https://docs.google.com/document/d/109LnHd5HIAvpf-CrqqJy98GmnuIEm0y6D9z3nXuSFv0/edit?usp=sharing)
+* [Computer Network Defense (CND) Guide (Google Doc)](https://docs.google.com/document/d/17reZnf3EHOwEwn1f8et9PiL9rPDq64iXpQVwL10YR64/edit#heading=h.9eju0ec8yrp8)
