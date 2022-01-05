@@ -1,6 +1,6 @@
 title: 'cyberphor'
 author: 'Victor Fernandez III'
-description: 'Papa. Soldier. Blue Team Benchwarmer.'
+description: 'Blue Team Bench-Warmer.'
 include:
   - _assets
   - _navigation
@@ -14,6 +14,7 @@ minima:
   social_links:
     twitter: cyberphor
     github: cyberphor
-    linkedin: vicfernandeziii
+    linkedin: cyberphor
+    reddit: cyberphor
 
 # https://dev.to/charalambosioannou/create-a-static-webpage-with-a-contact-form-on-github-pages-3532
