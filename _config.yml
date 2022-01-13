@@ -1,5 +1,6 @@
 title: 'cyberphor'
 author: 'Victor Fernandez III'
+description: 'Blue Team Bench-Warmer.'
 include:
   - _assets
   - _navigation
