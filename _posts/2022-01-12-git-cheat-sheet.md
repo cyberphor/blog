@@ -16,10 +16,13 @@ git clone https://github.com/cyberphor/scripts/
 # your_token
 git config --global credential.helper cache
 
-# update a repo (after you update something in it)
+# add changes to the repo (after you update something in it)
 git add .
 git commit -m "Updated something"
 git push
+
+# pull changes from the repo (after something has been updated by somebody else)
+git pull
 ```
 
 **How to Remove a Cached Token**
