@@ -17,7 +17,7 @@ git clone https://github.com/cyberphor/scripts/
 git config --global credential.helper cache
 
 # add changes to the repo (after you update something in it)
-git add .
+git add -u # stage modified and deleted files
 git commit -m "Updated something"
 git push
 
@@ -31,5 +31,6 @@ git config --global --unset credential.helper
 ```
 
 **References**  
-* https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
-* https://www.edgoad.com/2021/02/using-personal-access-tokens-with-git-and-github.html
+* [https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token](https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files)
+* [https://www.edgoad.com/2021/02/using-personal-access-tokens-with-git-and-github.html](https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files)
+* [https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files](https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files)
