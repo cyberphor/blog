@@ -17,14 +17,14 @@ On  2021-09-10, at approximately  23:17:27 UTC, an OPERATING_SYSTEM host used by
 * Serial Number: n/a
 
 **Indicators of Compromise**  
-Network
-10.9.10.102, 194.62.42.206, GET, “/date1?BNLv65=pAAS”
-Files
-SHA-256 Hash: eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
-File Size: 279 Kilobytes
-File Location: /bmdff/BhoHsCtZ/MLdmpfjaX/5uFG3Dz7yt/date1?BNLv65=pAAS
-File Type: PE32+ executable (DLL) (GUI) x86-64, for MS Windows
-File Description: Windows DLL
+* Network
+  * 10.9.10.102, 194.62.42.206, GET, “/date1?BNLv65=pAAS”
+* Files
+  * SHA-256 Hash: eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
+  * File Size: 279 Kilobytes
+  * File Location: /bmdff/BhoHsCtZ/MLdmpfjaX/5uFG3Dz7yt/date1?BNLv65=pAAS
+  * File Type: PE32+ executable (DLL) (GUI) x86-64, for MS Windows
+  * File Description: Windows DLL
 
 **Notes**  
 Elaborate on the alerts that were raised, lessons learned, recommendations, etc. 
