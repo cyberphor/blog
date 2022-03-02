@@ -124,7 +124,7 @@ for i in $(ls -d http/*); do file "$i" | cut -d' ' -f2; done | sort | uniq -c | 
 sha256sum http/date1%3fBNLv65\=pAAS
 eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
 ```
-Yes, 52 of 69 antivirus vendors report the file with the SHA256 hash “eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8” as malicious.
+Yes, 52 of 69 antivirus vendors report the file with the SHA256 hash “eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8” as malicious.  
 ![VirusTotal]({{ site.url }}{{ site.baseurl }}/_posts/2022-02-28-ANGRYPOUTINE.png)
 
 **In what packet was this malware requested?**  
