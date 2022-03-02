@@ -3,33 +3,28 @@ layout: post
 title: 'ANGRYPOUTINE'
 permalink: 'angrypoutine'
 ---
-
 **Download PCAP**  
 [https://www.malware-traffic-analysis.net/2021/09/10/2021-09-10-traffic-analysis-exercise.pcap.zip](https://www.malware-traffic-analysis.net/2021/09/10/2021-09-10-traffic-analysis-exercise.pcap.zip)
 
 **Executive Summary**  
-On YYYY-MM-DD, at approximately HH:MM:SS UTC, an OPERATING_SYSTEM host used by FIRST_NAME LAST_NAME was infected with MALWARE_FAMILY malware.
+On  2021-09-10, at approximately  23:17:27 UTC, an OPERATING_SYSTEM host used by FIRST_NAME LAST_NAME was infected with Bazar malware.
 
 **Victim Details**  
 Username: TBD (frame #???)
 Hostname: TBD (frame #???)
-IP Address: TBD (frame #???)
-MAC Address: TBD (frame #??)
+IP Address: 10.9.10.102 (frame #89)
+MAC Address: 00:4f:49:b1:e8:c3 (frame #89)
 Serial Number: n/a
 
 **Indicators of Compromise**  
-*Malicious Traffic*    
-src.ip, src.port, dst.ip, dst.port, http.request.method, http.request uri
-src.ip, src.port, dst.ip, dst.port, http.request.method, http.request uri
-src.ip, src.port, dst.ip, dst.port, http.request.method, http.request uri
-
-*File Hashes*  
-Filename
-SHA-256 Hash: TBD
-File Size: TBD
-File Location (URL, UNC, etc.): TBD
-File Type: TBD
-File Description: TBD
+Network
+10.9.10.102, 194.62.42.206, GET, “/date1?BNLv65=pAAS”
+Files
+SHA-256 Hash: eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
+File Size: 279 Kilobytes
+File Location: /bmdff/BhoHsCtZ/MLdmpfjaX/5uFG3Dz7yt/date1?BNLv65=pAAS
+File Type: PE32+ executable (DLL) (GUI) x86-64, for MS Windows
+File Description: Windows DLL
 
 **Notes**  
 Elaborate on the alerts that were raised, lessons learned, recommendations, etc. 
@@ -96,13 +91,63 @@ tshark -r traffic.pcap -Y "ja3.hash == 51c64c77e60f3980eea90869b68c58a8" -T fiel
 ```
 Yes. A total of 34 frames match the rule’s criteria. 
 
-**How did the victim know to contact the attacker?**  
+**Do any of the packets in question (before and during the activity that triggered alerts) contain domain names and if so, were there name resolution requests for these domain names? If not, how did the victim learn about the attacker?**
+```
+tshark -r traffic.pcap -Y "ip.addr == 167.172.37.9"
+tshark -r traffic.pcap -Y "ip.addr == 94.158.245.52" 
+tshark -r traffic.pcap -Y "frame contains londonareloeli.uk"
+```
+Yes. Frame #1489 is one of the first “TLS 1.2 Server Hello” packets. It contains the domain name “londonareloeli.uk.” Yet, there are no name resolution requests for it within the PCAP and VirusTotal also reports it as benign. 
 
 **What is the victim’s username and hostname?**  
 
 **What files were downloaded via HTTP?**  
+```
+tshark -r traffic.pcap -q --export-objects http,http
+ls http | wc -l
+```
+Yes. 46 files were downloaded via HTTP.
 
 **What were the types of files downloaded?**  
+```
+for i in $(ls -d http/*); do file "$i" | cut -d' ' -f2; done | sort | uniq -c | sort -rn
+     33 Microsoft
+      5 PNG
+      3 ASCII
+      2 PE32+
+      2 data
+      1 JPEG
+```
+
+**Are any of the executable binary files malicious?**    
+```
+sha256sum http/date1%3fBNLv65\=pAAS
+eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
+```
+Yes, 52 of 69 antivirus vendors report the file with the SHA256 hash “eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8” as malicious.
+![VirusTotal]({{ site.url }}{{ site.baseurl }}/_posts/2022-02-28-ANGRYPOUTINE.png)
+
+**In what packet was this malware requested?**  
+```
+89 2021-09-10 23:17:27.822861  10.9.10.102 → 194.62.42.206 HTTP 410  GET /bmdff/BhoHsCtZ/MLdmpfjaX/5uFG3Dz7yt/date1?BNLv65=pAAS HTTP/1.1 
+```
+Frame #89 in the PCAP contains a HTTP GET request for “/date1?BNLv65=pAAS.”
+
+**How did the victim learn about the malware server?**  
+```
+tshark -r traffic.pcap -Y "dns.a == 194.62.42.206"
+ 1182 139.466514    10.9.10.9 → 10.9.10.102  DNS 95 194.62.42.206 Standard query response 0x9e41 A simpsonsavingss.com A 194.62.42.206
+```
+The victim learned about the malware server after requesting a name resolution for the domain “simpsonsavingss.com.” 
+
+**Were there any other packets containing name resolution requests for the domain in question?**  
+```
+tshark -r traffic.pcap -Y "dns.qry.name == simpsonsavingss.com"
+ 1180 139.233028  10.9.10.102 → 10.9.10.9    DNS 79  Standard query 0x9e41 A simpsonsavingss.com
+ 1181 139.313234  10.9.10.102 → 10.9.10.9    DNS 79  Standard query 0x9e41 A simpsonsavingss.com
+ 1182 139.466514    10.9.10.9 → 10.9.10.102  DNS 95 194.62.42.206 Standard query response 0x9e41 A simpsonsavingss.com A 194.62.42.206
+```
+Yes. A total of three packets contained a name resolution request for this specific domain.
 
 **Were the files executed?**  
 
