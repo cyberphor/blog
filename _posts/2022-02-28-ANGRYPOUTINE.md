@@ -10,11 +10,11 @@ permalink: 'angrypoutine'
 On  2021-09-10, at approximately  23:17:27 UTC, an OPERATING_SYSTEM host used by FIRST_NAME LAST_NAME was infected with Bazar malware.
 
 **Victim Details**  
-Username: TBD (frame #???)
-Hostname: TBD (frame #???)
-IP Address: 10.9.10.102 (frame #89)
-MAC Address: 00:4f:49:b1:e8:c3 (frame #89)
-Serial Number: n/a
+* Username: TBD (frame #???)
+* Hostname: TBD (frame #???)
+* IP Address: 10.9.10.102 (frame #89)
+* MAC Address: 00:4f:49:b1:e8:c3 (frame #89)
+* Serial Number: n/a
 
 **Indicators of Compromise**  
 Network
@@ -125,7 +125,7 @@ sha256sum http/date1%3fBNLv65\=pAAS
 eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8
 ```
 Yes, 52 of 69 antivirus vendors report the file with the SHA256 hash “eed363fc4af7a9070d69340592dcab7c78db4f90710357de29e3b624aa957cf8” as malicious.  
-![VirusTotal]({{ site.url }}{{ site.baseurl }}/_posts/2022-02-28-ANGRYPOUTINE.png)
+![VirusTotal]({{ site.url }}{{ site.baseurl }}/_assets/2022-02-28-ANGRYPOUTINE.png)
 
 **In what packet was this malware requested?**  
 ```
