@@ -1,7 +1,7 @@
 ---
 layout: default
-title: 'Resources'
-permalink: 'Resources'
+title: 'resources'
+permalink: 'resources'
 ---
 
 ### SANs White Papers
