@@ -6,7 +6,7 @@ include:
   - _navigation
 header_pages:
 - _navigation/blog.md
-- _navigation/youtube-playlist.md
+- _navigation/resources.md
 - _navigation/about.md
 theme: minima
 minima:
