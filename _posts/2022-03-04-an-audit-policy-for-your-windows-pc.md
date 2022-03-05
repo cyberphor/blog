@@ -4,7 +4,7 @@ title: 'An Audit Policy for Your Windows PC'
 permalink: 'an-audit-policy-for-your-windows-pc'
 ---
 
-I spend a lot of time researching and developing techniques to monitor computer networks. Yet, I never set aside something I could copy/paste onto any of my Windows-based Personal Computers (PC) or recommend to others. For this reason, I put together the list of commands below. Copy/paste them into PowerShell to enable some of the most commonly recommended audit categories. Once you're done, you can review security events on your PC using Event Viewer or something like locally-hosted Elastic instance (Elasticsearch, Kibana, and Winlogbeat). 
+I spend a lot of time researching and developing techniques to monitor computer networks. Yet, I never set aside something I could copy/paste onto any of my Windows-based Personal Computers (PC) or recommend to others. For this reason, I put together the list of commands below. Copy/paste them into PowerShell to enable some of the most commonly recommended audit categories. Once you're done, you can review security events on your PC using Event Viewer or something like a locally-hosted Elastic instance (Elasticsearch, Kibana, and Winlogbeat). 
 ```pwsh
 # Event IDs 4624 and 4625
 auditpol /set /subcategory:"Logon" /success:Enable /failure:Enable
