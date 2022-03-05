@@ -25,7 +25,7 @@ auditpol /set /subcategory:"File Share" /success:Enable
 auditpol /set /subcategory:"Filtering Platform Connection" /success:Enable
 ```
 
-If you're interested in logging what commands are typed via the Command Line Interface (CLI), copy/paste the commands below into PowerShell as well. The commands below ensures an additional field is added to Windows Event ID 4688 logs. It specifically includes the field "Process Command Line." Again, if someone types something like `Write-Output "follow the white rabbit"` on your computer, this command sentence will be observable. If you do not configure this setting, you will only be able to monitor what processes were created (as opposed to what these processes attempted to do).
+If you're interested in logging what commands are typed via the Command Line Interface (CLI), copy/paste the commands below into PowerShell as well. The commands below ensures an additional field is added to Windows Event ID 4688 logs. It specifically includes the field "Process Command Line." Again, if someone types something like `whoami` on your computer, this command sentence will be observable. If you do not configure this setting, you will only be able to monitor what processes were created (as opposed to what these processes attempted to do).
 ```pwsh
 $Key = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit'
 $ValueName = 'ProcessCreationIncludeCmdLine_Enabled'
@@ -34,6 +34,13 @@ $Type = 'Dword'
 
 New-Item –Path $Key –Name $ValueName
 New-ItemProperty -Path $Key -Name $ValueName -Value $Value  -PropertyType $Type
+```
+
+```
+$basePath = 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging' 
+New-Item $basePath -Force     
+New-ItemProperty $basePath -Name "EnableScriptBlockLogging" -PropertyType Dword 
+Set-ItemProperty $basePath -Name "EnableScriptBlockLogging" -Value "1"
 ```
 
 ### Reference  
