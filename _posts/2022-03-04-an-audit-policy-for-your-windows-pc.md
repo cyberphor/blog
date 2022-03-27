@@ -9,12 +9,6 @@ I spend a lot of time researching and developing techniques to monitor computer 
 # Event IDs 4624 and 4625
 auditpol /set /subcategory:"Logon" /success:Enable /failure:Enable
 
-# Event ID 4657
-auditpol /set /subcategory:"Registry" /success:Enable
-
-# Event ID 4663
-auditpol /set /subcategory:"File System" /success:Enable
-
 # Event ID 4688
 auditpol /set /subcategory:"Process Creation" /success:Enable
 
@@ -23,6 +17,12 @@ auditpol /set /subcategory:"File Share" /success:Enable
 
 # Event ID 5156
 auditpol /set /subcategory:"Filtering Platform Connection" /success:Enable
+
+# Event ID 4657
+auditpol /set /subcategory:"Registry" /success:Enable
+
+# Event ID 4663
+auditpol /set /subcategory:"File System" /success:Enable
 ```
 
 If you're interested in logging what commands are typed via the Command Line Interface (CLI), copy/paste the commands below into PowerShell as well. The commands below ensures an additional field is added to Windows Event ID 4688 logs. It specifically includes the field "Process Command Line." Again, if someone types something like `whoami` on your computer, this command sentence will be observable. If you do not configure this setting, you will only be able to monitor what processes were created (as opposed to what these processes attempted to do).
@@ -41,6 +41,14 @@ $basePath = 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLog
 New-Item $basePath -Force     
 New-ItemProperty $basePath -Name "EnableScriptBlockLogging" -PropertyType Dword 
 Set-ItemProperty $basePath -Name "EnableScriptBlockLogging" -Value "1"
+```
+
+### More Tips
+1. Configure your event logs so their maximum size is set to 4,194,304 bytes (about 4 GBs). 
+2. Configure your event logs to be retained as opposed to  over-written (when they're full).
+3. Configure your event logs to be automatically backed-up (archived) (the alternative is to have Windows wait for you to do it manually). 
+```
+wevtutil sl "Security" /ms:4194304 /rt:true /ab:true
 ```
 
 ### Reference  
