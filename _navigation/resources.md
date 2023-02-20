@@ -8,8 +8,7 @@ permalink: 'resources'
 * [Detection Engineering: Defending Networks with Purpose](https://www.sans.org/white-papers/40400/) by Peter Di Giorgio
 
 ### YouTube Playlist
-I watch cyber-security YouTube videos while I run on the treadmill. Below is the playlist I add videos to if I think they are worth sharing with other cyber-security professionals.  
-[![YouTube Playlist](https://i.ytimg.com/vi/qXYG3uf3b8s/sddefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCQ0Un_aKZhzYbb1Wx-EPUGboyyfw)](https://youtube.com/playlist?list=PLrbp84dkrk142C7Lta8wWuG3lb93r2wR8)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLrbp84dkrk142C7Lta8wWuG3lb93r2wR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Recommended Reading List
 1. [Practical Packet Analysis](https://www.amazon.com/Practical-Packet-Analysis-Wireshark-Real-World/dp/1593278020/) by Chris Sanders
