@@ -5,9 +5,9 @@ permalink: 'guides/cliffnotes-for-cyber-security-laws'
 category: guides
 ---
 
-NOTE: This blog post represents my personal interpretations of various cyber security laws. I am not a lawyer or legal expert. 
+These represents my personal interpretations of various cyber security laws. I am not a lawyer or legal expert. 
 
-## Table of Contents
+## Contents
 * [Hacking](#hacking)
 * [Privacy](#privacy)
 * [PII and PHI](#pii-and-phi)
