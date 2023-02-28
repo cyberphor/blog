@@ -50,14 +50,7 @@ layout: default
   <ul class="posts-list">
     {% for post in site.posts %}
       {% if post.category == 'essays' %}
-        {% if post.subcategory != 'vulnerability-management' 
-            or 
-           if post.subcategory != 'network-security-monitoring'
-            or  
-           if post.subcategory != 'digital-forensics'
-            or
-           if post.subcategory != 'incident-response'
-        %}
+        {% if post.subcategory != 'vulnerability-management' or if post.subcategory != 'network-security-monitoring' or if post.subcategory != 'digital-forensics' or if post.subcategory != 'incident-response' %}
           <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
         {% endif %}
       {% endif %}
