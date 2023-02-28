@@ -5,22 +5,18 @@ permalink: 'guides/cliffnotes-for-cyber-security-laws'
 category: guides
 ---
 
-NOTE 
-1. <font color='red'>Please do not use my post here as justification for doing any illegal.</font>   
-2. I am not a legal expert. 
-3. These notes capture my personal interpretations of various cyber security laws. 
-4. This post is a continuous work-in-progress. I apologize if you find anything incomplete/incorrect. 
+NOTE: This blog post represents my personal interpretations of various cyber security laws. I am not a lawyer or legal expert. 
 
 ## Table of Contents
 * [Hacking](#hacking)
 * [Privacy](#privacy)
-* [PII & PHI](#pii-phi)
-* [Net neutrality](#net-neutrality)
-* [Free speech](#free-speech)
-* [Social media](#social-media)
+* [PII and PHI](#pii-and-phi)
+* [Net Neutrality](#net-neutrality)
+* [Free Speech](#free-speech)
+* [Social Media](#social-media)
 * [Spam](#spam)
 * [Finance](#finance)
-* [Information security programs](#information-security-programs)
+* [Information Security Programs](#information-security-programs)
 
 ## Hacking
 **US Computer Fraud and Abuse Act of 1986** 
@@ -32,7 +28,7 @@ Creates new Federal criminal offenses of: (1) property theft by computer occurri
 
 Exempts authorized law enforcement or intelligence activities.
 
-The Computer Fraud and Abuse Act of 1986 established a handful of computer-related activites as criminal offenses. These activites include (but are not limited to) the following: accessing a government computer without authorization, stealing fiancial/government information, damaging or causing the loss of a protected computer, and collecting passwords.    
+The Computer Fraud and Abuse Act of 1986 established a handful of computer-related activities as criminal offenses. These activities include (but are not limited to) the following: accessing a government computer without authorization, stealing financial/government information, damaging or causing the loss of a protected computer, and collecting passwords.
 
 ### References
 * [H.R.4718 - Bill Summary](https://www.congress.gov/bill/99th-congress/house-bill/4718)
@@ -76,7 +72,7 @@ CIPA, among other things, established requirements for protecting the innocence 
 * [U.S. Code - Title 47, Chapter 5, Subchapter II, Part II, § 254](https://www.law.cornell.edu/uscode/text/47/254#1_B)
 * [FCC Consumer Guide - CIPA](https://www.fcc.gov/consumers/guides/childrens-internet-protection-act)
 
-## PII & PHI 
+## PII and PHI 
 (Personally Identifiable Information & Protected Health Information)
 
 **US Privacy Act of 1974**
