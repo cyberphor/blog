@@ -23,5 +23,6 @@ permalink: 'resources'
 ### Favorite References
 * [Online Etymology Dictionary](https://www.etymonline.com/)
 * [Approved Verbs for PowerShell Commands](https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.1)
+* [Elastic Common Schema (ECS) Field Reference](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html)
 * [PowerShell: Strongly Encouraged Development Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines?view=powershell-7.2)
 * [SANS Guide to Security Operations](https://www.sans.org/posters/guide-to-security-operations/)
