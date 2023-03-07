@@ -47,3 +47,12 @@ permalink: 'blog'
       {% endif %}
     {% endfor %}
   </ul>
+  
+<h3><img src="{{ site.baseurl }}/_assets/pt.png"> Guides</h3>
+  <ul class="posts-list">
+    {% for post in site.posts %}
+      {% if post.category == 'guides' %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
