@@ -112,16 +112,19 @@ HIPAA help people maintain their health coverage and addresses the fraud, waste,
 * [H.R.3103 - Bill Summary](https://www.congress.gov/bill/104th-congress/house-bill/3103)
 
 ## Net neutrality
-**US Telecommunications Act of 1934, Title II**<br>
-> text goes here
+Net neutrality is when Internet Service Providers “treat all online content equally without blocking or slowing down specific websites on purpose or allowing companies to pay for preferential treatment” (The Guardian). 
 
-Recognizes the Internet as a free utility; cannot deny access to users.
+**Communications Act of 1934, Title II, Section 202**  
+>  It shall be unlawful for any common carrier to make any unjust or unreasonable discrimination in charges, practices, classifications, regulations, facilities, or services for or in connection with like communication service, directly or indirectly, by any means or device, or to make or give any undue or unreasonable preference or advantage to any particular person, class of persons, or locality, or to subject any particular person, class of persons, or locality to any undue or unreasonable prejudice or disadvantage
+
+In 2017, the Federal Communications Commission (FCC) voted to remove the “common carrier” classification from Internet and Cellular Service Providers. 
 
 ### References
-* 
+* [Communications Act of 1934 (as amended by the Telecom Act of 1996)](https://transition.fcc.gov/Reports/1934new.pdf)
+* [The Guardian - EU net neutrality laws fatally undermined by loopholes, critics say](https://www.theguardian.com/technology/2015/oct/27/eu-net-neutrality-laws-fatally-undermined-by-loopholes-critics-say)
 
 ## Free speech
-**US Communications Decency Act, Section 230**<br>
+**US Communications Decency Act, Section 230**  
 > No provider or user of an interactive computer service shall be treated as the publisher or speaker of any information provided by another information content provider
 
 Online service providers are not liable for what their users post.
