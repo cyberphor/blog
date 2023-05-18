@@ -17,8 +17,12 @@ permalink: 'resources'
 **SANS White Papers**  
 * [Detection Engineering: Defending Networks with Purpose](https://www.sans.org/white-papers/40400/) by Peter Di Giorgio
 
-### YouTube Playlist
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLrbp84dkrk142C7Lta8wWuG3lb93r2wR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+### YouTube Playlists
+**Cyber Security**
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLrbp84dkrk142C7Lta8wWuG3lb93r2wR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
+
+**DevSecOps**  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLrbp84dkrk17Clnk3JHsM1j5ziOhWfYmq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Favorite References
 * [Online Etymology Dictionary](https://www.etymonline.com/)
