@@ -5,16 +5,14 @@ category: guides
 permalink: 'clone-github-repo-using-ssh'
 ---
 
-# How to Clone a Repo Using SSH
 ## Tasks
-Tasks 1, 2, and 3 only have to be performed once (or when your SSH keys are no longer valid). 
+Tasks 1, 2, and 3 only have to be performed once (or whenever your SSH keys are no longer valid). 
 1. [Generate an SSH Key Pair](#task-1)
 2. [Setup SSH-Based Single Sign-On](#task-2)
 3. [Add a SSH Public Key to GitHub](#task-3)
 4. [Clone a GitHub Repo](#task-4)
 
-## Task 1
-### Generate an SSH Private/Public Key Pair
+## Generate an SSH Private/Public Key Pair
 SSH key pairs can be created using a virtual machine hosted by a Cloud Service Provider (e.g., Microsoft Azure).  
 **Step 1.** Generate an SSH key pair.  `-t` defines the key pair type. `-b` defines the key lengths (i.e., the number of bits). `-C` is used to include a comment.   
 ```
@@ -25,8 +23,7 @@ ssh-keygen -t rsa -b 4096 -C "for DevOps"
   
 **Step 3.** Enter a passphrase to encrypt the private key.  
 
-## Task 2
-### Setup SSH-Based Single Sign-On
+## Setup SSH-Based Single Sign-On
 Setting up SSH-based Single Sign-On (SSO) allows you to present your SSH private key automatically during authentication (e.g., when authenticating with GitHub). 
 
 **Step 1.** Open your BASH configuration file using your favorite text-editor
@@ -40,8 +37,7 @@ eval "$(ssh-agent -s)" # start the SSH authentication agent
 ssh-add ~/.ssh/id_rsa  # add my SSH private key to the SSH authentication agent
 ```
 
-## Task 3
-### Add Your SSH Public Key to GitHub
+## Add Your SSH Public Key to GitHub
 **Step 1.** Print your SSH public key.
 ```
 cat ~/.ssh/id_rsa.pub
@@ -66,11 +62,9 @@ cat ~/.ssh/id_rsa.pub
 source .bashrc
 ```
 
-## Task 4
-### Clone a GitHub Repo
+## Clone a GitHub Repo
 **Step 1.** Clone a GitHub repo. 
 ```
 git clone git@github.com:cyberphor/deathlab &&\
 cd deathlab
 ```
-
