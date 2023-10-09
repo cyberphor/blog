@@ -1,8 +1,7 @@
 ---
 layout: post
 title: 'How to Clone a GitHub Repo Using SSH'
-category: essays
-subcategory: guides
+category: guides
 permalink: 'clone-github-repo-using-ssh'
 ---
 
