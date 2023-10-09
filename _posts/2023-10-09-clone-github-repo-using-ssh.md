@@ -7,10 +7,10 @@ permalink: 'clone-github-repo-using-ssh'
 
 ## Tasks
 Tasks 1, 2, and 3 only have to be performed once (or whenever your SSH keys are no longer valid). 
-1. [Generate an SSH Key Pair](#task-1)
-2. [Setup SSH-Based Single Sign-On](#task-2)
-3. [Add a SSH Public Key to GitHub](#task-3)
-4. [Clone a GitHub Repo](#task-4)
+1. [Generate an SSH Key Pair](#generate-an-ssh-key-pair)
+2. [Setup SSH-Based Single Sign-On](#setup-ssh-based-single-sign-on)
+3. [Add a SSH Public Key to GitHub](#add-a-ssh-public-key-github)
+4. [Clone a GitHub Repo](#clone-a-github-repo)
 
 ## Generate an SSH Private/Public Key Pair
 SSH key pairs can be created using a virtual machine hosted by a Cloud Service Provider (e.g., Microsoft Azure).  
